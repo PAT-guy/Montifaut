@@ -98,7 +98,7 @@
 [data-theme="domaine"] .book { display: flex; align-items: center; gap: .7rem; align-self: flex-start; margin: -.9rem 0 -1.3rem 1rem; padding: 1.1rem 1.6rem 1.3rem; background: #35573a; color: #fff; font: 700 1rem var(--font-ui); text-decoration: none; border-radius: 0 0 18px 18px; position: relative; z-index: 2; }
 [data-theme="domaine"] .book:hover { background: #2b4930; }
 
-[data-theme="domaine"] .hero { min-height: 84vh; display: grid; place-items: center; text-align: center; color: #fff; background: linear-gradient(rgba(70,100,72,.55), rgba(35,55,38,.66)), var(--hero, #5b7a60) center / cover; }
+[data-theme="domaine"] .hero { min-height: 84vh; display: grid; place-items: center; text-align: center; color: #fff; background: linear-gradient(rgba(55,85,58,.66), rgba(25,42,28,.78)), var(--hero, #5b7a60) center / cover; }
 [data-theme="domaine"] .hero::after { display: none; }
 [data-theme="domaine"] .hero-text { display: flex; flex-direction: column; align-items: center; max-width: 900px; padding: 5rem 16px; }
 [data-theme="domaine"] .hero p { order: -1; width: min(100%, 680px); margin: 0 0 1.4rem; padding-bottom: 1.3rem; border-bottom: 1px solid rgba(255,255,255,.7); color: #fff; font: 400 1.05rem var(--font-ui); }

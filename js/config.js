@@ -18,7 +18,7 @@ window.GITE_CONFIG = {
     { icon: "key", light: "Un contact", strong: "direct", text: "Vous échangez avec nous, de votre demande jusqu'à votre arrivée." }
   ],
 
-  heroImage: "images/facade.svg",
+  heroImage: "images/sejour.webp",
 
   contact: {
     phone: "+33 6 00 00 00 00",
@@ -49,13 +49,13 @@ window.GITE_CONFIG = {
   },
 
   description: [
-    "Entièrement rénovée, cette ancienne ferme en pierre allie le charme de l'ancien et le confort moderne. Les poutres apparentes, la grande cheminée et les larges fenêtres donnent au séjour une atmosphère chaleureuse en toute saison.",
+    "Une ancienne dépendance en pierre et en brique, rénovée. Le séjour est une grande pièce ouverte, avec un poêle à bois, de hautes baies vitrées sur les arbres et une table pour toute la famille.",
     "Au rez-de-chaussée, le salon de 35 m² ouvre sur une cuisine entièrement équipée et sur la terrasse. À l'étage, trois chambres lumineuses et deux salles d'eau accueillent jusqu'à six personnes.",
     "Dehors, un jardin clos de 2 000 m² avec terrasse couverte, barbecue et salon de jardin. Les enfants peuvent y jouer en sécurité, et le calme est total le soir."
   ],
 
   rooms: [
-    { title: "Salon et salle à manger", text: "Cheminée avec insert, canapé convertible, télévision, jeux de société." },
+    { title: "Salon et salle à manger", text: "Grande pièce ouverte, poêle à bois, canapés, grande table, baies vitrées sur le jardin." },
     { title: "Cuisine", text: "Lave-vaisselle, four, plaques à induction, cafetière, bouilloire, grille-pain, raclette." },
     { title: "Chambre parentale", text: "1 lit double 160 cm, dressing, accès à la salle de bain privée." },
     { title: "Chambre 2", text: "1 lit double 140 cm, vue sur le jardin." },
@@ -70,12 +70,11 @@ window.GITE_CONFIG = {
   ],
 
   photos: [
-    { src: "images/facade.svg", alt: "Façade du gîte" },
-    { src: "images/salon.svg", alt: "Le salon" },
-    { src: "images/cuisine.svg", alt: "La cuisine" },
-    { src: "images/chambre1.svg", alt: "La chambre parentale" },
-    { src: "images/chambre2.svg", alt: "La chambre des enfants" },
-    { src: "images/jardin.svg", alt: "Le jardin et la terrasse" }
+    { src: "images/sejour.webp", alt: "Le séjour et la grande table" },
+    { src: "images/salon.webp", alt: "Le salon" },
+    { src: "images/cuisine.webp", alt: "La cuisine" },
+    { src: "images/chambre1.webp", alt: "Une chambre" },
+    { src: "images/chambre2.webp", alt: "Une autre chambre" }
   ],
 
   /*
