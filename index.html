@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gîte de Montifaut | Location de vacances</title>
+  <meta name="description" content="Location d'un gîte de campagne pour 6 personnes : photos, disponibilités, tarifs, activités, visites et réservation en ligne.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar" id="top">
+    <a class="brand" href="#top" id="brand"></a>
+    <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    <nav id="nav">
+      <a href="#gite">Le gîte</a>
+      <a href="#photos">Photos</a>
+      <a href="#reservation">Disponibilités et tarifs</a>
+      <a href="#decouvrir">À découvrir</a>
+      <a href="#reglement">Règlement</a>
+      <a href="#acces">Accès</a>
+      <a href="#contact" class="cta">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="hero">
+    <div class="hero-text">
+      <h1 id="hero-title"></h1>
+      <p id="hero-tagline"></p>
+      <ul class="hero-facts" id="hero-facts"></ul>
+      <a class="btn" href="#reservation">Voir les disponibilités</a>
+    </div>
+  </section>
+
+  <main>
+    <section id="gite" class="wrap">
+      <h2>Le gîte</h2>
+      <div class="two-col">
+        <div id="description"></div>
+        <div>
+          <h3>Équipements</h3>
+          <ul class="chips" id="amenities"></ul>
+        </div>
+      </div>
+      <h3>Les pièces</h3>
+      <div class="cards" id="rooms"></div>
+    </section>
+
+    <section id="photos" class="wrap band">
+      <h2>Photos</h2>
+      <div class="gallery" id="gallery"></div>
+    </section>
+
+    <section id="reservation" class="wrap">
+      <h2>Disponibilités, tarifs et réservation</h2>
+      <p class="lead">Choisissez votre date d'arrivée puis votre date de départ. Le tarif se calcule automatiquement.</p>
+      <p class="notice" id="avail-notice" hidden></p>
+
+      <div class="booking">
+        <div class="calendar-box">
+          <div class="cal-nav">
+            <button type="button" id="prev" aria-label="Mois précédent">‹</button>
+            <button type="button" id="next" aria-label="Mois suivant">›</button>
+          </div>
+          <div class="months" id="months"></div>
+          <ul class="legend">
+            <li><span class="dot free"></span>Libre</li>
+            <li><span class="dot booked"></span>Réservé</li>
+            <li><span class="dot sel"></span>Votre séjour</li>
+          </ul>
+        </div>
+
+        <form class="summary" id="booking-form" novalidate>
+          <h3>Votre séjour</h3>
+          <div class="dates">
+            <div><span class="lbl">Arrivée</span><strong id="sum-in">à choisir</strong></div>
+            <div><span class="lbl">Départ</span><strong id="sum-out">à choisir</strong></div>
+          </div>
+          <p class="hint" id="hint"></p>
+
+          <label>Voyageurs
+            <select id="guests" name="guests"></select>
+          </label>
+
+          <div class="price-lines" id="price-lines" aria-live="polite"></div>
+
+          <h3>Vos coordonnées</h3>
+          <label>Nom et prénom <input name="name" required autocomplete="name"></label>
+          <label>Adresse mail <input name="email" type="email" required autocomplete="email"></label>
+          <label>Téléphone <input name="phone" type="tel" autocomplete="tel"></label>
+          <label>Message <textarea name="message" rows="3" placeholder="Animal, arrivée tardive, question..."></textarea></label>
+          <label class="hp" aria-hidden="true">Ne pas remplir <input name="website" tabindex="-1" autocomplete="off"></label>
+
+          <button class="btn" type="submit">Envoyer ma demande de réservation</button>
+          <p class="fine">Il s'agit d'une demande : la réservation est confirmée après notre réponse et le versement de l'acompte.</p>
+          <p class="status" id="form-status" role="status"></p>
+        </form>
+      </div>
+
+      <h3>Grille tarifaire</h3>
+      <div class="table-wrap"><table class="rates" id="rates"></table></div>
+      <p class="fine" id="rates-notes"></p>
+    </section>
+
+    <section id="decouvrir" class="wrap band">
+      <h2>À découvrir autour du gîte</h2>
+      <h3>Activités</h3>
+      <div class="cards" id="activities"></div>
+      <h3>Lieux à visiter</h3>
+      <div class="cards" id="visits"></div>
+    </section>
+
+    <section id="reglement" class="wrap">
+      <h2>Règlement intérieur</h2>
+      <dl class="rules" id="rules"></dl>
+    </section>
+
+    <section id="acces" class="wrap band">
+      <h2>Localisation</h2>
+      <div class="two-col">
+        <div>
+          <p id="address"></p>
+          <p id="access"></p>
+          <p><a class="btn ghost" id="route" target="_blank" rel="noopener">Calculer l'itinéraire</a></p>
+        </div>
+        <iframe id="map" title="Carte de localisation" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <section id="contact" class="wrap">
+      <h2>Contact</h2>
+      <p class="lead" id="contact-lead"></p>
+      <div class="contact-cards">
+        <a class="card contact" id="c-phone"></a>
+        <a class="card contact" id="c-mail"></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p id="footer-text"></p>
+  </footer>
+
+  <dialog id="lightbox">
+    <button type="button" class="lb-close" aria-label="Fermer">×</button>
+    <img alt="">
+    <div class="lb-nav">
+      <button type="button" id="lb-prev" aria-label="Photo précédente">‹</button>
+      <button type="button" id="lb-next" aria-label="Photo suivante">›</button>
+    </div>
+  </dialog>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
