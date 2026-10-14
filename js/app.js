@@ -72,7 +72,9 @@
   function renderStatic() {
     document.title = C.name + " | Location de vacances";
     $("#brand").textContent = C.name;
-    $("#hero-title").textContent = C.name;
+    const h1 = $("#hero-title");
+    if (C.titleLight && C.titleStrong) h1.append(C.titleLight + " ", el("span", { class: "hl" }, C.titleStrong));
+    else h1.textContent = C.name;
     $("#hero-tagline").textContent = C.tagline;
     $("#hero").style.setProperty("--hero", `url("${new URL(C.heroImage, location.href).href}")`);
 
@@ -123,6 +125,27 @@
     const nav = $("#nav"), toggle = document.querySelector(".menu-toggle");
     toggle.onclick = () => toggle.setAttribute("aria-expanded", nav.classList.toggle("open"));
     nav.addEventListener("click", () => { nav.classList.remove("open"); toggle.setAttribute("aria-expanded", "false"); });
+
+    // Éléments propres au thème Domaine (masqués par les autres thèmes)
+    $("#u-addr").textContent = L.address;
+    $("#u-tel").textContent = K.phone; $("#u-tel").href = "tel:" + K.phone.replace(/\s/g, "");
+    const ICONS = {
+      tree: '<circle cx="24" cy="18" r="11"/><path d="M24 29v13M24 36l-6-5M24 34l6-5"/>',
+      house: '<path d="M6 24 24 8l18 16M11 21v20h26V21"/><path d="M20 41V30h8v11"/>',
+      compass: '<circle cx="24" cy="24" r="16"/><path d="M31 17l-5 10-10 5 5-10z"/>',
+      key: '<circle cx="16" cy="24" r="8"/><path d="M24 24h18M36 24v7M42 24v5"/>'
+    };
+    (C.highlights || []).forEach((h) => {
+      const icon = el("span", { class: "ico" });
+      icon.innerHTML = `<svg viewBox="0 0 48 48" aria-hidden="true">${ICONS[h.icon] || ""}</svg>`;
+      $("#features-grid").append(el("div", { class: "feat" }, icon,
+        el("div", { class: "ft" }, h.light, el("b", {}, h.strong)), el("hr"), el("p", {}, h.text)));
+    });
+    const facts = [`${s.capacity} personnes`, `${s.bedrooms} chambres, ${s.beds} lits`, `${s.bathrooms} salles d'eau`, `${s.surface} m²`, `Arrivée ${s.checkIn}`, `Départ ${s.checkOut}`];
+    $("#keyfacts").append(el("ul", {}, facts.map((t) => el("li", {}, t))),
+      el("div", { class: "btns" }, el("a", { class: "btn", href: "#reservation" }, "Voir les disponibilités"), el("a", { class: "btn ghost", href: "#contact" }, "Nous contacter")));
+    const ph = C.photos[1] || C.photos[0];
+    if (ph) $("#gite-banner").append(el("img", { src: ph.src, alt: ph.alt, loading: "lazy" }));
 
     renderRates();
   }
@@ -289,7 +312,7 @@
   function themeSwitcher() {
     const q = new URLSearchParams(location.search);
     if (!q.has("themes") && !q.has("theme")) return;
-    const names = { sologne: "Sologne", chasse: "Chasse", tradition: "Tradition", champetre: "Champêtre" };
+    const names = { domaine: "Domaine", sologne: "Sologne", chasse: "Chasse", tradition: "Tradition", champetre: "Champêtre" };
     const cur = document.documentElement.dataset.theme;
     const bar = el("div", { class: "theme-bar" }, el("span", {}, "Thème :"),
       Object.entries(names).map(([k, v]) => el("a", { href: `?theme=${k}`, class: k === cur ? "on" : "" }, v)));

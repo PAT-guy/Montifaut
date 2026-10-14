@@ -3,11 +3,21 @@
  * Les textes, photos, prix, règlement et coordonnées ci-dessous sont des exemples.
  */
 window.GITE_CONFIG = {
-  // Thème visuel : "sologne", "chasse", "tradition" ou "champetre"
-  theme: "sologne",
+  // Thème visuel : "domaine", "sologne", "chasse", "tradition" ou "champetre"
+  theme: "domaine",
 
   name: "Gîte de Montifaut",
+  titleLight: "Gîte de",      // titre d'accueil du thème Domaine : partie légère
+  titleStrong: "Montifaut",   // et partie en gras
   tagline: "Une maison de campagne en pierre, au calme, pour 6 personnes",
+  // Quatre atouts affichés sous la photo d'accueil (thème Domaine). Icônes : tree, house, compass, key
+  highlights: [
+    { icon: "tree", light: "Un cadre", strong: "préservé", text: "Une maison de campagne au calme, entourée de prairies et de bois." },
+    { icon: "house", light: "Une maison", strong: "tout équipée", text: "Trois chambres, deux salles d'eau, une vraie cuisine et un jardin clos." },
+    { icon: "compass", light: "Des sorties", strong: "à proximité", text: "Randonnées au départ du gîte, pêche, et plusieurs sites à visiter à moins de 30 km." },
+    { icon: "key", light: "Un contact", strong: "direct", text: "Vous échangez avec nous, de votre demande jusqu'à votre arrivée." }
+  ],
+
   heroImage: "images/facade.svg",
 
   contact: {

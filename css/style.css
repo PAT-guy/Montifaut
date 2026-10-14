@@ -116,7 +116,7 @@ dialog#lightbox::backdrop { background: rgba(0,0,0,.85); }
 footer { background: var(--footer-bg); color: var(--footer-ink); padding: 1.6rem 16px; font: .9rem var(--font-ui); text-align: center; }
 footer p { margin: 0; }
 
-.theme-bar { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 50; display: flex; gap: .4rem; align-items: center; padding: .4rem .6rem; background: var(--card); color: var(--ink); border: 1px solid var(--line); font: .9rem var(--font-ui); }
+.theme-bar { flex-wrap: wrap; justify-content: center; max-width: 96vw; position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 50; display: flex; gap: .4rem; align-items: center; padding: .4rem .6rem; background: var(--card); color: var(--ink); border: 1px solid var(--line); font: .9rem var(--font-ui); }
 .theme-bar a { padding: .3rem .8rem; text-decoration: none; color: var(--ink); }
 .theme-bar a.on { background: var(--accent); color: var(--btn-ink); }
 

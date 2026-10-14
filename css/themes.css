@@ -3,6 +3,10 @@
  * Pour les comparer sur le site : ajoutez ?themes à l'adresse (ex. .../Montifaut/?themes).
  */
 
+/* Éléments réservés au thème Domaine : invisibles dans les autres thèmes */
+.only-domaine { display: none; }
+[data-theme="domaine"] .only-domaine { display: revert; }
+
 /* Sologne : papier crème, vert mousse, empattements fins */
 :root, :root[data-theme="sologne"] {
   --bg: #f3eee1; --band: #e7dfc9; --ink: #2b2a1f; --muted: #6a6550;
@@ -57,5 +61,20 @@
   --radius: 2px; --btn-radius: 2px;
   --font-head: "Playfair Display", Georgia, serif; --head-weight: 700;
   --font-body: "Lora", Georgia, serif; --font-ui: system-ui, sans-serif;
+  color-scheme: light;
+}
+
+/* Domaine : crème et vert sauge, accents dorés (inspiré de domaines et gîtes de Sologne) */
+:root[data-theme="domaine"] {
+  --bg: #fdfdf2; --band: #f0f2e2; --ink: #1f2d20; --muted: #586659;
+  --accent: #4f7352; --accent-dark: #35573a; --line: #d6dcc5; --card: #f8f8ea;
+  --day: #eceedc; --booked: #dcc4b2; --booked-ink: #6b4a36; --sel: #4f7352; --range: #cfdcc8;
+  --btn-ink: #fff; --danger: #9a3b2a; --nav-bg: #648568;
+  --footer-bg: #2f4a33; --footer-ink: #dfe6d2;
+  --notice-bg: #f3ecc6; --notice-ink: #54451a; --notice-line: #d8c986;
+  --radius: 14px; --btn-radius: 10px;
+  --font-head: "Cormorant Garamond", Georgia, serif; --head-weight: 500;
+  --font-body: "Raleway", system-ui, sans-serif; --font-ui: "Raleway", system-ui, sans-serif;
+  --font-cond: "Barlow Condensed", "Arial Narrow", sans-serif;
   color-scheme: light;
 }

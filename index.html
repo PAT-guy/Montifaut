@@ -7,19 +7,24 @@
   <meta name="description" content="Location d'un gîte de campagne pour 6 personnes : photos, disponibilités, tarifs, activités, visites et réservation en ligne.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Cormorant+Garamond:wght@600;700&family=Fraunces:wght@500;600&family=Lora:wght@400;600&family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap">
-  <link rel="stylesheet" href="css/themes.css?v=7">
-  <script src="js/config.js?v=7"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Caveat:wght@600&family=Cormorant+Garamond:wght@600;700&family=Fraunces:wght@500;600&family=Lora:wght@400;600&family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600;700&family=Raleway:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="css/themes.css?v=9">
+  <script src="js/config.js?v=9"></script>
   <script>
     var theme = new URLSearchParams(location.search).get("theme") || window.GITE_CONFIG.theme || "sologne";
     document.documentElement.dataset.theme = theme;
     // Le Champêtre a sa propre feuille de style complète ; les autres thèmes partagent style.css et layouts.css
     (theme === "champetre" ? ["champetre"] : ["style", "layouts"]).forEach(function (f) {
-      document.write('<link rel="stylesheet" href="css/' + f + '.css?v=7">');
+      document.write('<link rel="stylesheet" href="css/' + f + '.css?v=9">');
     });
     </script>
 </head>
 <body>
+  <div class="utility only-domaine">
+    <span id="u-addr"></span>
+    <a href="#reservation">Réserver</a>
+    <a id="u-tel"></a>
+  </div>
   <header class="topbar" id="top">
     <a class="brand" href="#top" id="brand"></a>
     <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
@@ -32,6 +37,10 @@
       <a href="#acces">Accès</a>
       <a href="#contact" class="cta">Contact</a>
     </nav>
+    <a class="book only-domaine" href="#reservation">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+      <span>Séjourner</span>
+    </a>
   </header>
 
   <section class="hero" id="hero">
@@ -44,11 +53,15 @@
   </section>
 
   <main>
+    <section class="features only-domaine wrap" id="features"><div class="feat-grid" id="features-grid"></div></section>
+
     <section id="gite" class="wrap">
-      <h2>Le gîte</h2>
+      <h2 data-eyebrow="Le gîte">Le gîte</h2>
+      <figure class="gite-banner only-domaine" id="gite-banner"></figure>
       <div class="two-col">
         <div id="description"></div>
         <div>
+          <div class="keyfacts only-domaine" id="keyfacts"></div>
           <h3>Équipements</h3>
           <ul class="chips" id="amenities"></ul>
         </div>
@@ -58,12 +71,12 @@
     </section>
 
     <section id="photos" class="wrap band">
-      <h2>Photos</h2>
+      <h2 data-eyebrow="Galerie">Photos</h2>
       <div class="gallery" id="gallery"></div>
     </section>
 
     <section id="reservation" class="wrap">
-      <h2>Disponibilités, tarifs et réservation</h2>
+      <h2 data-eyebrow="Séjourner">Disponibilités, tarifs et réservation</h2>
       <p class="lead">Choisissez votre date d'arrivée puis votre date de départ. Le tarif se calcule automatiquement.</p>
       <p class="notice" id="avail-notice" hidden></p>
 
@@ -114,7 +127,7 @@
     </section>
 
     <section id="decouvrir" class="wrap band">
-      <h2>À découvrir autour du gîte</h2>
+      <h2 data-eyebrow="Autour du gîte">À découvrir autour du gîte</h2>
       <h3>Activités</h3>
       <div class="cards" id="activities"></div>
       <h3>Lieux à visiter</h3>
@@ -122,12 +135,12 @@
     </section>
 
     <section id="reglement" class="wrap">
-      <h2>Règlement intérieur</h2>
+      <h2 data-eyebrow="À savoir">Règlement intérieur</h2>
       <dl class="rules" id="rules"></dl>
     </section>
 
     <section id="acces" class="wrap band">
-      <h2>Localisation</h2>
+      <h2 data-eyebrow="Venir">Localisation</h2>
       <div class="two-col">
         <div>
           <p id="address"></p>
@@ -139,7 +152,7 @@
     </section>
 
     <section id="contact" class="wrap">
-      <h2>Contact</h2>
+      <h2 data-eyebrow="Nous écrire">Contact</h2>
       <p class="lead" id="contact-lead"></p>
       <div class="contact-cards">
         <a class="card contact" id="c-phone"></a>
@@ -161,6 +174,6 @@
     </div>
   </dialog>
 
-  <script src="js/app.js?v=7"></script>
+  <script src="js/app.js?v=9"></script>
 </body>
 </html>
