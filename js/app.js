@@ -319,10 +319,39 @@
     document.body.append(bar);
   }
 
+  /* ---------- Transitions au défilement ---------- */
+  function scrollReveal() {
+    if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    document.documentElement.classList.add("motion");
+    document.querySelectorAll(".hero-text > *").forEach((n, i) => n.style.setProperty("--h", i));
+    const groups = [".wrap > h2", ".wrap > h3", ".wrap > .lead", ".two-col > *", ".gite-banner", ".feat", ".cards .card", ".gallery button",
+      ".booking > *", ".rules > div", ".table-wrap", "#map", ".contact-cards > *"];
+    const seen = new Set();
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const n = e.target;
+        io.unobserve(n);
+        n.classList.add("rv-in");
+        setTimeout(() => n.classList.remove("rv", "rv-in", "rv-img"), 1500); // rend la main aux effets de survol du thème
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+    groups.forEach((sel) => document.querySelectorAll(sel).forEach((n) => {
+      if (seen.has(n)) return;
+      seen.add(n);
+      const sibs = n.parentElement ? [...n.parentElement.children].filter((c) => c.matches(sel)) : [n];
+      n.style.setProperty("--i", Math.min(sibs.indexOf(n), 5));
+      n.classList.add("rv");
+      if (n.matches(".gallery button, .gite-banner")) n.classList.add("rv-img");
+      io.observe(n);
+    }));
+  }
+
   /* ---------- Démarrage ---------- */
   themeSwitcher();
   renderStatic();
   setupForm();
   renderCalendar();
   loadAvailability().then(update);
+  scrollReveal();
 })();
