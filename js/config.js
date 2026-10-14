@@ -3,6 +3,9 @@
  * Les textes, photos, prix, règlement et coordonnées ci-dessous sont des exemples.
  */
 window.GITE_CONFIG = {
+  // Thème visuel : "sologne", "chasse" ou "champetre"
+  theme: "sologne",
+
   name: "Gîte de Montifaut",
   tagline: "Une maison de campagne en pierre, au calme, pour 6 personnes",
   heroImage: "images/facade.svg",

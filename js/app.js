@@ -285,7 +285,19 @@
     });
   }
 
+  /* ---------- Aperçu des thèmes (visible avec ?themes dans l'adresse) ---------- */
+  function themeSwitcher() {
+    const q = new URLSearchParams(location.search);
+    if (!q.has("themes") && !q.has("theme")) return;
+    const names = { sologne: "Sologne", chasse: "Chasse", champetre: "Champêtre" };
+    const cur = document.documentElement.dataset.theme;
+    const bar = el("div", { class: "theme-bar" }, el("span", {}, "Thème :"),
+      Object.entries(names).map(([k, v]) => el("a", { href: `?theme=${k}`, class: k === cur ? "on" : "" }, v)));
+    document.body.append(bar);
+  }
+
   /* ---------- Démarrage ---------- */
+  themeSwitcher();
   renderStatic();
   setupForm();
   renderCalendar();

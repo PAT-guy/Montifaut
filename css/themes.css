@@ -1,0 +1,49 @@
+/*
+ * Trois thèmes. Le thème actif se choisit dans js/config.js (theme: "sologne" | "chasse" | "champetre").
+ * Pour les comparer sur le site : ajoutez ?themes à l'adresse (ex. .../Montifaut/?themes).
+ */
+
+/* Sologne : sous-bois, brume, mousse et terre, sobre et élégant */
+:root, :root[data-theme="sologne"] {
+  --bg: #f3eee1; --band: #e7dfc9; --ink: #2b2a1f; --muted: #6a6550;
+  --accent: #55672f; --accent-dark: #36431d; --line: #d3c7a6; --card: #fbf8ef;
+  --day: #efe8d4; --booked: #d9bca0; --booked-ink: #7a4a30; --sel: #55672f; --range: #d5dbb8;
+  --btn-ink: #fff; --danger: #a0442f; --nav-bg: rgba(243,238,225,.95);
+  --hero-overlay: linear-gradient(180deg, rgba(30,40,20,.25), rgba(25,30,15,.78));
+  --footer-bg: #2a3219; --footer-ink: #d9d6c0;
+  --notice-bg: #f6ecc4; --notice-ink: #5a4a10; --notice-line: #dcc880;
+  --radius: 4px; --btn-radius: 4px; --deco-radius: 0;
+  --font-head: "Cormorant Garamond", Georgia, serif; --head-weight: 700;
+  --font-body: "Lora", Georgia, serif; --font-ui: system-ui, sans-serif;
+  color-scheme: light;
+}
+
+/* Chasse : relais de chasse, bois sombre, laiton et cuir */
+:root[data-theme="chasse"] {
+  --bg: #1d1b17; --band: #25221c; --ink: #ece4d2; --muted: #a8a08b;
+  --accent: #c19a4b; --accent-dark: #dcb765; --line: #3b362c; --card: #2a2620;
+  --day: #36322b; --booked: #5d3b33; --booked-ink: #e6ad9c; --sel: #c19a4b; --range: #4c4328;
+  --btn-ink: #1d1b17; --danger: #ee9a80; --nav-bg: rgba(29,27,23,.96);
+  --hero-overlay: linear-gradient(180deg, rgba(10,8,5,.45), rgba(10,8,5,.88));
+  --footer-bg: #110f0c; --footer-ink: #a8a08b;
+  --notice-bg: #3a321a; --notice-ink: #ecd9a0; --notice-line: #6b5a25;
+  --radius: 2px; --btn-radius: 2px; --deco-radius: 0;
+  --font-head: "Playfair Display", Georgia, serif; --head-weight: 700;
+  --font-body: "Lora", Georgia, serif; --font-ui: system-ui, sans-serif;
+  color-scheme: dark;
+}
+
+/* Champêtre : maison de campagne, crème, terre cuite et sauge, chaleureux et arrondi */
+:root[data-theme="champetre"] {
+  --bg: #fffaf0; --band: #eef0dc; --ink: #3a3329; --muted: #7a7061;
+  --accent: #b4573a; --accent-dark: #8f412a; --line: #e6dcc3; --card: #ffffff;
+  --day: #f6f0e0; --booked: #efc9bb; --booked-ink: #8f412a; --sel: #b4573a; --range: #f3dccf;
+  --btn-ink: #fff; --danger: #a8321f; --nav-bg: rgba(255,250,240,.95);
+  --hero-overlay: linear-gradient(180deg, rgba(60,40,20,.1), rgba(60,35,15,.62));
+  --footer-bg: #6b7a47; --footer-ink: #fffaf0;
+  --notice-bg: #fff2cc; --notice-ink: #5a4a10; --notice-line: #e8d08a;
+  --radius: 18px; --btn-radius: 999px; --deco-radius: 99px;
+  --font-head: "Fraunces", Georgia, serif; --head-weight: 600;
+  --font-body: "Nunito", system-ui, sans-serif; --font-ui: "Nunito", system-ui, sans-serif;
+  color-scheme: light;
+}

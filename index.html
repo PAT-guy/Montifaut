@@ -5,7 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gîte de Montifaut | Location de vacances</title>
   <meta name="description" content="Location d'un gîte de campagne pour 6 personnes : photos, disponibilités, tarifs, activités, visites et réservation en ligne.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Fraunces:wght@500;600&family=Lora:wght@400;600&family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap">
+  <link rel="stylesheet" href="css/themes.css">
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/config.js"></script>
+  <script>
+    document.documentElement.dataset.theme = new URLSearchParams(location.search).get("theme") || window.GITE_CONFIG.theme || "sologne";
+  </script>
 </head>
 <body>
   <header class="topbar" id="top">
@@ -149,7 +157,6 @@
     </div>
   </dialog>
 
-  <script src="js/config.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
