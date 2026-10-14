@@ -12,9 +12,9 @@ window.GITE_CONFIG = {
   tagline: "Une maison de campagne en pierre, au calme, pour 6 personnes",
   // Quatre atouts affichés sous la photo d'accueil (thème Domaine). Icônes : tree, house, compass, key
   highlights: [
-    { icon: "tree", light: "Un cadre", strong: "préservé", text: "Une maison de campagne au calme, entourée de prairies et de bois." },
+    { icon: "tree", light: "Un cadre", strong: "préservé", text: "Une maison de campagne au calme, avec un jardin ouvert sur les bois." },
     { icon: "house", light: "Une maison", strong: "tout équipée", text: "Trois chambres, deux salles d'eau, une vraie cuisine et une grande terrasse couverte." },
-    { icon: "compass", light: "Des sorties", strong: "à proximité", text: "Randonnées au départ du gîte, pêche, et plusieurs sites à visiter à moins de 30 km." },
+    { icon: "compass", light: "Des sorties", strong: "à proximité", text: "Tennis, ping-pong et pétanque en accès libre, promenades dans les bois, sites à visiter à moins de 30 km." },
     { icon: "key", light: "Un contact", strong: "direct", text: "Vous échangez avec nous, de votre demande jusqu'à votre arrivée." }
   ],
 
@@ -35,7 +35,7 @@ window.GITE_CONFIG = {
     // Coordonnées d'exemple : remplacez par celles du gîte (clic droit sur Google Maps).
     lat: 47.0,
     lng: 2.0,
-    access: "À 5 minutes du village et de ses commerces. Parking privé devant la maison. Gare la plus proche à 20 km."
+    access: "À 5 minutes du village et de ses commerces. Parking sur place. Gare la plus proche à 20 km."
   },
 
   stay: {
@@ -51,7 +51,7 @@ window.GITE_CONFIG = {
   description: [
     "Une ancienne dépendance en pierre et en brique, rénovée. Le séjour est une grande pièce ouverte, avec un poêle à bois, de hautes baies vitrées sur les arbres et une table pour toute la famille.",
     "Au rez-de-chaussée, le salon de 35 m² ouvre sur une cuisine entièrement équipée et sur la terrasse. À l'étage, trois chambres lumineuses et deux salles d'eau accueillent jusqu'à six personnes.",
-    "Dehors, une grande terrasse couverte avec une longue table, un brasero et des fauteuils sur la pelouse. Un terrain de tennis avec panier de basket se trouve à quelques pas, au bout du chemin."
+    "Dehors, une grande terrasse couverte avec une longue table, un brasero et des fauteuils sur la pelouse. Le jardin est ouvert sur les bois, avec des chemins pour se promener. Table de ping-pong, jeu de pétanque et terrain de tennis avec panier de basket sont en accès libre, sans réservation."
   ],
 
   rooms: [
@@ -65,7 +65,7 @@ window.GITE_CONFIG = {
 
   amenities: [
     "Wifi fibre", "Lave-linge", "Chauffage central", "Cheminée", "Terrasse couverte",
-    "Brasero", "Terrain de tennis", "Parking privé", "Linge de lit fourni", "Linge de toilette fourni",
+    "Brasero", "Terrain de tennis et basket", "Table de ping-pong", "Pétanque", "Parking", "Linge de lit fourni", "Linge de toilette fourni",
     "Lit bébé sur demande", "Animaux acceptés sur demande"
   ],
 
@@ -102,7 +102,9 @@ window.GITE_CONFIG = {
   },
 
   activities: [
-    { title: "Tennis et basket", distance: "Sur place", text: "Un terrain de tennis grillagé avec panier de basket, à quelques pas du gîte. Apportez raquettes et balles." },
+    { title: "Tennis et basket", distance: "Sur place", text: "Terrain de tennis grillagé avec un panier de basket, en accès libre. Apportez raquettes et balles." },
+    { title: "Ping-pong et pétanque", distance: "Sur place", text: "Une table de ping-pong et un terrain de pétanque, en accès libre toute la journée." },
+    { title: "Promenade dans les bois", distance: "Sur place", text: "Le jardin est ouvert sur les bois : chemins pour se promener à pied, directement depuis le gîte." },
     { title: "Randonnées au départ du gîte", distance: "Sur place", text: "Trois boucles balisées de 6 à 18 km traversent bois et prairies. Cartes disponibles dans le gîte." },
     { title: "Vélo et VTT", distance: "Sur place", text: "Chemins ruraux peu fréquentés. Local fermé pour ranger les vélos." },
     { title: "Pêche en rivière", distance: "3 km", text: "Rivière de première catégorie. Carte de pêche en vente au village." },
