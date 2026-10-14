@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Caveat:wght@600&family=Cormorant+Garamond:wght@600;700&family=Fraunces:wght@500;600&family=Lora:wght@400;600&family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600;700&family=Raleway:wght@300;400;500;600&display=swap">
-  <link rel="stylesheet" href="css/themes.css?v=11">
-  <script src="js/config.js?v=11"></script>
+  <link rel="stylesheet" href="css/themes.css?v=12">
+  <script src="js/config.js?v=12"></script>
   <script>
     var theme = new URLSearchParams(location.search).get("theme") || window.GITE_CONFIG.theme || "sologne";
     document.documentElement.dataset.theme = theme;
     // Le Champêtre a sa propre feuille de style complète ; les autres thèmes partagent style.css et layouts.css
     (theme === "champetre" ? ["champetre", "motion"] : ["style", "layouts", "motion"]).forEach(function (f) {
-      document.write('<link rel="stylesheet" href="css/' + f + '.css?v=11">');
+      document.write('<link rel="stylesheet" href="css/' + f + '.css?v=12">');
     });
     </script>
 </head>
@@ -174,6 +174,6 @@
     </div>
   </dialog>
 
-  <script src="js/app.js?v=11"></script>
+  <script src="js/app.js?v=12"></script>
 </body>
 </html>

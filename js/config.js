@@ -13,12 +13,12 @@ window.GITE_CONFIG = {
   // Quatre atouts affichés sous la photo d'accueil (thème Domaine). Icônes : tree, house, compass, key
   highlights: [
     { icon: "tree", light: "Un cadre", strong: "préservé", text: "Une maison de campagne au calme, entourée de prairies et de bois." },
-    { icon: "house", light: "Une maison", strong: "tout équipée", text: "Trois chambres, deux salles d'eau, une vraie cuisine et un jardin clos." },
+    { icon: "house", light: "Une maison", strong: "tout équipée", text: "Trois chambres, deux salles d'eau, une vraie cuisine et une grande terrasse couverte." },
     { icon: "compass", light: "Des sorties", strong: "à proximité", text: "Randonnées au départ du gîte, pêche, et plusieurs sites à visiter à moins de 30 km." },
     { icon: "key", light: "Un contact", strong: "direct", text: "Vous échangez avec nous, de votre demande jusqu'à votre arrivée." }
   ],
 
-  heroImage: "images/sejour.webp",
+  heroImage: "images/terrasse.webp",
 
   contact: {
     phone: "+33 6 00 00 00 00",
@@ -51,7 +51,7 @@ window.GITE_CONFIG = {
   description: [
     "Une ancienne dépendance en pierre et en brique, rénovée. Le séjour est une grande pièce ouverte, avec un poêle à bois, de hautes baies vitrées sur les arbres et une table pour toute la famille.",
     "Au rez-de-chaussée, le salon de 35 m² ouvre sur une cuisine entièrement équipée et sur la terrasse. À l'étage, trois chambres lumineuses et deux salles d'eau accueillent jusqu'à six personnes.",
-    "Dehors, un jardin clos de 2 000 m² avec terrasse couverte, barbecue et salon de jardin. Les enfants peuvent y jouer en sécurité, et le calme est total le soir."
+    "Dehors, une grande terrasse couverte avec une longue table, un brasero et des fauteuils sur la pelouse. Un terrain de tennis avec panier de basket se trouve à quelques pas, au bout du chemin."
   ],
 
   rooms: [
@@ -65,16 +65,18 @@ window.GITE_CONFIG = {
 
   amenities: [
     "Wifi fibre", "Lave-linge", "Chauffage central", "Cheminée", "Terrasse couverte",
-    "Barbecue", "Jardin clos", "Parking privé", "Linge de lit fourni", "Linge de toilette fourni",
+    "Brasero", "Terrain de tennis", "Parking privé", "Linge de lit fourni", "Linge de toilette fourni",
     "Lit bébé sur demande", "Animaux acceptés sur demande"
   ],
 
   photos: [
+    { src: "images/terrasse.webp", alt: "La terrasse couverte et son brasero" },
     { src: "images/sejour.webp", alt: "Le séjour et la grande table" },
     { src: "images/salon.webp", alt: "Le salon" },
     { src: "images/cuisine.webp", alt: "La cuisine" },
     { src: "images/chambre1.webp", alt: "Une chambre" },
-    { src: "images/chambre2.webp", alt: "Une autre chambre" }
+    { src: "images/chambre2.webp", alt: "Une autre chambre" },
+    { src: "images/tennis.webp", alt: "Le terrain de tennis" }
   ],
 
   /*
@@ -100,6 +102,7 @@ window.GITE_CONFIG = {
   },
 
   activities: [
+    { title: "Tennis et basket", distance: "Sur place", text: "Un terrain de tennis grillagé avec panier de basket, à quelques pas du gîte. Apportez raquettes et balles." },
     { title: "Randonnées au départ du gîte", distance: "Sur place", text: "Trois boucles balisées de 6 à 18 km traversent bois et prairies. Cartes disponibles dans le gîte." },
     { title: "Vélo et VTT", distance: "Sur place", text: "Chemins ruraux peu fréquentés. Local fermé pour ranger les vélos." },
     { title: "Pêche en rivière", distance: "3 km", text: "Rivière de première catégorie. Carte de pêche en vente au village." },
