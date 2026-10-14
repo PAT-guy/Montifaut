@@ -79,7 +79,7 @@
     $("#hero").style.setProperty("--hero", `url("${new URL(C.heroImage, location.href).href}")`);
 
     const s = C.stay;
-    [`${s.capacity} personnes`, `${s.bedrooms} chambres`, `${s.bathrooms} salles d'eau`, `${s.surface} m²`]
+    [`${s.capacity} personnes`, `${s.bedrooms} chambres`, `${s.bathrooms} salle${s.bathrooms > 1 ? "s" : ""} de bain`, `${s.surface} m²`]
       .forEach((t) => $("#hero-facts").append(el("li", {}, t)));
 
     C.description.forEach((p) => $("#description").append(el("p", {}, p)));
@@ -141,7 +141,7 @@
       $("#features-grid").append(el("div", { class: "feat" }, icon,
         el("div", { class: "ft" }, h.light, el("b", {}, h.strong)), el("hr"), el("p", {}, h.text)));
     });
-    const facts = [`${s.capacity} personnes`, `${s.bedrooms} chambres, ${s.beds} lits`, `${s.bathrooms} salles d'eau`, `${s.surface} m²`, `Arrivée ${s.checkIn}`, `Départ ${s.checkOut}`];
+    const facts = [`${s.capacity} personnes`, `${s.bedrooms} chambres, ${s.beds} lits`, `${s.bathrooms} salle${s.bathrooms > 1 ? "s" : ""} de bain, ${s.toilets} WC`, `${s.surface} m²`, `Arrivée ${s.checkIn}`, `Départ ${s.checkOut}`];
     $("#keyfacts").append(el("ul", {}, facts.map((t) => el("li", {}, t))),
       el("div", { class: "btns" }, el("a", { class: "btn", href: "#reservation" }, "Voir les disponibilités"), el("a", { class: "btn ghost", href: "#contact" }, "Nous contacter")));
     const ph = C.photos[1] || C.photos[0];

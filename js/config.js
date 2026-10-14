@@ -9,12 +9,12 @@ window.GITE_CONFIG = {
   name: "Gîte de Montifaut",
   titleLight: "Gîte de",      // titre d'accueil du thème Domaine : partie légère
   titleStrong: "Montifaut",   // et partie en gras
-  tagline: "Une maison de campagne en pierre, au calme, pour 6 personnes",
+  tagline: "Une maison de campagne en pierre, au calme, pour 10 personnes",
   // Quatre atouts affichés sous la photo d'accueil (thème Domaine). Icônes : tree, house, compass, key
   highlights: [
     { icon: "tree", light: "Un cadre", strong: "préservé", text: "Une maison de campagne au calme, avec un jardin ouvert sur les bois." },
-    { icon: "house", light: "Une maison", strong: "tout équipée", text: "Trois chambres, deux salles d'eau, une vraie cuisine et une grande terrasse couverte." },
-    { icon: "compass", light: "Des sorties", strong: "à proximité", text: "Tennis, ping-pong et pétanque en accès libre, promenades dans les bois, sites à visiter à moins de 30 km." },
+    { icon: "house", light: "Une maison", strong: "tout équipée", text: "Quatre chambres, une salle de bain, une vraie cuisine et une grande terrasse couverte." },
+    { icon: "compass", light: "Des sorties", strong: "à proximité", text: "Tennis, ping-pong et pétanque sur le terrain du gîte, promenades dans les bois, sites à visiter à moins de 30 km." },
     { icon: "key", light: "Un contact", strong: "direct", text: "Vous échangez avec nous, de votre demande jusqu'à votre arrivée." }
   ],
 
@@ -39,10 +39,11 @@ window.GITE_CONFIG = {
   },
 
   stay: {
-    capacity: 6,
-    bedrooms: 3,
-    beds: 4,
-    bathrooms: 2,
+    capacity: 10,   // couchages ; des lits d'appoint sont possibles en plus
+    bedrooms: 4,
+    beds: 7,        // 4 lits simples + 3 lits doubles
+    bathrooms: 1,
+    toilets: 2,
     surface: 110,
     checkIn: "16h00 à 19h00",
     checkOut: "avant 10h00"
@@ -50,23 +51,22 @@ window.GITE_CONFIG = {
 
   description: [
     "Une ancienne dépendance en pierre et en brique, rénovée. Le séjour est une grande pièce ouverte, avec un poêle à bois, de hautes baies vitrées sur les arbres et une table pour toute la famille.",
-    "Au rez-de-chaussée, le salon de 35 m² ouvre sur une cuisine entièrement équipée et sur la terrasse. À l'étage, trois chambres lumineuses et deux salles d'eau accueillent jusqu'à six personnes.",
-    "Dehors, une grande terrasse couverte avec une longue table, un brasero et des fauteuils sur la pelouse. Le jardin est ouvert sur les bois, avec des chemins pour se promener. Table de ping-pong, jeu de pétanque et terrain de tennis avec panier de basket sont en accès libre, sans réservation."
+    "Au rez-de-chaussée, le salon de 35 m² ouvre sur une cuisine entièrement équipée et sur la terrasse. Quatre chambres, une salle de bain et deux WC accueillent dix personnes, et des lits d'appoint sont possibles.",
+    "Dehors, une grande terrasse couverte avec une longue table, un brasero et des fauteuils sur la pelouse. Le jardin est ouvert sur les bois, avec des chemins pour se promener. Table de ping-pong, jeu de pétanque et terrain de tennis avec panier de basket sont sur le terrain du gîte, réservés aux clients, sans réservation."
   ],
 
   rooms: [
     { title: "Salon et salle à manger", text: "Grande pièce ouverte, poêle à bois, canapés, grande table, baies vitrées sur le jardin." },
     { title: "Cuisine", text: "Lave-vaisselle, four, plaques à induction, cafetière, bouilloire, grille-pain, raclette." },
-    { title: "Chambre parentale", text: "1 lit double 160 cm, dressing, accès à la salle de bain privée." },
-    { title: "Chambre 2", text: "1 lit double 140 cm, vue sur le jardin." },
-    { title: "Chambre 3", text: "2 lits simples 90 cm, adaptée aux enfants. Lit bébé et chaise haute sur demande." },
-    { title: "Salles d'eau", text: "Une salle de bain avec baignoire, une salle d'eau avec douche italienne. Deux WC." }
+    { title: "Chambre à quatre lits", text: "4 lits simples, pour les enfants ou un groupe d'amis." },
+    { title: "Chambres 2, 3 et 4", text: "Chacune avec 1 lit double. Des lits d'appoint peuvent être ajoutés sur demande." },
+    { title: "Salle de bain et WC", text: "Une salle de bain et deux WC." }
   ],
 
   amenities: [
     "Wifi fibre", "Lave-linge", "Chauffage central", "Cheminée", "Terrasse couverte",
     "Brasero", "Terrain de tennis et basket", "Table de ping-pong", "Pétanque", "Parking", "Linge de lit fourni", "Linge de toilette fourni",
-    "Lit bébé sur demande", "Animaux acceptés sur demande"
+    "Lits d'appoint sur demande", "Lit bébé sur demande", "Animaux acceptés sur demande"
   ],
 
   photos: [
@@ -102,8 +102,8 @@ window.GITE_CONFIG = {
   },
 
   activities: [
-    { title: "Tennis et basket", distance: "Sur place", text: "Terrain de tennis grillagé avec un panier de basket, en accès libre. Apportez raquettes et balles." },
-    { title: "Ping-pong et pétanque", distance: "Sur place", text: "Une table de ping-pong et un terrain de pétanque, en accès libre toute la journée." },
+    { title: "Tennis et basket", distance: "Sur place", text: "Terrain de tennis grillagé avec un panier de basket, sur le terrain du gîte et réservé aux clients." },
+    { title: "Ping-pong et pétanque", distance: "Sur place", text: "Une table de ping-pong et un terrain de pétanque, sur le terrain du gîte et réservés aux clients." },
     { title: "Promenade dans les bois", distance: "Sur place", text: "Le jardin est ouvert sur les bois : chemins pour se promener à pied, directement depuis le gîte." },
     { title: "Randonnées au départ du gîte", distance: "Sur place", text: "Trois boucles balisées de 6 à 18 km traversent bois et prairies. Cartes disponibles dans le gîte." },
     { title: "Vélo et VTT", distance: "Sur place", text: "Chemins ruraux peu fréquentés. Local fermé pour ranger les vélos." },
@@ -123,7 +123,7 @@ window.GITE_CONFIG = {
 
   rules: [
     { title: "Arrivée et départ", text: "Arrivée entre 16h et 19h, départ avant 10h. Pour une arrivée plus tardive, prévenez-nous à l'avance." },
-    { title: "Capacité", text: "6 personnes maximum, bébés compris. Toute personne supplémentaire doit être annoncée à la réservation." },
+    { title: "Capacité", text: "10 couchages (4 lits simples et 3 lits doubles), lits d'appoint possibles sur demande. Toute personne supplémentaire doit être annoncée à la réservation." },
     { title: "Animaux", text: "Les animaux sont acceptés sur demande préalable, avec un supplément de 10 € par séjour. Ils ne montent pas sur les lits et canapés." },
     { title: "Tabac", text: "Il est interdit de fumer à l'intérieur. Un cendrier est à disposition sur la terrasse." },
     { title: "Calme", text: "Merci de respecter le voisinage : pas de bruit après 22h, ni de fête ou d'événement sans accord écrit." },
