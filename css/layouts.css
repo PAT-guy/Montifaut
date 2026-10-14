@@ -1,0 +1,172 @@
+/*
+ * Mises en page propres à chaque thème (les couleurs et polices sont dans themes.css).
+ * Les réglages de bureau sont isolés dans des media queries pour ne pas gêner le menu mobile.
+ */
+main { counter-reset: sec; }
+
+/* =====================================================================
+   SOLOGNE : magazine, grand air, numérotation, mosaïque de photos
+   ===================================================================== */
+[data-theme="sologne"] .wrap { padding-top: 5rem; padding-bottom: 5rem; }
+[data-theme="sologne"] h2 { font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 600; letter-spacing: -.01em; }
+[data-theme="sologne"] h2::before { counter-increment: sec; content: counter(sec, decimal-leading-zero) "  /"; display: block; margin-bottom: .6rem; font: 600 .8rem var(--font-ui); letter-spacing: .25em; color: var(--accent); }
+[data-theme="sologne"] h2::after { display: none; }
+[data-theme="sologne"] h3 { font-size: 1.5rem; font-style: italic; font-weight: 600; }
+
+[data-theme="sologne"] .hero { min-height: 90vh; align-items: center; text-align: center; }
+[data-theme="sologne"] .hero h1 { font-size: clamp(3rem, 10vw, 7rem); font-weight: 600; letter-spacing: -.02em; line-height: .95; }
+[data-theme="sologne"] .hero p { margin-left: auto; margin-right: auto; font-style: italic; }
+[data-theme="sologne"] .hero-facts { justify-content: center; gap: 0; }
+[data-theme="sologne"] .hero-facts li { background: none; border: 0; padding: 0 1rem; border-right: 1px solid rgba(255,255,255,.5); letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; }
+[data-theme="sologne"] .hero-facts li:last-child { border-right: 0; }
+[data-theme="sologne"] .btn { border-radius: 0; letter-spacing: .12em; text-transform: uppercase; font-size: .85rem; padding: 1rem 2rem; }
+
+[data-theme="sologne"] .card { background: none; border: 0; border-top: 1px solid var(--ink); border-radius: 0; padding: 1rem 0 0; }
+[data-theme="sologne"] .card h4 { font-size: 1.35rem; }
+[data-theme="sologne"] .chips li { background: none; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: .3rem 0; }
+[data-theme="sologne"] .band { background: var(--band); }
+
+[data-theme="sologne"] .gallery { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 190px; gap: 8px; }
+[data-theme="sologne"] .gallery button { border-radius: 0; }
+[data-theme="sologne"] .gallery button:nth-child(6n+1) { grid-column: span 2; grid-row: span 2; }
+[data-theme="sologne"] .gallery button:nth-child(6n) { grid-column: span 4; }
+[data-theme="sologne"] .gallery img { height: 100%; aspect-ratio: auto; }
+
+[data-theme="sologne"] .calendar-box, [data-theme="sologne"] .summary { border-radius: 0; border: 0; border-top: 2px solid var(--ink); }
+[data-theme="sologne"] .day { border-radius: 0; }
+[data-theme="sologne"] .rules { grid-template-columns: 1fr 1fr; gap: 0 4rem; counter-reset: r; }
+[data-theme="sologne"] .rules div { background: none; border: 0; border-top: 1px solid var(--line); border-radius: 0; padding: 1.2rem 0; counter-increment: r; }
+[data-theme="sologne"] .rules dt::before { content: counter(r, decimal-leading-zero); display: block; font: 600 .75rem var(--font-ui); letter-spacing: .2em; color: var(--accent); margin-bottom: .2rem; }
+[data-theme="sologne"] .rules dt { font-family: var(--font-head); font-size: 1.3rem; }
+[data-theme="sologne"] footer { text-align: left; padding: 2.5rem max(16px, calc(50% - 550px)); }
+
+@media (min-width: 701px) {
+  [data-theme="sologne"] .topbar { flex-direction: column; gap: .5rem; padding: 1.1rem 16px .8rem; }
+  [data-theme="sologne"] .brand { font-size: 2.1rem; font-weight: 600; letter-spacing: .01em; }
+  [data-theme="sologne"] nav { justify-content: center; flex-wrap: wrap; gap: 1.8rem; font-size: .72rem; text-transform: uppercase; letter-spacing: .18em; }
+  [data-theme="sologne"] nav .cta { background: none; color: var(--accent); padding: 0; border-bottom: 2px solid var(--accent); border-radius: 0; }
+}
+@media (max-width: 900px) {
+  [data-theme="sologne"] .gallery { grid-template-columns: repeat(2, 1fr); }
+  [data-theme="sologne"] .gallery button:nth-child(6n) { grid-column: span 2; }
+  [data-theme="sologne"] .rules { grid-template-columns: 1fr; }
+}
+
+/* =====================================================================
+   CHASSE : relais de chasse, cadres en laiton, articles, tableaux
+   ===================================================================== */
+[data-theme="chasse"] body, html[data-theme="chasse"] body {
+  background-image:
+    repeating-linear-gradient(45deg, rgba(255,255,255,.018) 0 2px, transparent 2px 7px),
+    repeating-linear-gradient(-45deg, rgba(0,0,0,.18) 0 2px, transparent 2px 7px);
+}
+[data-theme="chasse"] h2 { text-align: center; text-transform: uppercase; letter-spacing: .16em; font-size: clamp(1.5rem, 3.4vw, 2.1rem); }
+[data-theme="chasse"] h2::after { content: "◆   ◆   ◆"; width: auto; height: auto; background: none; margin: .8rem auto 0; text-align: center; font-size: .7rem; letter-spacing: .1em; color: var(--accent); }
+[data-theme="chasse"] h3 { text-align: center; text-transform: uppercase; letter-spacing: .14em; font-size: 1rem; color: var(--accent); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: .7rem 0; margin-top: 2.5rem; }
+[data-theme="chasse"] .lead, [data-theme="chasse"] #contact-lead, [data-theme="chasse"] #description { text-align: center; margin-left: auto; margin-right: auto; }
+[data-theme="chasse"] .two-col { grid-template-columns: 1fr; }
+[data-theme="chasse"] .chips { justify-content: center; }
+[data-theme="chasse"] .chips li { border-radius: 0; border-color: var(--accent); background: none; text-transform: uppercase; letter-spacing: .08em; font-size: .75rem; }
+[data-theme="chasse"] .band { border-top: 1px solid var(--accent); border-bottom: 1px solid var(--accent); }
+
+[data-theme="chasse"] .hero { margin: 14px; min-height: 82vh; align-items: center; text-align: center; border: 1px solid var(--accent); outline: 1px solid var(--accent); outline-offset: -12px; }
+[data-theme="chasse"] .hero h1 { text-transform: uppercase; letter-spacing: .1em; font-size: clamp(2rem, 6vw, 4.2rem); }
+[data-theme="chasse"] .hero h1::before { content: "◆  ◆  ◆"; display: block; margin-bottom: 1rem; font-size: .9rem; letter-spacing: .5em; color: var(--accent); }
+[data-theme="chasse"] .hero p { margin-left: auto; margin-right: auto; }
+[data-theme="chasse"] .hero-facts { justify-content: center; }
+[data-theme="chasse"] .hero-facts li { border-radius: 0; text-transform: uppercase; letter-spacing: .1em; font-size: .72rem; border-color: var(--accent); }
+[data-theme="chasse"] .btn { border-radius: 0; text-transform: uppercase; letter-spacing: .15em; font-size: .8rem; }
+[data-theme="chasse"] .btn.ghost { color: var(--accent); }
+
+[data-theme="chasse"] .card { text-align: center; border: 1px solid var(--accent); border-radius: 0; padding: 1.5rem 1.2rem; box-shadow: inset 0 0 0 4px var(--card), inset 0 0 0 5px rgba(193,154,75,.55); }
+[data-theme="chasse"] .card h4 { text-transform: uppercase; letter-spacing: .1em; font-size: .95rem; color: var(--accent); }
+[data-theme="chasse"] .card .dist { border: 1px solid var(--accent); padding: .1rem .6rem; margin-bottom: .7rem; }
+
+[data-theme="chasse"] .gallery { grid-template-columns: repeat(3, 1fr); gap: 1.6rem; }
+[data-theme="chasse"] .gallery button { display: block; border-radius: 0; background: #0f0d0a; border: 10px solid #3a2d1f; outline: 1px solid var(--accent); outline-offset: -1px; box-shadow: 0 10px 22px rgba(0,0,0,.55); }
+[data-theme="chasse"] .gallery button::after { content: attr(data-caption); display: block; padding: .5rem; background: var(--card); color: var(--accent); font: .72rem var(--font-ui); letter-spacing: .15em; text-transform: uppercase; }
+
+[data-theme="chasse"] .calendar-box, [data-theme="chasse"] .summary, [data-theme="chasse"] .rules div, [data-theme="chasse"] .rates { border-radius: 0; }
+[data-theme="chasse"] .calendar-box, [data-theme="chasse"] .summary { border-color: var(--accent); }
+[data-theme="chasse"] .day { border-radius: 0; }
+[data-theme="chasse"] .rates th { background: #3a2d1f; color: var(--accent); }
+[data-theme="chasse"] .rules { grid-template-columns: 1fr; max-width: 860px; margin: 0 auto; counter-reset: r; }
+[data-theme="chasse"] .rules div { display: grid; grid-template-columns: 8rem 1fr; gap: .5rem 1.5rem; background: none; border: 0; border-bottom: 1px dotted var(--line); padding: 1.1rem 0; counter-increment: r; }
+[data-theme="chasse"] .rules dt::before { content: "Article " counter(r, upper-roman); display: block; font: .7rem var(--font-ui); letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: .2rem; }
+[data-theme="chasse"] .rules dt, [data-theme="chasse"] .rules dd { align-self: start; }
+[data-theme="chasse"] .card.contact { text-align: center; }
+[data-theme="chasse"] .contact-cards { justify-content: center; }
+[data-theme="chasse"] #map { border-radius: 0; border: 8px solid #3a2d1f; outline: 1px solid var(--accent); }
+[data-theme="chasse"] footer { border-top: 5px double var(--accent); }
+
+@media (min-width: 701px) {
+  [data-theme="chasse"] .topbar { border-bottom: 5px double var(--accent); padding-top: 1rem; padding-bottom: 1rem; }
+  [data-theme="chasse"] .brand { text-transform: uppercase; letter-spacing: .2em; font-size: 1.05rem; }
+  [data-theme="chasse"] nav { text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; }
+  [data-theme="chasse"] nav .cta { border-radius: 0; }
+}
+@media (max-width: 900px) {
+  [data-theme="chasse"] .gallery { grid-template-columns: 1fr 1fr; }
+  [data-theme="chasse"] .rules div { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) { [data-theme="chasse"] .gallery { grid-template-columns: 1fr; } }
+
+/* =====================================================================
+   CHAMPÊTRE : ferme, nappe vichy, polaroïds, pense-bêtes, accueil en deux parties
+   ===================================================================== */
+[data-theme="champetre"] h2 { text-align: center; font-size: clamp(1.9rem, 4vw, 2.6rem); }
+[data-theme="champetre"] h2::after { width: 96px; height: 12px; margin: .6rem auto 0; border-radius: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 12'%3E%3Cpath d='M0 6 Q12 -2 24 6 T48 6 T72 6 T96 6' fill='none' stroke='%23b4573a' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat; }
+[data-theme="champetre"] h3 { font: 600 2rem "Caveat", cursive; color: var(--accent); margin-top: 2.2rem; }
+[data-theme="champetre"] .lead, [data-theme="champetre"] #contact-lead { margin-left: auto; margin-right: auto; text-align: center; }
+[data-theme="champetre"] .chips li { background: #fff; border-style: dashed; }
+[data-theme="champetre"] .band {
+  background-color: var(--band);
+  background-image: linear-gradient(90deg, rgba(107,122,71,.11) 50%, transparent 50%), linear-gradient(rgba(107,122,71,.11) 50%, transparent 50%);
+  background-size: 44px 44px;
+}
+
+[data-theme="champetre"] .hero { background: none; color: var(--ink); min-height: 0; display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: 3rem; max-width: 1100px; margin: 0 auto; padding: 3rem 16px 4rem; }
+[data-theme="champetre"] .hero-text { padding: 0; max-width: none; }
+[data-theme="champetre"] .hero h1 { color: var(--accent-dark); font-size: clamp(2.5rem, 5.5vw, 4.2rem); }
+[data-theme="champetre"] .hero p { color: var(--muted); }
+[data-theme="champetre"] .hero-facts li { background: var(--band); border: 1px dashed var(--accent); color: var(--ink); }
+[data-theme="champetre"] .hero::after { content: ""; grid-column: 2; grid-row: 1; aspect-ratio: 4 / 5; max-height: 72vh; width: 100%; justify-self: center; background: var(--hero) center / cover; border-radius: 999px 999px 28px 28px; box-shadow: 0 0 0 10px #fff, 0 0 0 12px var(--line), 0 18px 36px rgba(100,60,30,.25); }
+[data-theme="champetre"] .btn { box-shadow: 0 4px 0 var(--accent-dark); }
+[data-theme="champetre"] .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--accent-dark); }
+[data-theme="champetre"] .btn.ghost { box-shadow: none; }
+
+[data-theme="champetre"] .card { position: relative; border: 0; padding: 1.6rem 1.3rem 1.2rem; box-shadow: 0 6px 16px rgba(100,60,30,.14); }
+[data-theme="champetre"] .card::before { content: ""; position: absolute; top: -7px; left: 50%; width: 15px; height: 15px; margin-left: -7px; border-radius: 50%; background: var(--accent); box-shadow: inset -2px -2px 0 rgba(0,0,0,.22), 0 2px 3px rgba(0,0,0,.25); }
+[data-theme="champetre"] .cards .card:nth-child(odd) { transform: rotate(-.7deg); }
+[data-theme="champetre"] .cards .card:nth-child(even) { transform: rotate(.7deg); }
+[data-theme="champetre"] .card .dist { font: 600 1.35rem "Caveat", cursive; text-transform: none; letter-spacing: 0; }
+
+[data-theme="champetre"] .gallery { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem 1.6rem; padding: 1rem 0; }
+[data-theme="champetre"] .gallery button { display: block; background: #fff; padding: 10px 10px 0; border-radius: 4px; box-shadow: 0 8px 18px rgba(80,50,20,.2); transition: transform .2s; }
+[data-theme="champetre"] .gallery button:nth-child(odd) { transform: rotate(-1.6deg); }
+[data-theme="champetre"] .gallery button:nth-child(even) { transform: rotate(1.4deg); }
+[data-theme="champetre"] .gallery button:hover { transform: rotate(0) scale(1.03); }
+[data-theme="champetre"] .gallery button:hover img { transform: none; }
+[data-theme="champetre"] .gallery button::after { content: attr(data-caption); display: block; padding: .3rem 0 .6rem; font: 1.5rem "Caveat", cursive; color: var(--ink); }
+
+[data-theme="champetre"] .rules { gap: 1.6rem; }
+[data-theme="champetre"] .rules div { border: 0; border-radius: 4px 4px 22px 4px; padding: 1.3rem 1.3rem 1.5rem; box-shadow: 0 6px 12px rgba(80,50,20,.16); }
+[data-theme="champetre"] .rules div:nth-child(3n+1) { background: #fff3b8; transform: rotate(-.8deg); }
+[data-theme="champetre"] .rules div:nth-child(3n+2) { background: #e2ebcb; transform: rotate(.6deg); }
+[data-theme="champetre"] .rules div:nth-child(3n) { background: #f8d9ca; transform: rotate(-.4deg); }
+[data-theme="champetre"] .rules dt { font: 600 1.6rem "Caveat", cursive; color: var(--accent-dark); }
+[data-theme="champetre"] .rules dd { color: var(--ink); opacity: .85; }
+[data-theme="champetre"] #map { border: 8px solid #fff; box-shadow: 0 0 0 1px var(--line), 0 10px 24px rgba(100,60,30,.2); }
+[data-theme="champetre"] .contact-cards { justify-content: center; }
+[data-theme="champetre"] footer { border-radius: 44px 44px 0 0; padding: 2.2rem 16px; }
+
+@media (min-width: 701px) {
+  [data-theme="champetre"] .topbar { top: 10px; max-width: 1100px; margin: 10px auto 0; border: 1px solid var(--line); border-radius: 999px; padding: .55rem 1.3rem; box-shadow: 0 8px 22px rgba(100,60,30,.14); }
+  [data-theme="champetre"] nav { font-size: 1rem; }
+}
+@media (max-width: 800px) {
+  [data-theme="champetre"] .hero { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
+  [data-theme="champetre"] .hero p { margin-left: auto; margin-right: auto; }
+  [data-theme="champetre"] .hero-facts { justify-content: center; }
+  [data-theme="champetre"] .hero::after { grid-column: 1; grid-row: 1; max-width: 340px; max-height: 60vh; }
+}

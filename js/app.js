@@ -111,7 +111,7 @@
     let cur = 0;
     const show = (i) => { cur = (i + C.photos.length) % C.photos.length; lbImg.src = C.photos[cur].src; lbImg.alt = C.photos[cur].alt; };
     C.photos.forEach((p, i) => $("#gallery").append(
-      el("button", { type: "button", "aria-label": "Agrandir : " + p.alt, onclick: () => { show(i); lb.showModal(); } },
+      el("button", { type: "button", "data-caption": p.alt, "aria-label": "Agrandir : " + p.alt, onclick: () => { show(i); lb.showModal(); } },
         el("img", { src: p.src, alt: p.alt, loading: "lazy" }))));
     lb.querySelector(".lb-close").onclick = () => lb.close();
     $("#lb-prev").onclick = () => show(cur - 1);
