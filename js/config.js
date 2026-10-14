@@ -3,7 +3,7 @@
  * Les textes, photos, prix, règlement et coordonnées ci-dessous sont des exemples.
  */
 window.GITE_CONFIG = {
-  // Thème visuel : "sologne", "chasse" ou "champetre"
+  // Thème visuel : "sologne", "chasse", "tradition" ou "champetre"
   theme: "sologne",
 
   name: "Gîte de Montifaut",

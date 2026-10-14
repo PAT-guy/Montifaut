@@ -40,19 +40,42 @@
   [data-theme="chasse"] .rules div { grid-template-columns: 1fr; gap: .3rem; }
 }
 
-/* ---------- Champêtre : photo en bandeau, légendes sous les photos ---------- */
-[data-theme="champetre"] .hero { display: flex; flex-direction: column; }
-[data-theme="champetre"] .hero-text { width: 100%; }
-[data-theme="champetre"] .hero::after { order: -1; height: min(52vh, 480px); }
-[data-theme="champetre"] .gallery { grid-template-columns: repeat(3, 1fr); gap: 1.4rem 1rem; }
-[data-theme="champetre"] .gallery button { text-align: left; }
-[data-theme="champetre"] .gallery button::after { content: attr(data-caption); display: block; padding-top: .4rem; font: .9rem var(--font-ui); color: var(--muted); }
-[data-theme="champetre"] .rules dt { display: inline; }
-[data-theme="champetre"] .rules dt::after { content: ". "; }
-[data-theme="champetre"] .rules dd { display: inline; }
-@media (max-width: 900px) {
-  [data-theme="champetre"] .gallery { grid-template-columns: repeat(2, 1fr); }
+/* ---------- Tradition : bandeau vert sapin, cerf, galerie en mosaïque, règlement en articles ---------- */
+[data-theme="tradition"] .topbar { background: #1f2f1e; border-bottom: 3px solid #b08a45; }
+[data-theme="tradition"] .brand, [data-theme="tradition"] nav a { color: #efe6cf; }
+[data-theme="tradition"] nav a:hover { color: #d9b86a; }
+[data-theme="tradition"] nav .cta { color: #d9b86a; border-bottom-color: #d9b86a; }
+[data-theme="tradition"] .brand { display: flex; align-items: center; gap: .6rem; }
+[data-theme="tradition"] .brand::before, [data-theme="tradition"] footer::before {
+  content: ""; display: block; width: 2.4rem; height: 2.4rem; background: #b08a45;
+  -webkit-mask: url(../images/cerf.svg) center / contain no-repeat; mask: url(../images/cerf.svg) center / contain no-repeat;
 }
-@media (max-width: 520px) {
-  [data-theme="champetre"] .gallery { grid-template-columns: 1fr; }
+[data-theme="tradition"] footer { border-top: 3px solid #b08a45; padding-top: 1.8rem; }
+[data-theme="tradition"] footer::before { margin: 0 auto .8rem; width: 3rem; height: 3rem; }
+[data-theme="tradition"] .hero { background: #26382a; color: #efe6cf; }
+[data-theme="tradition"] .hero p, [data-theme="tradition"] .hero-facts { color: #cfc6ad; }
+[data-theme="tradition"] .hero .btn { background: #b08a45; color: #1f2f1e; }
+[data-theme="tradition"] .hero .btn:hover { background: #c79c52; }
+[data-theme="tradition"] h2 { color: var(--accent-dark); }
+[data-theme="tradition"] .card { border-top-color: #b08a45; border-top-width: 2px; }
+[data-theme="tradition"] .gallery { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 190px; }
+[data-theme="tradition"] .gallery img { height: 100%; aspect-ratio: auto; }
+[data-theme="tradition"] .gallery button:nth-child(6n+1) { grid-column: span 2; grid-row: span 2; }
+[data-theme="tradition"] .gallery button:nth-child(6n) { grid-column: span 4; }
+[data-theme="tradition"] .rules { max-width: 860px; counter-reset: r; }
+[data-theme="tradition"] .rules div { display: grid; grid-template-columns: 9rem 1fr; gap: 1.5rem; counter-increment: r; }
+[data-theme="tradition"] .rules dt::before { content: "Article " counter(r, upper-roman); display: block; font: 400 .85rem var(--font-ui); color: #8a2f22; }
+@media (min-width: 701px) {
+  [data-theme="tradition"] .topbar { flex-direction: column; gap: .5rem; padding: .9rem 16px .7rem; }
+  [data-theme="tradition"] nav { flex-wrap: wrap; justify-content: center; gap: .3rem 1.8rem; font-size: .9rem; }
+}
+@media (min-width: 801px) {
+  [data-theme="tradition"] .hero { display: grid; grid-template-columns: 1fr 1.1fr; min-height: 76vh; }
+  [data-theme="tradition"] .hero-text { align-self: center; max-width: none; margin: 0; padding: 4rem 2.5rem 4rem max(16px, calc((100vw - 1100px) / 2 + 16px)); }
+  [data-theme="tradition"] .hero::after { height: auto; }
+}
+@media (max-width: 900px) {
+  [data-theme="tradition"] .gallery { grid-template-columns: repeat(2, 1fr); }
+  [data-theme="tradition"] .gallery button:nth-child(6n) { grid-column: span 2; }
+  [data-theme="tradition"] .rules div { grid-template-columns: 1fr; gap: .3rem; }
 }

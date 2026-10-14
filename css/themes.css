@@ -1,5 +1,5 @@
 /*
- * Trois thèmes. Le thème actif se choisit dans js/config.js (theme: "sologne" | "chasse" | "champetre").
+ * Quatre thèmes. Le thème actif se choisit dans js/config.js (theme: "sologne" | "chasse" | "champetre" | "tradition").
  * Pour les comparer sur le site : ajoutez ?themes à l'adresse (ex. .../Montifaut/?themes).
  */
 
@@ -31,7 +31,7 @@
   color-scheme: dark;
 }
 
-/* Champêtre : crème et terre cuite, caractères ronds */
+/* Champêtre : maison de campagne, crème, terre cuite et sauge (version d'origine, feuille css/champetre.css) */
 :root[data-theme="champetre"] {
   --bg: #fffaf0; --band: #eef0dc; --ink: #3a3329; --muted: #7a7061;
   --accent: #b4573a; --accent-dark: #8f412a; --line: #e6dcc3; --card: #ffffff;
@@ -39,8 +39,23 @@
   --btn-ink: #fff; --danger: #a8321f; --nav-bg: rgba(255,250,240,.95);
   --footer-bg: #6b7a47; --footer-ink: #fffaf0;
   --notice-bg: #fff2cc; --notice-ink: #5a4a10; --notice-line: #e8d08a;
-  --radius: 4px; --btn-radius: 3px;
+  --hero-overlay: linear-gradient(180deg, rgba(60,40,20,.1), rgba(60,35,15,.62));
+  --radius: 18px; --btn-radius: 999px; --deco-radius: 99px;
   --font-head: "Fraunces", Georgia, serif; --head-weight: 600;
   --font-body: "Nunito", system-ui, sans-serif; --font-ui: "Nunito", system-ui, sans-serif;
+  color-scheme: light;
+}
+
+/* Tradition : forêt, cerf, parchemin. Vert sapin, ocre et rouge sang de bœuf */
+:root[data-theme="tradition"] {
+  --bg: #ece5d3; --band: #e0d7bd; --ink: #241f16; --muted: #645c48;
+  --accent: #2f4a2c; --accent-dark: #1d321b; --line: #cbbf9f; --card: #f5f0e1;
+  --day: #e4dcc3; --booked: #d8aa9c; --booked-ink: #6e2b20; --sel: #2f4a2c; --range: #c9d3b4;
+  --btn-ink: #f5f0e1; --danger: #8a2f22; --nav-bg: #1f2f1e;
+  --footer-bg: #1f2f1e; --footer-ink: #cfc6ad;
+  --notice-bg: #efe2b8; --notice-ink: #4d3f12; --notice-line: #cdb872;
+  --radius: 2px; --btn-radius: 2px;
+  --font-head: "Playfair Display", Georgia, serif; --head-weight: 700;
+  --font-body: "Lora", Georgia, serif; --font-ui: system-ui, sans-serif;
   color-scheme: light;
 }

@@ -7,14 +7,17 @@
   <meta name="description" content="Location d'un gîte de campagne pour 6 personnes : photos, disponibilités, tarifs, activités, visites et réservation en ligne.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Fraunces:wght@500;600&family=Lora:wght@400;600&family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap">
-  <link rel="stylesheet" href="css/themes.css?v=6">
-  <link rel="stylesheet" href="css/style.css?v=6">
-  <link rel="stylesheet" href="css/layouts.css?v=6">
-  <script src="js/config.js?v=6"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Cormorant+Garamond:wght@600;700&family=Fraunces:wght@500;600&family=Lora:wght@400;600&family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap">
+  <link rel="stylesheet" href="css/themes.css?v=7">
+  <script src="js/config.js?v=7"></script>
   <script>
-    document.documentElement.dataset.theme = new URLSearchParams(location.search).get("theme") || window.GITE_CONFIG.theme || "sologne";
-  </script>
+    var theme = new URLSearchParams(location.search).get("theme") || window.GITE_CONFIG.theme || "sologne";
+    document.documentElement.dataset.theme = theme;
+    // Le Champêtre a sa propre feuille de style complète ; les autres thèmes partagent style.css et layouts.css
+    (theme === "champetre" ? ["champetre"] : ["style", "layouts"]).forEach(function (f) {
+      document.write('<link rel="stylesheet" href="css/' + f + '.css?v=7">');
+    });
+    </script>
 </head>
 <body>
   <header class="topbar" id="top">
@@ -158,6 +161,6 @@
     </div>
   </dialog>
 
-  <script src="js/app.js?v=6"></script>
+  <script src="js/app.js?v=7"></script>
 </body>
 </html>
