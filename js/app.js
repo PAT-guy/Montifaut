@@ -72,7 +72,7 @@
     const plural = (n, w) => `${n} ${w}${n > 1 ? "s" : ""}`;
     const rows = q.groups.map((g) => [`${plural(g.count, "nuit")} · ${g.name} (${money(g.nightly)} par nuit)`, money(g.count * g.nightly)]);
     if (q.extraGuests) rows.push([`${plural(q.extraGuests, "voyageur")} en plus · ${money(P().extraGuestPerNight)} par nuit et par personne`, money(q.extra)]);
-    rows.push(["Frais de ménage", money(q.cleaning)]);
+    if (q.cleaning) rows.push(["Frais de ménage", money(q.cleaning)]);
     q.options.forEach((o) => rows.push([o.qty > 1 ? `${o.label} × ${o.qty}` : o.label, o.amount ? money(o.amount) : "offert"]));
     rows.push([`Taxe de séjour (${plural(q.adults, "adulte")})`, money(q.tax)]);
     return rows;
@@ -198,7 +198,7 @@
     const cap = C.stay.capacity;
     $("#rates-notes").textContent =
       `Prix par nuit pour ${P().baseGuests} personnes minimum, avec un supplément de ${money(P().extraGuestPerNight)} par personne et par nuit au-delà, jusqu'à ${cap} personnes. ` +
-      `Tous les prix sont TTC. Draps et serviettes fournis. Frais de ménage : ${money(P().cleaningFee)}. Taxe de séjour : ${money(P().touristTaxPerPersonNight)} par adulte et par nuit. ` +
+      `Tous les prix sont TTC. Draps et serviettes fournis. ${P().cleaningFee ? `Frais de ménage : ${money(P().cleaningFee)}.` : "Ménage compris."} Taxe de séjour : ${money(P().touristTaxPerPersonNight)} par adulte et par nuit. ` +
       `Les dates exceptionnelles (week-ends fériés, ponts) remplacent le tarif de la saison.`;
   }
 

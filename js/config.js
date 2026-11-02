@@ -102,8 +102,8 @@ window.GITE_CONFIG = {
     defaultNightly: 250,        // toute l'année, sauf les périodes listées plus bas
     minNights: 2,
     baseGuests: 4,              // personnes incluses dans le prix de base
-    extraGuestPerNight: 20,     // supplément par personne et par nuit au-delà de baseGuests
-    cleaningFee: 120,
+    extraGuestPerNight: 15,     // supplément par personne et par nuit au-delà de baseGuests
+    cleaningFee: 0,             // 0 : ménage inclus, aucune ligne dans le devis
     touristTaxPerPersonNight: 1.1, // taxe de séjour, adultes uniquement : fixée par votre commune
     depositPercent: 30,         // acompte affiché dans le devis (0 pour ne pas l'afficher)
 
@@ -155,7 +155,7 @@ window.GITE_CONFIG = {
     { title: "Tabac", text: "Il est interdit de fumer à l'intérieur. Un cendrier est à disposition sur la terrasse." },
     { title: "Fêtes et calme", text: "Les anniversaires et les repas de famille sont les bienvenus. Les mariages et les soirées dansantes ne sont pas autorisés. Merci de respecter le voisinage : pas de bruit après 22h." },
     { title: "Poêle à bois, brasero et plancha", text: "Le bois du poêle est fourni. Le poêle, le brasero et la plancha s'utilisent avec précaution et jamais sans surveillance, surtout avec des enfants." },
-    { title: "Ménage", text: "Le ménage de fin de séjour est inclus (frais de ménage). Merci de laisser la vaisselle propre et de vider la poubelle." },
+    { title: "Ménage", text: "Le ménage de fin de séjour est compris dans le prix. Merci de laisser la vaisselle propre et de sortir les poubelles." },
     { title: "Tri des déchets", text: "Des conteneurs de tri se trouvent à l'entrée du hameau. Le calendrier de collecte est affiché dans la cuisine." },
     { title: "Dépôt de garantie", text: "Une caution de 800 € est demandée avant l'arrivée et restituée sous 7 jours, après vérification du gîte à votre départ." },
     { title: "Réservation et annulation", text: "Un acompte de 30 % confirme la réservation. Le solde est dû 14 jours avant l'arrivée. L'annulation est gratuite jusqu'à 14 jours avant le séjour. Au-delà, l'acompte reste acquis." }
@@ -166,7 +166,7 @@ window.GITE_CONFIG = {
     { q: "Comment se passe l'arrivée ?", a: "L'arrivée est autonome : une boîte à clés vous attend, et son code vous est envoyé avant votre séjour. Vous n'avez pas besoin de nous attendre sur place." },
     { q: "Combien de personnes peut-on loger ?", a: "Dix personnes : une chambre avec quatre lits simples et trois chambres avec un lit double. Un lit bébé est disponible sur demande. Nous n'avons pas d'autre lit d'appoint pour l'instant." },
     { q: "Les draps et les serviettes sont-ils fournis ?", a: "Oui, les draps et les serviettes sont fournis et compris dans le prix." },
-    { q: "Le ménage est-il compris ?", a: "Le ménage de fin de séjour est assuré par nos soins. Il figure en frais de ménage dans le devis. Merci de laisser la vaisselle propre et de sortir les poubelles." },
+    { q: "Le ménage est-il compris ?", a: "Oui, le ménage de fin de séjour est compris dans le prix : aucun frais de ménage n'est ajouté. Merci de laisser la vaisselle propre et de sortir les poubelles." },
     { q: "Peut-on venir avec des chiens ?", a: "Oui, sur demande préalable. Un chenil est à leur disposition. Le supplément s'ajoute au devis, et les chiens ne montent pas sur les lits ni sur les canapés." },
     { q: "Comment le gîte est-il chauffé et rafraîchi ?", a: "Un poêle à bois chauffe le séjour, avec du bois fourni. Le gîte dispose aussi d'une climatisation réversible, qui chauffe en hiver et rafraîchit en été." },
     { q: "Le tennis, le ping-pong et la pétanque sont-ils accessibles ?", a: "Oui, ils sont sur le terrain du gîte et réservés à nos clients. Vous n'avez pas besoin de réserver." },
