@@ -5,12 +5,14 @@
 window.GITE_CONFIG = {
   // Thème visuel : "domaine", "sologne", "chasse", "tradition" ou "champetre"
   theme: "sologne",
+  // Polices : "" (actuelles) ou "charte" (Cinzel, Josefin Sans, comme dans les logos). Test : ajouter ?police=charte à l'adresse.
+  font: "",
 
   name: "Gîte des Communs de Montifaut",
   shortName: "Les Communs de Montifaut",   // affiché dans l'en-tête
   titleLight: "Gîte des Communs de",      // titre d'accueil du thème Domaine : partie légère
   titleStrong: "Montifaut",               // et partie en gras
-  tagline: "Les anciens communs du château de Montifaut, en Sologne, pour 10 personnes",
+  tagline: "Les anciens communs du château de Montifaut, relais de chasse en Sologne, pour 10 personnes",
   // Quatre atouts affichés sous la photo d'accueil (thème Domaine). Icônes : tree, house, compass, key
   highlights: [
     { icon: "tree", light: "Un cadre", strong: "préservé", text: "Les anciens communs d'un château, au calme, avec un jardin ouvert sur les bois." },
@@ -220,7 +222,7 @@ window.GITE_CONFIG = {
     { q: "Comment venir ?", a: "Le gîte est à 15 minutes en voiture de la sortie de Salbris sur l'A71, et à 15 minutes de celle de Romorantin-Lanthenay sur l'A85. La gare de Selles-Saint-Denis est à 3,5 km. Il y a un grand parking sur place." },
     { q: "Le gîte est-il accessible aux personnes à mobilité réduite ?", a: "Non, les chambres sont à l'étage et le gîte n'est pas adapté aux personnes à mobilité réduite." },
     { q: "Peut-on organiser un anniversaire ou un repas de famille ?", a: "Oui, avec notre accord préalable. Les invités extérieurs sont acceptés en petit nombre. Les mariages et les soirées dansantes ne sont pas autorisés. Merci de respecter le voisinage après 22h." },
-    { q: "Accueillez-vous des week-ends de chasse ?", a: "Oui, c'est possible. Nous n'organisons pas la chasse nous-mêmes." },
+    { q: "Accueillez-vous des chasseurs ?", a: "Oui, le gîte est un relais de chasse : les chasseurs et leurs week-ends de chasse sont les bienvenus, avec leurs chiens au chenil. Nous n'organisons pas de chasse nous-mêmes." },
     { q: "Quelles langues parlez-vous ?", a: "Nous parlons français, anglais et allemand." },
     { q: "Quelles sont les conditions d'annulation ?", a: "L'annulation est gratuite jusqu'à 14 jours avant votre arrivée. Au-delà, l'acompte reste acquis." },
     { q: "Comment réserver ?", a: "Choisissez vos dates dans le calendrier : le devis se calcule tout de suite, avec les options. Répondez ensuite aux questions de la page suivante et envoyez votre demande. Nous répondons sous 48 heures. Un acompte de 30 % confirme la réservation, et le solde se règle à l'arrivée." },

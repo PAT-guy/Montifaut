@@ -78,3 +78,9 @@
   --font-cond: "Barlow Condensed", "Arial Narrow", sans-serif;
   color-scheme: light;
 }
+
+/* Test de polices : ajouter ?police=charte à l'adresse (ou font: "charte" dans js/config.js) */
+:root[data-font="charte"][data-theme] {
+  --font-head: "Cinzel", Georgia, serif; --head-weight: 600;
+  --font-body: "Josefin Sans", system-ui, sans-serif; --font-ui: "Josefin Sans", system-ui, sans-serif;
+}

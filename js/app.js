@@ -315,11 +315,13 @@
   /* ---------- Aperçu des thèmes (visible avec ?themes dans l'adresse) ---------- */
   function themeSwitcher() {
     const q = new URLSearchParams(location.search);
-    if (!q.has("themes") && !q.has("theme")) return;
+    if (!q.has("themes") && !q.has("theme") && !q.has("police")) return;
     const names = { domaine: "Domaine", sologne: "Sologne", chasse: "Chasse", tradition: "Tradition", champetre: "Champêtre" };
-    const cur = document.documentElement.dataset.theme;
-    const bar = el("div", { class: "theme-bar" }, el("span", {}, "Thème :"),
-      Object.entries(names).map(([k, v]) => el("a", { href: `?theme=${k}`, class: k === cur ? "on" : "" }, v)));
+    const cur = document.documentElement.dataset.theme, font = document.documentElement.dataset.font || "";
+    const link = (label, key, val, on) => { const n = new URLSearchParams(location.search); n.delete("themes"); n.set(key, val); if (key === "police" && !val) n.delete("police"); return el("a", { href: "?" + n.toString(), class: on ? "on" : "" }, label); };
+    const bar = el("div", { class: "theme-bar" },
+      el("span", {}, "Thème :"), Object.entries(names).map(([k, v]) => link(v, "theme", k, k === cur)),
+      el("span", {}, "Police :"), link("Actuelle", "police", "", font !== "charte"), link("Charte", "police", "charte", font === "charte"));
     document.body.append(bar);
   }
 

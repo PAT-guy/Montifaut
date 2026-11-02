@@ -10,10 +10,13 @@ window.GiteBrand = (() => {
     );
     brand.setAttribute("aria-label", C.name);
     const footer = document.querySelector("footer");
-    if (footer && !footer.querySelector(".footer-logo")) {
-      const l = img("images/logo/logo-principal-or.svg", "footer-logo");
-      l.alt = C.name;
-      footer.prepend(l);
+    if (footer && !footer.querySelector(".footer-brand")) {
+      const box = document.createElement("div");
+      box.className = "footer-brand";
+      const name = document.createElement("strong"); name.textContent = C.name;
+      const sub = document.createElement("em"); sub.textContent = "& relais de chasse en Sologne";
+      box.append(img("images/logo/embleme-or.svg", "footer-mark"), name, sub);
+      footer.prepend(box);
     }
   }
   return { fill };
