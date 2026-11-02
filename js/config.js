@@ -35,7 +35,7 @@ window.GITE_CONFIG = {
     // Coordonnées d'exemple : remplacez par celles du gîte (clic droit sur Google Maps).
     lat: 47.0,
     lng: 2.0,
-    access: "À 5 minutes du village et de ses commerces. Parking sur place. Gare la plus proche à 20 km."
+    access: "À 5 minutes du village et de ses commerces. Grand parking sur place. Gare la plus proche à 20 km."
   },
 
   stay: {
@@ -44,29 +44,30 @@ window.GITE_CONFIG = {
     beds: 7,        // 4 lits simples + 3 lits doubles
     bathrooms: 1,
     toilets: 2,
-    surface: 110,
+    surface: 160,   // environ 80 m² par niveau, sur deux niveaux
     checkIn: "16h00 à 19h00",
     checkOut: "avant 10h00"
   },
 
   description: [
     "Une ancienne dépendance en pierre et en brique, rénovée. Le séjour est une grande pièce ouverte, avec un poêle à bois, de hautes baies vitrées sur les arbres et une table pour toute la famille.",
-    "Au rez-de-chaussée, le salon de 35 m² ouvre sur une cuisine entièrement équipée et sur la terrasse. Quatre chambres, une salle de bain et deux WC accueillent dix personnes, et des lits d'appoint sont possibles.",
+    "Le gîte fait environ 160 m² sur deux niveaux. Le séjour ouvre sur la terrasse et la cuisine est équipée comme pour un grand groupe. Quatre chambres, une salle de bain et deux WC accueillent dix personnes. Un lit bébé est disponible sur demande.",
     "Dehors, une grande terrasse couverte avec une longue table, un brasero et des fauteuils sur la pelouse. Le jardin est ouvert sur les bois, avec des chemins pour se promener. Table de ping-pong, jeu de pétanque et terrain de tennis avec panier de basket sont sur le terrain du gîte, réservés aux clients, sans réservation."
   ],
 
   rooms: [
     { title: "Salon et salle à manger", text: "Grande pièce ouverte, poêle à bois, canapés, grande table, baies vitrées sur le jardin." },
-    { title: "Cuisine", text: "Lave-vaisselle, four, plaques à induction, cafetière, bouilloire, grille-pain, raclette." },
+    { title: "Cuisine", text: "Four électrique professionnel à 5 feux, lave-vaisselle, deux réfrigérateurs-congélateurs, machine à glaçons, air fryer, grille-pain, bouilloire. Table pour 6 personnes." },
     { title: "Chambre à quatre lits", text: "4 lits simples, pour les enfants ou un groupe d'amis." },
-    { title: "Chambres 2, 3 et 4", text: "Chacune avec 1 lit double. Des lits d'appoint peuvent être ajoutés sur demande." },
+    { title: "Chambres 2, 3 et 4", text: "Chacune avec 1 lit double." },
     { title: "Salle de bain et WC", text: "Une salle de bain et deux WC." }
   ],
 
   amenities: [
-    "Wifi fibre", "Lave-linge", "Chauffage central", "Cheminée", "Terrasse couverte",
-    "Brasero", "Terrain de tennis et basket", "Table de ping-pong", "Pétanque", "Parking", "Linge de lit fourni", "Linge de toilette fourni",
-    "Lits d'appoint sur demande", "Lit bébé sur demande", "Animaux acceptés sur demande"
+    "Wifi", "Lave-linge", "Chauffage", "Poêle à bois", "Terrasse couverte",
+    "Brasero", "Plancha", "Machine à glaçons", "Lave-vaisselle", "Terrain de tennis et basket",
+    "Table de ping-pong", "Pétanque", "Grand parking", "Draps fournis", "Serviettes fournies",
+    "Lit bébé sur demande"
   ],
 
   photos: [
@@ -86,18 +87,19 @@ window.GITE_CONFIG = {
    * Pour changer un prix, modifiez simplement le chiffre.
    */
   pricing: {
+    // GRILLE PROVISOIRE : prix de départ pour le gîte entier, à ajuster avant publication.
     currency: "€",
-    defaultNightly: 110,
+    defaultNightly: 290,        // novembre à mars, hors vacances
     minNights: 2,
-    baseGuests: 4,              // personnes incluses dans le prix
-    extraGuestPerNight: 15,     // supplément par personne au-delà de baseGuests
-    cleaningFee: 60,
-    touristTaxPerPersonNight: 1.2, // taxe de séjour, adultes uniquement : à ajuster selon votre commune
+    baseGuests: 10,             // le prix couvre le gîte entier (10 couchages)
+    extraGuestPerNight: 0,      // supplément par personne au-delà de baseGuests (0 : aucun)
+    cleaningFee: 120,
+    touristTaxPerPersonNight: 1.1, // taxe de séjour, adultes uniquement : fixée par votre commune
     seasons: [
-      { name: "Haute saison (été)", from: "07-04", to: "08-28", nightly: 160, minNights: 7 },
-      { name: "Vacances de Noël et nouvel an", from: "12-20", to: "01-04", nightly: 150, minNights: 3 },
-      { name: "Printemps et ponts", from: "04-15", to: "07-03", nightly: 125, minNights: 2 },
-      { name: "Automne", from: "08-29", to: "11-02", nightly: 115, minNights: 2 }
+      { name: "Été", from: "07-04", to: "08-28", nightly: 390, minNights: 7 },
+      { name: "Noël et nouvel an", from: "12-20", to: "01-04", nightly: 420, minNights: 4 },
+      { name: "Printemps et ponts", from: "04-15", to: "07-03", nightly: 340, minNights: 2 },
+      { name: "Automne et Toussaint", from: "08-29", to: "11-02", nightly: 320, minNights: 2 }
     ]
   },
 
@@ -123,7 +125,7 @@ window.GITE_CONFIG = {
 
   rules: [
     { title: "Arrivée et départ", text: "Arrivée entre 16h et 19h, départ avant 10h. Pour une arrivée plus tardive, prévenez-nous à l'avance." },
-    { title: "Capacité", text: "10 couchages (4 lits simples et 3 lits doubles), lits d'appoint possibles sur demande. Toute personne supplémentaire doit être annoncée à la réservation." },
+    { title: "Capacité", text: "10 couchages (4 lits simples et 3 lits doubles). Un lit bébé est disponible sur demande, pas d'autre lit d'appoint pour l'instant. Toute personne supplémentaire doit être annoncée à la réservation." },
     { title: "Animaux", text: "Les animaux sont acceptés sur demande préalable, avec un supplément de 10 € par séjour. Ils ne montent pas sur les lits et canapés." },
     { title: "Tabac", text: "Il est interdit de fumer à l'intérieur. Un cendrier est à disposition sur la terrasse." },
     { title: "Calme", text: "Merci de respecter le voisinage : pas de bruit après 22h, ni de fête ou d'événement sans accord écrit." },
