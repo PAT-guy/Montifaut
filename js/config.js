@@ -28,7 +28,7 @@ window.GITE_CONFIG = {
     whatsapp: "33648481113",            // même numéro, au format international sans le +
     email: "ipconseils@orange.fr",
     owner: "Isabelle",
-    company: "Ipconseil",
+    company: "IP Conseils",
     responseTime: "48 heures",
     languages: "français, anglais et allemand",
     // Pour recevoir les demandes par mail sans serveur : créez un formulaire sur
