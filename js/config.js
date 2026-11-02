@@ -98,8 +98,8 @@ window.GITE_CONFIG = {
      * Draps et serviettes inclus.
      */
     currency: "€",
-    defaultName: "Basse saison",
-    defaultNightly: 250,        // hors périodes listées plus bas
+    defaultName: "Tarif de base",
+    defaultNightly: 250,        // toute l'année, sauf les périodes listées plus bas
     minNights: 2,
     baseGuests: 4,              // personnes incluses dans le prix de base
     extraGuestPerNight: 20,     // supplément par personne et par nuit au-delà de baseGuests
@@ -110,9 +110,7 @@ window.GITE_CONFIG = {
     // Saisons qui reviennent chaque année (MM-JJ). Une saison peut chevaucher le nouvel an.
     seasons: [
       { name: "Été", from: "07-04", to: "08-28", nightly: 340, minNights: 7 },
-      { name: "Noël et nouvel an", from: "12-20", to: "01-04", nightly: 380, minNights: 4 },
-      { name: "Printemps et ponts", from: "04-15", to: "07-03", nightly: 280, minNights: 2 },
-      { name: "Automne et Toussaint", from: "08-29", to: "11-02", nightly: 260, minNights: 2 }
+      { name: "Noël et nouvel an", from: "12-20", to: "01-04", nightly: 380, minNights: 4 }
     ],
 
     // Dates exceptionnelles (AAAA-MM-JJ). Elles l'emportent sur les saisons.
@@ -155,12 +153,12 @@ window.GITE_CONFIG = {
     { title: "Capacité", text: "10 couchages (4 lits simples et 3 lits doubles). Un lit bébé est disponible sur demande, pas d'autre lit d'appoint pour l'instant. Toute personne supplémentaire doit être annoncée à la réservation." },
     { title: "Chiens", text: "Les chiens sont acceptés sur demande préalable : un chenil est à leur disposition. Le supplément figure dans le devis. Ils ne montent pas sur les lits et les canapés." },
     { title: "Tabac", text: "Il est interdit de fumer à l'intérieur. Un cendrier est à disposition sur la terrasse." },
-    { title: "Calme", text: "Merci de respecter le voisinage : pas de bruit après 22h, ni de fête ou d'événement sans accord écrit." },
+    { title: "Fêtes et calme", text: "Les anniversaires et les repas de famille sont les bienvenus. Les mariages et les soirées dansantes ne sont pas autorisés. Merci de respecter le voisinage : pas de bruit après 22h." },
     { title: "Poêle à bois, brasero et plancha", text: "Le bois du poêle est fourni. Le poêle, le brasero et la plancha s'utilisent avec précaution et jamais sans surveillance, surtout avec des enfants." },
     { title: "Ménage", text: "Le ménage de fin de séjour est inclus (frais de ménage). Merci de laisser la vaisselle propre et de vider la poubelle." },
     { title: "Tri des déchets", text: "Des conteneurs de tri se trouvent à l'entrée du hameau. Le calendrier de collecte est affiché dans la cuisine." },
     { title: "Dépôt de garantie", text: "Une caution de 800 € est demandée avant l'arrivée et restituée sous 7 jours, après vérification du gîte à votre départ." },
-    { title: "Réservation et annulation", text: "Un acompte de 30 % confirme la réservation. Le solde est dû 30 jours avant l'arrivée. Annulation gratuite jusqu'à 30 jours avant le séjour." }
+    { title: "Réservation et annulation", text: "Un acompte de 30 % confirme la réservation. Le solde est dû 14 jours avant l'arrivée. L'annulation est gratuite jusqu'à 14 jours avant le séjour. Au-delà, l'acompte reste acquis." }
   ],
 
   // Questions fréquentes. Ajoutez, retirez ou reformulez librement.
@@ -173,6 +171,8 @@ window.GITE_CONFIG = {
     { q: "Comment le gîte est-il chauffé et rafraîchi ?", a: "Un poêle à bois chauffe le séjour, avec du bois fourni. Le gîte dispose aussi d'une climatisation réversible, qui chauffe en hiver et rafraîchit en été." },
     { q: "Le tennis, le ping-pong et la pétanque sont-ils accessibles ?", a: "Oui, ils sont sur le terrain du gîte et réservés à nos clients. Vous n'avez pas besoin de réserver." },
     { q: "Comment venir ?", a: "Le gîte est à 15 minutes en voiture de la sortie de Salbris sur l'A71, et à 15 minutes de celle de Romorantin-Lanthenay sur l'A85. Il y a un grand parking sur place." },
+    { q: "Peut-on organiser un anniversaire ou un repas de famille ?", a: "Oui, volontiers. En revanche, les mariages et les soirées dansantes ne sont pas autorisés. Merci de respecter le voisinage après 22h." },
+    { q: "Quelles sont les conditions d'annulation ?", a: "L'annulation est gratuite jusqu'à 14 jours avant votre arrivée. Au-delà, l'acompte reste acquis." },
     { q: "Comment réserver ?", a: "Choisissez vos dates dans le calendrier : le devis se calcule tout de suite, avec les options. Envoyez ensuite votre demande. Nous confirmons après vérification, puis un acompte bloque les dates." },
     { q: "Une caution est-elle demandée ?", a: "Oui, une caution de 800 € est demandée avant l'arrivée. Elle vous est rendue sous 7 jours après la vérification du gîte à votre départ." }
   ]

@@ -198,7 +198,7 @@
     const cap = C.stay.capacity;
     $("#rates-notes").textContent =
       `Prix par nuit pour ${P().baseGuests} personnes minimum, avec un supplément de ${money(P().extraGuestPerNight)} par personne et par nuit au-delà, jusqu'à ${cap} personnes. ` +
-      `Draps et serviettes fournis. Frais de ménage : ${money(P().cleaningFee)}. Taxe de séjour : ${money(P().touristTaxPerPersonNight)} par adulte et par nuit. ` +
+      `Tous les prix sont TTC. Draps et serviettes fournis. Frais de ménage : ${money(P().cleaningFee)}. Taxe de séjour : ${money(P().touristTaxPerPersonNight)} par adulte et par nuit. ` +
       `Les dates exceptionnelles (week-ends fériés, ponts) remplacent le tarif de la saison.`;
   }
 
@@ -293,7 +293,7 @@
     const q = quote(state.start, state.end, guests, +$("#minors").value || 0, chosenExtras());
     const row = (label, value, cls = "") => box.append(el("div", { class: "row " + cls }, el("span", {}, label), el("span", {}, value)));
     quoteRows(q).forEach(([l, v]) => row(l, v));
-    row("Total estimé", money(q.total), "total");
+    row("Total estimé TTC", money(q.total), "total");
     if (q.deposit) {
       row(`Acompte à la réservation (${P().depositPercent} %)`, money(q.deposit), "sub");
       row("Solde avant l'arrivée", money(q.total - q.deposit), "sub");
@@ -346,7 +346,7 @@
         "",
         "Devis estimatif :",
         ...quoteRows(q).map(([l, v]) => `- ${l} : ${v}`),
-        `Total estimé : ${money(q.total)}`,
+        `Total estimé TTC : ${money(q.total)}`,
         q.deposit ? `Acompte (${P().depositPercent} %) : ${money(q.deposit)}` : "",
         "",
         `Nom : ${f.name.value}`,
