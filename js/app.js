@@ -134,38 +134,45 @@
     renderRates();
   }
 
+  const MOIS = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."];
+  function span(a, b, withYear) {
+    const d1 = parse(a), d2 = parse(b);
+    const f = (d, mois = true) => `${d.getDate() === 1 ? "1er" : d.getDate()}${mois ? " " + MOIS[d.getMonth()] : ""}`;
+    const y = withYear ? ` ${d2.getFullYear()}` : "";
+    if (a === b) return `${f(d1)}${y}`;
+    const sameMonth = d1.getMonth() === d2.getMonth() && d1.getFullYear() === d2.getFullYear();
+    return `${f(d1, !sameMonth)} au ${f(d2)}${y}`;
+  }
+
   function durationText() {
     const list = P().durationCoefficients || [];
     if (!list.length) return "";
-    const lab = (c) => c.label ? `${c.label} (${c.to == null ? c.from + " nuits et plus" : c.from + " à " + c.to + " nuits"})` : c.to == null ? `${c.from} nuits et plus` : c.from === c.to ? `${c.from} nuits` : `${c.from} à ${c.to} nuits`;
-    return ` Selon la durée du séjour, un coefficient s'applique à l'hébergement : ` + list.map((c) => `${lab(c)} ${c.coef === 1 ? "tarif normal" : pct(c.coef)}`).join(", ") + ". Séjour minimum : 2 nuits.";
+    const lab = (c) => c.to == null ? `${c.from} nuits et +` : c.from === c.to ? `${c.from} nuits` : `${c.from}-${c.to} nuits`;
+    return "Durée du séjour : " + list.map((c) => `${lab(c)} ${c.coef === 1 ? "tarif normal" : pct(c.coef)}`).join(", ") + ".";
   }
 
   function renderRates() {
-    const md = (x) => new Date(2000, +x.slice(0, 2) - 1, +x.slice(3)).toLocaleDateString("fr-FR", { day: "numeric", month: "long" });
-    const full = (x) => parse(x).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+    const md = (x) => new Date(2000, +x.slice(0, 2) - 1, +x.slice(3)).toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
     const t = $("#rates");
-    t.append(el("thead", {}, el("tr", {}, ["Période", `Prix par nuit (${P().baseGuests} personnes)`, "Séjour minimum"].map((h) => el("th", {}, h)))));
+    t.append(el("thead", {}, el("tr", {}, ["Période", "Nuits concernées", "Prix par nuit"].map((h) => el("th", {}, h)))));
     const body = el("tbody");
-    const line = (label, price, min) => body.append(el("tr", {}, el("td", {}, label), el("td", {}, money(price)), el("td", {}, `${min} nuits`)));
-    line(`${P().defaultName || "Autres périodes"} (toute l'année)`, P().defaultNightly, P().minNights);
-    P().seasons.forEach((x) => line(`${x.name} (du ${md(x.from)} au ${md(x.to)})`, x.nightly, x.minNights));
-    const rows = (P().specialDates || []).filter((x) => x.to >= today).map((x) => ({ name: x.name, from: x.from, to: x.to, nightly: x.nightly, min: x.minNights ?? P().minNights }));
-    const limit = iso(addDays(new Date(), 548));
+    const line = (label, dates, price) => body.append(el("tr", {}, el("td", {}, label), el("td", {}, dates), el("td", {}, money(price))));
+    line(P().defaultName || "Tarif de base", "Toute l'année", P().defaultNightly);
+    P().seasons.forEach((x) => line(x.name, `${md(x.from)} au ${md(x.to)}`, x.nightly));
+    const rows = (P().specialDates || []).filter((x) => x.to >= today).map((x) => ({ name: x.name, from: x.from, to: x.to, nightly: x.nightly }));
+    const limit = iso(addDays(new Date(), 365));
     const groups = new Map();
     [...holidayMap().entries()].sort().forEach(([d, h]) => {
       if (d < today || d > limit) return;
-      if (!groups.has(h.name)) groups.set(h.name, { name: h.name, from: d, to: d, nightly: h.nightly, min: h.minNights });
+      if (!groups.has(h.name)) groups.set(h.name, { name: h.name, from: d, to: d, nightly: h.nightly });
       groups.get(h.name).to = d;
     });
     rows.push(...groups.values());
-    rows.sort((a, b) => (a.from < b.from ? -1 : 1)).forEach((x) => line(`${x.name} (${x.from === x.to ? "nuit du " + full(x.from) : "nuits du " + full(x.from) + " au " + full(x.to)})`, x.nightly, x.min));
+    rows.sort((a, b) => (a.from < b.from ? -1 : 1)).forEach((x) => line(x.name, span(x.from, x.to, !/20\d\d/.test(x.name)), x.nightly));
     t.append(body);
-    const cap = C.stay.capacity;
     $("#rates-notes").textContent =
-      `Prix par nuit pour ${P().baseGuests} personnes minimum, avec un supplément de ${money(P().extraGuestPerNight)} par personne et par nuit au-delà, jusqu'à ${cap} personnes. ` +
-      `Tous les prix sont TTC. Draps et serviettes fournis. ${P().cleaningFee ? `Frais de ménage : ${money(P().cleaningFee)}.` : "Ménage compris."} Taxe de séjour : ${money(P().touristTaxPerPersonNight)} par adulte et par nuit. ` +
-      `Le tarif de base s'applique toute l'année, sauf aux jours fériés, ponts et dates exceptionnelles de la grille.` + durationText();
+      `Prix par nuit pour ${P().baseGuests} personnes, puis ${money(P().extraGuestPerNight)} par personne et par nuit en plus (${C.stay.capacity} au maximum). ` +
+      `Prix TTC, draps, serviettes${P().cleaningFee ? "" : " et ménage"} compris. Taxe de séjour : ${money(P().touristTaxPerPersonNight)} par adulte et par nuit. Séjour minimum : ${P().minNights} nuits. ` + durationText();
   }
 
   /* ---------- Calendrier ---------- */
@@ -271,19 +278,16 @@
   }
 
   /* ---------- Formulaire ---------- */
+  const S_CAP = () => C.stay.capacity;
   function setupForm() {
     const sel = $("#guests"), minors = $("#minors");
     for (let i = 1; i <= C.stay.capacity; i++) sel.append(el("option", { value: i }, i + (i > 1 ? " personnes" : " personne")));
     sel.value = String(Math.min(P().baseGuests, C.stay.capacity));
-    const fillMinors = () => {
-      const keep = +minors.value || 0;
-      minors.replaceChildren();
-      for (let i = 0; i < +sel.value; i++) minors.append(el("option", { value: i }, String(i)));
-      minors.value = String(Math.min(keep, +sel.value - 1));
-    };
-    fillMinors();
-    sel.addEventListener("change", () => { fillMinors(); update(); });
-    minors.addEventListener("change", update);
+    // Le nombre d'enfants n'est plus limité par le nombre de voyageurs choisi : le total s'ajuste tout seul.
+    for (let i = 0; i < S_CAP(); i++) minors.append(el("option", { value: i }, String(i)));
+    minors.value = "0";
+    sel.addEventListener("change", () => { if (+minors.value > +sel.value - 1) minors.value = String(Math.max(0, +sel.value - 1)); update(); });
+    minors.addEventListener("change", () => { if (+sel.value < +minors.value + 1) sel.value = String(+minors.value + 1); update(); });
     $("#guest-note").textContent = `Tarif de base pour ${P().baseGuests} personnes minimum, facturées même si le groupe est plus petit.`;
     (P().extras || []).forEach((x) => {
       const input = x.max > 1
@@ -371,6 +375,11 @@
   /* ---------- Démarrage ---------- */
   themeSwitcher();
   renderStatic();
+  $("#brand").addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    history.replaceState(null, "", location.pathname + location.search);
+  });
   setupForm();
   renderCalendar();
   loadAvailability().then(update);

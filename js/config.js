@@ -63,7 +63,7 @@ window.GITE_CONFIG = {
 
   rooms: [
     { title: "Séjour et salle à manger", text: "Grande pièce ouverte avec poêle à bois et climatisation réversible, télévision, canapés, grande table et baies vitrées. Jeux de société, table de poker, livres et bandes dessinées." },
-    { title: "Cuisine", text: "Four traiteur à 5 feux, lave-vaisselle, deux grands réfrigérateurs avec congélateur, micro-ondes, machine à glaçons, air fryer, deux cafetières, grille-pain, bouilloire. Table pour 6 personnes, chauffage central." },
+    { title: "Cuisine", text: "Four traiteur à 5 feux, lave-vaisselle, deux grands réfrigérateurs avec congélateur, micro-ondes, appareil à raclette, air fryer, deux cafetières, grille-pain, bouilloire. Table pour 6 personnes, chauffage central." },
     { title: "Chambre à quatre lits", text: "4 lits simples, à l'étage, pour les enfants ou un groupe d'amis." },
     { title: "Chambres 2, 3 et 4", text: "Chacune avec 1 lit double, à l'étage." },
     { title: "Salle de bain et WC", text: "Une salle de bain avec baignoire et double vasque, et deux WC. Sèche-cheveux à disposition." }
@@ -73,7 +73,7 @@ window.GITE_CONFIG = {
     "Wifi", "Télévision", "Poêle à bois (bois fourni)", "Climatisation réversible dans le séjour", "Chauffage central (cuisine et chambres)",
     "Arrivée autonome (boîte à clés)", "Grand parking", "Draps fournis", "Serviettes fournies",
     "Terrasse couverte de 20 places", "Brasero", "Plancha", "Four traiteur 5 feux", "Lave-vaisselle",
-    "Deux réfrigérateurs-congélateurs", "Micro-ondes", "Air fryer", "Deux cafetières", "Grille-pain", "Bouilloire", "Machine à glaçons",
+    "Deux réfrigérateurs-congélateurs", "Micro-ondes", "Air fryer", "Deux cafetières", "Grille-pain", "Bouilloire", "Appareil à raclette",
     "Sèche-cheveux", "Aspirateur", "Fer et table à repasser",
     "Terrain de tennis et panier de basket", "Table de ping-pong", "Pétanque et molki",
     "Jeux de société et table de poker", "Jeux d'enfants", "Livres et bandes dessinées",
