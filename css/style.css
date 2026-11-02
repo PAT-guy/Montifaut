@@ -153,3 +153,56 @@ footer p { margin: 0; }
 .faq-list details p { margin: .7rem 0 0; color: var(--muted); }
 
 nav a, .brand { white-space: nowrap; }
+
+.gallery img { aspect-ratio: 4 / 3; }
+#lightbox img { object-fit: contain; }
+.lb-cap { color: #fff; text-align: center; margin: .6rem 0 0; font: .95rem system-ui, sans-serif; }
+.legend .dot.special { background: var(--day); border: 2px solid #c99a3c; }
+.day.special { box-shadow: inset 0 0 0 2px #c99a3c; }
+.day.special.start, .day.special.end { box-shadow: none; }
+nav a.active { border-bottom: 2px solid var(--accent); }
+.btn.block { display: block; width: 100%; text-align: center; font-size: 1.05rem; padding: .95rem 1.4rem; }
+.mobile-cta { display: none; }
+@media (max-width: 700px) {
+  .mobile-cta { display: flex; gap: .6rem; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; padding: .6rem 12px calc(.6rem + env(safe-area-inset-bottom)); background: var(--nav-bg, #fff); border-top: 1px solid var(--line); }
+  .mobile-cta .btn { flex: 1; text-align: center; padding: .7rem .4rem; }
+  .mobile-cta .btn.ghost { background: var(--card); }
+  body { padding-bottom: 4.2rem; }
+}
+
+/* ---------- Page de finalisation de réservation ---------- */
+.resa h2 { margin-bottom: .8rem; }
+.stepper { list-style: none; display: flex; gap: 1.6rem; flex-wrap: wrap; padding: 0; margin: 0 0 1.8rem; font: 600 .95rem var(--font-ui); color: var(--muted); }
+.stepper li { display: flex; align-items: center; gap: .5rem; }
+.stepper li span { display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 50%; border: 2px solid var(--line); background: var(--card); font-size: .85rem; }
+.stepper li.done span { border-color: var(--accent); color: var(--accent); }
+.stepper li.now { color: var(--ink); }
+.stepper li.now span { background: var(--accent); border-color: var(--accent); color: var(--btn-ink); }
+.resa-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem; align-items: start; font-family: var(--font-ui); }
+.resa-form fieldset { border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); padding: 1rem 1.3rem 1.2rem; margin: 0 0 1.2rem; }
+.resa-form legend { padding: 0 .5rem; font: var(--head-weight) 1.3rem var(--font-head); color: var(--ink); }
+.resa-form label { display: block; font-size: .9rem; color: var(--muted); margin-bottom: .8rem; }
+.resa-form label small { color: var(--muted); font-size: .8rem; }
+.resa-form input:not([type=radio]):not([type=checkbox]), .resa-form select, .resa-form textarea { display: block; width: 100%; margin-top: .2rem; padding: .6rem .75rem; border: 1px solid var(--line); border-radius: var(--radius); font: 1rem var(--font-ui); color: var(--ink); background: var(--bg); }
+.resa-form input[type=radio], .resa-form input[type=checkbox] { width: auto; margin: 0; accent-color: var(--accent); }
+.resa-form .two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.resa-form .opts { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .9rem; }
+.resa-form .opts label { display: flex; align-items: center; gap: .5rem; margin: 0; padding: .5rem .8rem; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); color: var(--ink); cursor: pointer; }
+.resa-form .opts label:has(input:checked) { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.resa-form .check { display: flex; gap: .6rem; align-items: flex-start; color: var(--ink); }
+.resa-form .check input { margin-top: .3rem; }
+.resa-form .bad { border-color: var(--danger) !important; outline: 2px solid var(--danger); }
+.resa-recap { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.2rem; position: sticky; top: 96px; }
+.resa-recap h3 { margin-top: 0; }
+.resa-recap .edit { display: inline-block; margin-top: .8rem; font-size: .9rem; }
+.done-view { max-width: 760px; font-family: var(--font-ui); }
+.done-view .actions { display: flex; flex-wrap: wrap; gap: .7rem; margin: 1rem 0; }
+.next-steps { padding-left: 1.2rem; }
+.next-steps li { margin: .5rem 0; }
+@media (max-width: 900px) {
+  .resa-grid { grid-template-columns: 1fr; }
+  .resa-recap { position: static; order: -1; }
+}
+@media (max-width: 560px) { .resa-form .two { grid-template-columns: 1fr; } }
+
+.resa-form [hidden], .resa [hidden] { display: none !important; }

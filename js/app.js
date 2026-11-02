@@ -13,127 +13,7 @@
     return n;
   };
 
-  /* ---------- Dates ---------- */
-  const pad = (n) => String(n).padStart(2, "0");
-  const iso = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-  const parse = (s) => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
-  const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
-  const today = iso(new Date());
-  const longDate = (s) => parse(s).toLocaleDateString("fr-FR", { weekday: "short", day: "numeric", month: "long", year: "numeric" });
-  const money = (n) => n.toLocaleString("fr-FR", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 }) + " " + P().currency;
-  const P = () => C.pricing;
-
-  /* ---------- Tarifs ---------- */
-  function seasonFor(dateIso) {
-    const md = dateIso.slice(5);
-    return P().seasons.find((s) => (s.from <= s.to ? md >= s.from && md <= s.to : md >= s.from || md <= s.to));
-  }
-  /* ---------- Jours fériés et ponts, calculés automatiquement ---------- */
-  function easter(y) {
-    const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25),
-      g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4,
-      l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451),
-      month = Math.floor((h + l - 7 * m + 114) / 31), day = ((h + l - 7 * m + 114) % 31) + 1;
-    return new Date(y, month - 1, day);
-  }
-  const HOLIDAY_LABEL = { "Jour de l'an": "Nouvel an", "Lundi de Pâques": "Week-end de Pâques", "Fête du Travail": "Pont du 1er mai", "Victoire 1945": "Pont du 8 mai",
-    "Ascension": "Pont de l'Ascension", "Lundi de Pentecôte": "Week-end de Pentecôte", "Fête nationale": "Pont du 14 juillet", "Assomption": "Pont du 15 août",
-    "Toussaint": "Pont de la Toussaint", "Armistice": "Pont du 11 novembre", "Noël": "Noël" };
-  let holidayCache = null;
-  function holidayMap() {
-    if (holidayCache) return holidayCache;
-    const hp = P().holidayPricing;
-    holidayCache = new Map();
-    if (!hp) return holidayCache;
-    const put = (d, name, year, nightly) => {
-      const k = iso(d), cur = holidayCache.get(k);
-      if (!cur || nightly > cur.nightly) holidayCache.set(k, { name: `${HOLIDAY_LABEL[name] || name} ${year}`, nightly, minNights: hp.minNights ?? P().minNights });
-    };
-    const y0 = new Date().getFullYear() - 1;
-    for (let y = y0; y <= y0 + 8; y++) {
-      const e = easter(y);
-      const list = [["Jour de l'an", new Date(y, 0, 1)], ["Lundi de Pâques", addDays(e, 1)], ["Fête du Travail", new Date(y, 4, 1)], ["Victoire 1945", new Date(y, 4, 8)],
-        ["Ascension", addDays(e, 39)], ["Lundi de Pentecôte", addDays(e, 50)], ["Fête nationale", new Date(y, 6, 14)], ["Assomption", new Date(y, 7, 15)],
-        ["Toussaint", new Date(y, 10, 1)], ["Armistice", new Date(y, 10, 11)], ["Noël", new Date(y, 11, 25)]];
-      list.forEach(([name, h]) => {
-        const price = (hp.byName && hp.byName[name]) ?? hp.nightly;
-        let from, to;                           // décalages en jours par rapport au jour férié (nuits)
-        if (name === "Noël") [from, to] = [-1, 0];
-        else if (name === "Jour de l'an") [from, to] = [-2, -1];
-        else {
-          const wd = h.getDay();
-          if (wd === 1) [from, to] = [-3, -1];  // lundi : du vendredi au dimanche soir
-          else if (wd === 2) [from, to] = [-4, -1]; // mardi : pont du lundi
-          else if (wd === 4) [from, to] = [-1, 2];  // jeudi : pont du vendredi
-          else if (wd === 5) [from, to] = [-1, 1];  // vendredi : week-end long
-          else return;                           // mercredi, samedi, dimanche : pas de pont
-        }
-        for (let k = from; k <= to; k++) put(addDays(h, k), name, name === "Jour de l'an" ? `${y - 1}-${y}` : y, price);
-      });
-    }
-    return holidayCache;
-  }
-
-  function periodFor(dateIso) {
-    const sp = (P().specialDates || []).find((x) => dateIso >= x.from && dateIso <= x.to);
-    if (sp) return { name: sp.name, nightly: sp.nightly, minNights: sp.minNights ?? P().minNights };
-    const ho = holidayMap().get(dateIso);
-    if (ho) return ho;
-    const se = seasonFor(dateIso);
-    if (se) return { name: se.name, nightly: se.nightly, minNights: se.minNights ?? P().minNights };
-    return { name: P().defaultName || "Autres périodes", nightly: P().defaultNightly, minNights: P().minNights };
-  }
-  const nightlyFor = (d) => periodFor(d).nightly;
-  const minNightsFor = (d) => periodFor(d).minNights;
-
-  function nightsBetween(a, b) {
-    const out = [];
-    for (let d = parse(a); iso(d) < b; d = addDays(d, 1)) out.push(iso(d));
-    return out;
-  }
-
-  function durationCoef(n) {
-    const r = (P().durationCoefficients || []).find((c) => n >= c.from && (c.to == null || n <= c.to));
-    return r ? r.coef : 1;
-  }
-  const pct = (coef) => { const v = Math.round((coef - 1) * 1000) / 10; return (v > 0 ? "+" : "") + String(v).replace(".", ",") + " %"; };
-
-  function quote(start, end, guests, minors = 0, chosen = {}) {
-    const nights = nightsBetween(start, end);
-    const groups = new Map();
-    nights.forEach((n) => {
-      const p = periodFor(n), key = p.name + "|" + p.nightly;
-      if (!groups.has(key)) groups.set(key, { name: p.name, nightly: p.nightly, count: 0 });
-      groups.get(key).count++;
-    });
-    const lodging = nights.reduce((sum, d) => sum + nightlyFor(d), 0);
-    const extraGuests = Math.max(0, guests - P().baseGuests);
-    const extra = extraGuests * P().extraGuestPerNight * nights.length;
-    const coef = durationCoef(nights.length);
-    const adjustment = Math.round((lodging + extra) * (coef - 1) * 100) / 100;
-    const adults = Math.max(0, guests - minors);
-    const tax = P().touristTaxPerPersonNight * adults * nights.length;
-    const options = (P().extras || []).map((x) => {
-      const qty = chosen[x.id] || 0;
-      return qty ? { label: x.label, qty, amount: x.price * qty * (x.per === "night" ? nights.length : 1) } : null;
-    }).filter(Boolean);
-    const optionsTotal = options.reduce((a, o) => a + o.amount, 0);
-    const total = lodging + extra + adjustment + P().cleaningFee + optionsTotal + tax;
-    const deposit = P().depositPercent ? Math.round(total * P().depositPercent) / 100 : 0;
-    return { nights, groups: [...groups.values()], lodging, extraGuests, extra, coef, adjustment, adults, tax, options, cleaning: P().cleaningFee, total, deposit };
-  }
-
-  // Lignes du devis, utilisées à l'écran et dans le message envoyé
-  function quoteRows(q) {
-    const plural = (n, w) => `${n} ${w}${n > 1 ? "s" : ""}`;
-    const rows = q.groups.map((g) => [`${plural(g.count, "nuit")} · ${g.name} (${money(g.nightly)} par nuit)`, money(g.count * g.nightly)]);
-    if (q.extraGuests) rows.push([`${plural(q.extraGuests, "voyageur")} en plus · ${money(P().extraGuestPerNight)} par nuit et par personne`, money(q.extra)]);
-    if (q.adjustment) rows.push([`Durée du séjour, ${plural(q.nights.length, "nuit")} (${pct(q.coef)})`, (q.adjustment > 0 ? "+" : "") + money(q.adjustment)]);
-    if (q.cleaning) rows.push(["Frais de ménage", money(q.cleaning)]);
-    q.options.forEach((o) => rows.push([o.qty > 1 ? `${o.label} × ${o.qty}` : o.label, o.amount ? money(o.amount) : "offert"]));
-    rows.push([`Taxe de séjour (${plural(q.adults, "adulte")})`, money(q.tax)]);
-    return rows;
-  }
+  const { iso, parse, addDays, today, longDate, money, P, holidayMap, periodFor, nightlyFor, minNightsFor, nightsBetween, pct, quote, quoteRows } = window.GitePricing;
 
   /* ---------- Disponibilités ---------- */
   const blocked = new Set(); // nuits occupées (date de la nuit)
@@ -200,10 +80,19 @@
     // Galerie et visionneuse
     const lb = $("#lightbox"), lbImg = lb.querySelector("img");
     let cur = 0;
-    const show = (i) => { cur = (i + C.photos.length) % C.photos.length; lbImg.src = C.photos[cur].src; lbImg.alt = C.photos[cur].alt; };
+    const show = (i) => {
+      cur = (i + C.photos.length) % C.photos.length;
+      lbImg.src = C.photos[cur].src; lbImg.alt = C.photos[cur].alt;
+      $("#lb-cap").textContent = `${C.photos[cur].alt} (${cur + 1} sur ${C.photos.length})`;
+    };
+    let x0 = null;
+    lb.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener("touchend", (e) => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1)); x0 = null; });
     C.photos.forEach((p, i) => $("#gallery").append(
       el("button", { type: "button", "data-caption": p.alt, "aria-label": "Agrandir : " + p.alt, onclick: () => { show(i); lb.showModal(); } },
         el("img", { src: p.src, alt: p.alt, loading: "lazy" }))));
+    const n = C.photos.length;   // 3 colonnes si possible, sinon 2 : jamais de photo seule sur la dernière ligne
+    $("#gallery").style.setProperty("--cols", n % 3 === 0 ? 3 : n % 2 === 0 ? 2 : 3);
     lb.querySelector(".lb-close").onclick = () => lb.close();
     $("#lb-prev").onclick = () => show(cur - 1);
     $("#lb-next").onclick = () => show(cur + 1);
@@ -235,8 +124,8 @@
     const facts = [`${s.capacity} personnes`, `${s.bedrooms} chambres, ${s.beds} lits`, `${s.bathrooms} salle${s.bathrooms > 1 ? "s" : ""} de bain, ${s.toilets} WC`, `${s.surface} m²`, `Arrivée ${s.checkIn}`, `Départ ${s.checkOut}`];
     $("#keyfacts").append(el("ul", {}, facts.map((t) => el("li", {}, t))),
       el("div", { class: "btns" }, el("a", { class: "btn", href: "#reservation" }, "Voir les disponibilités"), el("a", { class: "btn ghost", href: "#contact" }, "Nous contacter")));
-    const ph = C.photos[1] || C.photos[0];
-    if (ph) $("#gite-banner").append(el("img", { src: ph.src, alt: ph.alt, loading: "lazy" }));
+    [C.photos[1], C.photos[2]].filter(Boolean).forEach((ph) => $("#gite-banner").append(el("img", { src: ph.src, alt: ph.alt, loading: "lazy" })));
+    $("#m-tel").href = "tel:" + K.phone.replace(/\s/g, "");
 
     renderRates();
   }
@@ -294,12 +183,13 @@
         const day = iso(new Date(first.getFullYear(), first.getMonth(), d));
         const cls = ["day"];
         const isStart = day === state.start, isEnd = day === state.end;
+        if (day >= today && !blocked.has(day) && nightlyFor(day) > P().defaultNightly) cls.push("special");
         if (day < today) cls.push("past");
         else if (isStart) cls.push("start");
         else if (isEnd) cls.push("end");
         else if (state.start && state.end && day > state.start && day < state.end) cls.push("range");
         else if (blocked.has(day)) cls.push("booked");
-        const btn = el("button", { type: "button", class: cls.join(" "), "aria-label": longDate(day) + (blocked.has(day) ? ", occupé" : ""), onclick: () => pick(day) }, String(d));
+        const btn = el("button", { type: "button", class: cls.join(" "), "aria-label": longDate(day) + (blocked.has(day) ? ", occupé" : cls.includes("special") ? ", tarif majoré " + periodFor(day).name : ""), title: cls.includes("special") ? periodFor(day).name + " : " + money(nightlyFor(day)) + " la nuit" : null, onclick: () => pick(day) }, String(d));
         if (day < today) btn.disabled = true;
         grid.append(btn);
       }
@@ -329,6 +219,9 @@
       return;
     }
     update();
+    if (state.start && state.end && !validity() && matchMedia("(max-width: 900px)").matches) {
+      $("#booking-form").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }
 
   function validity() {
@@ -399,53 +292,19 @@
     $("#prev").onclick = () => { state.offset = Math.max(0, state.offset - 1); renderCalendar(); };
     $("#next").onclick = () => { state.offset = Math.min(MAX_OFFSET, state.offset + 1); renderCalendar(); };
 
-    $("#booking-form").addEventListener("submit", async (e) => {
+    $("#booking-form").addEventListener("submit", (e) => {
       e.preventDefault();
-      const f = e.target, status = $("#form-status");
-      const say = (t, ok) => { status.textContent = t; status.className = "status " + (ok ? "ok" : "err"); };
-      if (f.website.value) return; // piège anti-robot
-      if (!state.start || !state.end) return say("Choisissez vos dates sur le calendrier.", false);
+      const status = $("#form-status");
+      const say = (t) => { status.textContent = t; status.className = "status err"; };
+      if (!state.start || !state.end) return say("Choisissez vos dates sur le calendrier.");
       const problem = validity();
-      if (problem) return say(problem, false);
-      if (!f.name.value.trim() || !/^\S+@\S+\.\S+$/.test(f.email.value)) return say("Indiquez votre nom et une adresse mail valide.", false);
-
-      const guests = +f.guests.value;
-      const q = quote(state.start, state.end, guests, +f.minors.value || 0, chosenExtras());
-      const body = [
-        `Demande de réservation pour ${C.name}`,
-        `Arrivée : ${longDate(state.start)}`,
-        `Départ : ${longDate(state.end)} (${q.nights.length} nuits)`,
-        `Voyageurs : ${guests} (dont ${f.minors.value} de moins de 18 ans)`,
-        "",
-        "Devis estimatif :",
-        ...quoteRows(q).map(([l, v]) => `- ${l} : ${v}`),
-        `Total estimé TTC : ${money(q.total)}`,
-        q.deposit ? `Acompte (${P().depositPercent} %) : ${money(q.deposit)}` : "",
-        "",
-        `Nom : ${f.name.value}`,
-        `Mail : ${f.email.value}`,
-        `Téléphone : ${f.phone.value || "non renseigné"}`,
-        `Message : ${f.message.value || "aucun"}`
-      ].join("\n");
-
-      if (!C.contact.formEndpoint) {
-        location.href = `mailto:${C.contact.email}?subject=${encodeURIComponent("Demande de réservation du " + state.start + " au " + state.end)}&body=${encodeURIComponent(body)}`;
-        return say("Votre messagerie s'ouvre avec la demande préremplie : il ne reste qu'à l'envoyer.", true);
-      }
-      const btn = f.querySelector("button[type=submit]");
-      btn.disabled = true;
-      try {
-        const res = await fetch(C.contact.formEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({ name: f.name.value, email: f.email.value, phone: f.phone.value, message: body })
-        });
-        if (!res.ok) throw new Error(res.status);
-        say("Demande envoyée. Nous vous répondons rapidement par mail.", true);
-        f.reset(); state.start = state.end = null; update();
-      } catch (err) {
-        say(`L'envoi a échoué. Écrivez-nous directement à ${C.contact.email}.`, false);
-      } finally { btn.disabled = false; }
+      if (problem) return say(problem);
+      const extras = Object.entries(chosenExtras()).filter(([, n]) => n).map(([k, n]) => `${k}:${n}`).join(",");
+      const q = new URLSearchParams({ in: state.start, out: state.end, g: $("#guests").value, m: $("#minors").value || "0" });
+      if (extras) q.set("x", extras);
+      const theme = new URLSearchParams(location.search).get("theme");
+      if (theme) q.set("theme", theme);
+      location.href = "reservation.html?" + q.toString();
     });
   }
 
@@ -488,6 +347,21 @@
     }));
   }
 
+  /* ---------- Menu : met en avant la section affichée ---------- */
+  function navSpy() {
+    if (!("IntersectionObserver" in window)) return;
+    const links = [...document.querySelectorAll("#nav a[href^='#']")];
+    const map = new Map(links.map((a) => [a.getAttribute("href").slice(1), a]));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        links.forEach((a) => a.classList.remove("active"));
+        const a = map.get(e.target.id); if (a) a.classList.add("active");
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    map.forEach((_, id) => { const sec = document.getElementById(id); if (sec) io.observe(sec); });
+  }
+
   /* ---------- Démarrage ---------- */
   themeSwitcher();
   renderStatic();
@@ -495,4 +369,5 @@
   renderCalendar();
   loadAvailability().then(update);
   scrollReveal();
+  navSpy();
 })();

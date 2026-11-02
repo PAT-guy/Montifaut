@@ -5,12 +5,6 @@
 
 /* ---------- Sologne : titre d'abord, photo pleine largeur, mosaïque ---------- */
 [data-theme="sologne"] .hero h1 { font-size: clamp(3rem, 9vw, 6.2rem); line-height: .95; letter-spacing: -.015em; }
-[data-theme="sologne"] .gallery { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 190px; }
-[data-theme="sologne"] .gallery img { height: 100%; aspect-ratio: auto; }
-[data-theme="sologne"] .gallery button:nth-child(6n+1) { grid-column: span 2; grid-row: span 2; }
-[data-theme="sologne"] .gallery button:nth-child(6n) { grid-column: span 4; }
-[data-theme="sologne"] .gallery button:last-child:nth-child(6n+1) { grid-column: span 4; grid-row: span 1; }
-[data-theme="sologne"] .gallery button:last-child:nth-child(6n+4) { grid-column: span 2; }
 [data-theme="sologne"] .rules { columns: 2; column-gap: 4rem; }
 [data-theme="sologne"] .rules div { break-inside: avoid; }
 @media (min-width: 701px) {
@@ -19,8 +13,6 @@
   [data-theme="sologne"] nav { flex-wrap: wrap; justify-content: center; gap: .3rem 1.8rem; font-size: .9rem; }
 }
 @media (max-width: 900px) {
-  [data-theme="sologne"] .gallery { grid-template-columns: repeat(2, 1fr); }
-  [data-theme="sologne"] .gallery button:nth-child(6n) { grid-column: span 2; }
   [data-theme="sologne"] .rules { columns: 1; }
 }
 
@@ -28,7 +20,7 @@
 [data-theme="chasse"] .topbar { border-bottom: 2px solid var(--accent); }
 [data-theme="chasse"] .card { border-top-color: var(--accent); }
 [data-theme="chasse"] .gallery { grid-template-columns: repeat(3, 1fr); }
-[data-theme="chasse"] .gallery img { aspect-ratio: 1; }
+[data-theme="chasse"] .gallery img { aspect-ratio: 4 / 3; }
 [data-theme="chasse"] .rules { max-width: 860px; counter-reset: r; }
 [data-theme="chasse"] .rules div { display: grid; grid-template-columns: 9rem 1fr; gap: 1.5rem; counter-increment: r; }
 [data-theme="chasse"] .rules dt::before { content: "Article " counter(r, upper-roman); display: block; font: 400 .85rem var(--font-ui); color: var(--accent); }
@@ -38,7 +30,6 @@
   [data-theme="chasse"] .hero::after { height: auto; }
 }
 @media (max-width: 900px) {
-  [data-theme="chasse"] .gallery { grid-template-columns: repeat(2, 1fr); }
   [data-theme="chasse"] .rules div { grid-template-columns: 1fr; gap: .3rem; }
 }
 
@@ -60,12 +51,6 @@
 [data-theme="tradition"] .hero .btn:hover { background: #c79c52; }
 [data-theme="tradition"] h2 { color: var(--accent-dark); }
 [data-theme="tradition"] .card { border-top-color: #b08a45; border-top-width: 2px; }
-[data-theme="tradition"] .gallery { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 190px; }
-[data-theme="tradition"] .gallery img { height: 100%; aspect-ratio: auto; }
-[data-theme="tradition"] .gallery button:nth-child(6n+1) { grid-column: span 2; grid-row: span 2; }
-[data-theme="tradition"] .gallery button:nth-child(6n) { grid-column: span 4; }
-[data-theme="tradition"] .gallery button:last-child:nth-child(6n+1) { grid-column: span 4; grid-row: span 1; }
-[data-theme="tradition"] .gallery button:last-child:nth-child(6n+4) { grid-column: span 2; }
 [data-theme="tradition"] .rules { max-width: 860px; counter-reset: r; }
 [data-theme="tradition"] .rules div { display: grid; grid-template-columns: 9rem 1fr; gap: 1.5rem; counter-increment: r; }
 [data-theme="tradition"] .rules dt::before { content: "Article " counter(r, upper-roman); display: block; font: 400 .85rem var(--font-ui); color: #8a2f22; }
@@ -79,8 +64,6 @@
   [data-theme="tradition"] .hero::after { height: auto; }
 }
 @media (max-width: 900px) {
-  [data-theme="tradition"] .gallery { grid-template-columns: repeat(2, 1fr); }
-  [data-theme="tradition"] .gallery button:nth-child(6n) { grid-column: span 2; }
   [data-theme="tradition"] .rules div { grid-template-columns: 1fr; gap: .3rem; }
 }
 
@@ -121,7 +104,7 @@
 [data-theme="domaine"] .feat p { margin: 0; font-weight: 400; color: var(--muted); }
 
 [data-theme="domaine"] .gite-banner { margin: 0 0 2.5rem; }
-[data-theme="domaine"] .gite-banner img { width: 100%; height: 340px; object-fit: cover; border-radius: 20px; }
+
 [data-theme="domaine"] .two-col { grid-template-columns: 1fr 1fr; }
 [data-theme="domaine"] .keyfacts { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 1.5rem 1.6rem; margin-bottom: 1.6rem; }
 [data-theme="domaine"] .keyfacts ul { list-style: none; margin: 0 0 1.3rem; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: .7rem 1.2rem; font: 500 .98rem var(--font-ui); }
@@ -133,13 +116,7 @@
 [data-theme="domaine"] .card { background: var(--card); border: 0; border-radius: 16px; padding: 1.3rem 1.4rem; }
 [data-theme="domaine"] .card .dist { color: #a08050; font: 700 .72rem var(--font-ui); letter-spacing: .15em; text-transform: uppercase; margin-bottom: .3rem; }
 [data-theme="domaine"] .band { background: var(--band); }
-[data-theme="domaine"] .gallery { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 190px; gap: 12px; }
 [data-theme="domaine"] .gallery button { border-radius: 16px; }
-[data-theme="domaine"] .gallery img { height: 100%; aspect-ratio: auto; }
-[data-theme="domaine"] .gallery button:nth-child(6n+1) { grid-column: span 2; grid-row: span 2; }
-[data-theme="domaine"] .gallery button:nth-child(6n) { grid-column: span 4; }
-[data-theme="domaine"] .gallery button:last-child:nth-child(6n+1) { grid-column: span 4; grid-row: span 1; }
-[data-theme="domaine"] .gallery button:last-child:nth-child(6n+4) { grid-column: span 2; }
 [data-theme="domaine"] .day { border-radius: 8px; }
 [data-theme="domaine"] .dates > div { border-radius: 10px; }
 [data-theme="domaine"] .rules { max-width: 860px; }
@@ -148,8 +125,6 @@
 
 @media (max-width: 1000px) {
   [data-theme="domaine"] .feat-grid { grid-template-columns: 1fr 1fr; }
-  [data-theme="domaine"] .gallery { grid-template-columns: repeat(2, 1fr); }
-  [data-theme="domaine"] .gallery button:nth-child(6n) { grid-column: span 2; }
 }
 @media (max-width: 900px) {
   [data-theme="domaine"] .two-col { grid-template-columns: 1fr; }
@@ -166,4 +141,19 @@
 
 @media (min-width: 701px) {
   [data-theme="domaine"] nav { gap: 1.2rem; }
+}
+
+/* ---------- Galeries : photos en 4:3, jamais recadrées ---------- */
+[data-theme="sologne"] .gallery, [data-theme="tradition"] .gallery, [data-theme="domaine"] .gallery, [data-theme="chasse"] .gallery { grid-template-columns: repeat(var(--cols, 3), 1fr); gap: 12px; }
+[data-theme="sologne"] .gallery img, [data-theme="tradition"] .gallery img, [data-theme="domaine"] .gallery img { aspect-ratio: 4 / 3; height: auto; }
+[data-theme="domaine"] .gallery button { border-radius: 16px; box-shadow: 0 2px 10px rgba(35,55,38,.12); transition: transform .25s, box-shadow .25s; }
+[data-theme="domaine"] .gallery button:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(35,55,38,.2); }
+[data-theme="domaine"] .gite-banner { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+[data-theme="domaine"] .gite-banner img { width: 100%; aspect-ratio: 4 / 3; height: auto; object-fit: cover; border-radius: 18px; }
+@media (max-width: 900px) {
+  [data-theme="sologne"] .gallery, [data-theme="tradition"] .gallery, [data-theme="domaine"] .gallery, [data-theme="chasse"] .gallery { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  [data-theme="sologne"] .gallery, [data-theme="tradition"] .gallery, [data-theme="domaine"] .gallery, [data-theme="chasse"] .gallery { grid-template-columns: 1fr; }
+  [data-theme="domaine"] .gite-banner { grid-template-columns: 1fr; }
 }

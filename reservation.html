@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Finaliser ma réservation | Gîte de Montifaut</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Caveat:wght@600&family=Cormorant+Garamond:wght@600;700&family=Fraunces:wght@500;600&family=Lora:wght@400;600&family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600;700&family=Raleway:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="css/themes.css?v=30">
+  <script src="js/config.js?v=30"></script>
+  <script>
+    var theme = new URLSearchParams(location.search).get("theme") || window.GITE_CONFIG.theme || "sologne";
+    document.documentElement.dataset.theme = theme;
+    (theme === "champetre" ? ["champetre"] : ["style", "layouts"]).forEach(function (f) {
+      document.write('<link rel="stylesheet" href="css/' + f + '.css?v=30">');
+    });
+  </script>
+</head>
+<body class="resa-page">
+  <div class="utility only-domaine">
+    <span id="u-addr"></span>
+    <a href="index.html#reservation">Retour au calendrier</a>
+    <a id="u-tel"></a>
+  </div>
+  <header class="topbar" id="top">
+    <a class="brand" href="index.html" id="brand"></a>
+    <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    <nav id="nav">
+      <a href="index.html#gite">Le gîte</a>
+      <a href="index.html#photos">Photos</a>
+      <a href="index.html#reservation">Tarifs</a>
+      <a href="index.html#decouvrir">Alentours</a>
+      <a href="index.html#faq">Questions</a>
+      <a href="index.html#reglement">Règlement</a>
+      <a href="index.html#acces">Accès</a>
+      <a href="index.html#contact" class="cta">Contact</a>
+    </nav>
+    <a class="book only-domaine" href="index.html#reservation">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+      <span>Modifier mes dates</span>
+    </a>
+  </header>
+
+  <main class="wrap resa">
+    <h2 data-eyebrow="Réservation">Finaliser votre demande</h2>
+    <ol class="stepper" aria-label="Étapes">
+      <li class="done"><span>1</span>Dates et devis</li>
+      <li class="now"><span>2</span>Votre séjour</li>
+      <li><span>3</span>Confirmation</li>
+    </ol>
+
+    <div id="problem" class="notice" hidden></div>
+
+    <div class="resa-grid" id="resa-grid">
+      <form class="resa-form" id="resa-form" novalidate>
+        <fieldset>
+          <legend>1. Vos coordonnées</legend>
+          <label>Nom et prénom <input name="name" required autocomplete="name"></label>
+          <div class="two">
+            <label>Adresse mail <input name="email" type="email" required autocomplete="email"></label>
+            <label>Téléphone <input name="phone" type="tel" required autocomplete="tel"></label>
+          </div>
+          <label>Adresse postale <small>(pour le contrat de location)</small>
+            <textarea name="address" rows="2" autocomplete="street-address"></textarea></label>
+          <div class="opts" role="radiogroup" aria-label="Vous réservez en tant que">
+            <label><input type="radio" name="kind" value="Particulier" checked>Particulier</label>
+            <label><input type="radio" name="kind" value="Entreprise">Entreprise ou association</label>
+          </div>
+          <label id="company-row" hidden>Nom de l'entreprise ou de l'association <input name="company"></label>
+        </fieldset>
+
+        <fieldset>
+          <legend>2. Votre séjour</legend>
+          <label>Motif du séjour
+            <select name="reason">
+              <option value="">Choisir</option>
+              <option>Vacances en famille</option>
+              <option>Week-end entre amis</option>
+              <option>Anniversaire ou repas de famille</option>
+              <option>Séjour professionnel ou séminaire</option>
+              <option>Week-end de chasse</option>
+              <option>Autre</option>
+            </select>
+          </label>
+          <label>Heure d'arrivée prévue <small>(arrivée autonome avec boîte à clés)</small>
+            <select name="arrival">
+              <option value="">Je ne sais pas encore</option>
+              <option>Entre 16h et 18h</option>
+              <option>Entre 18h et 20h</option>
+              <option>Après 20h</option>
+            </select>
+          </label>
+          <label id="kids-row" hidden>Âge des enfants <small>(utile pour le lit bébé, les jeux et la sécurité)</small>
+            <input name="kids" placeholder="Par exemple : 3 ans, 7 ans, 12 ans"></label>
+          <label id="dogs-row" hidden>Chiens : race et taille <small>(pour le chenil)</small>
+            <input name="dogs" placeholder="Par exemple : labrador, 30 kg"></label>
+          <label>Besoins particuliers <small>(régime alimentaire, mobilité réduite, allergies)</small>
+            <textarea name="needs" rows="2"></textarea></label>
+        </fieldset>
+
+        <fieldset>
+          <legend>3. Fêtes et événements</legend>
+          <p class="fine">Les anniversaires et repas de famille sont bienvenus. Les mariages et les soirées dansantes ne sont pas autorisés. Calme demandé après 22h.</p>
+          <div class="opts" role="radiogroup" aria-label="Fête prévue">
+            <label><input type="radio" name="party" value="Pas de fête" checked>Pas de fête</label>
+            <label><input type="radio" name="party" value="Anniversaire ou repas de famille">Anniversaire ou repas de famille</label>
+            <label><input type="radio" name="party" value="Autre événement à discuter">Autre, à discuter</label>
+          </div>
+          <label id="guests-row" hidden>Nombre de personnes extérieures au séjour <small>(invités à la journée)</small>
+            <input name="visitors" type="number" min="0" max="60" inputmode="numeric"></label>
+        </fieldset>
+
+        <fieldset>
+          <legend>4. Paiement</legend>
+          <label>Moyen de paiement souhaité pour l'acompte
+            <select name="pay">
+              <option value="">À discuter</option>
+              <option>Virement bancaire</option>
+              <option>Chèque</option>
+              <option>Carte bancaire, par lien de paiement</option>
+              <option>Chèques-vacances ANCV</option>
+            </select>
+          </label>
+          <p class="fine" id="pay-note"></p>
+        </fieldset>
+
+        <fieldset>
+          <legend>5. Un mot pour nous</legend>
+          <label>Message <small>(facultatif)</small>
+            <textarea name="message" rows="3" placeholder="Une question, une demande, une occasion à fêter..."></textarea></label>
+          <label class="check"><input type="checkbox" name="rules" required>
+            <span>J'ai lu le <a href="index.html#reglement" target="_blank" rel="noopener">règlement intérieur</a> et les conditions d'annulation (gratuite jusqu'à 14 jours avant l'arrivée).</span></label>
+          <label class="check"><input type="checkbox" name="rgpd" required>
+            <span>J'accepte que ces informations soient utilisées pour traiter ma demande de réservation.</span></label>
+          <label class="hp" aria-hidden="true">Ne pas remplir <input name="website" tabindex="-1" autocomplete="off"></label>
+        </fieldset>
+
+        <button class="btn block" type="submit" id="send">Envoyer ma demande</button>
+        <p class="status" id="form-status" role="status"></p>
+      </form>
+
+      <aside class="resa-recap" id="recap">
+        <h3>Votre séjour</h3>
+        <div class="dates">
+          <div><span class="lbl">Arrivée</span><strong id="r-in"></strong></div>
+          <div><span class="lbl">Départ</span><strong id="r-out"></strong></div>
+        </div>
+        <p class="fine" id="r-group"></p>
+        <div class="price-lines" id="r-lines"></div>
+        <a class="edit" href="index.html#reservation">Modifier mes dates ou mon groupe</a>
+      </aside>
+    </div>
+
+    <section class="done-view" id="done" hidden>
+      <h3 id="done-title"></h3>
+      <p id="done-lead"></p>
+      <div class="actions">
+        <a class="btn" id="open-mail" hidden>Ouvrir mon mail</a>
+        <button class="btn ghost" id="copy" type="button">Copier le récapitulatif</button>
+        <a class="btn ghost" href="index.html">Retour au site</a>
+      </div>
+      <p class="status ok" id="copy-msg"></p>
+      <h4>Ce qui se passe ensuite</h4>
+      <ol class="next-steps" id="next-steps"></ol>
+    </section>
+  </main>
+
+  <footer><p id="footer-text"></p></footer>
+
+  <script src="js/pricing.js?v=30"></script>
+  <script src="js/reservation.js?v=30"></script>
+</body>
+</html>
