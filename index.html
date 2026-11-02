@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gîte de Montifaut | Location de vacances</title>
-  <meta name="description" content="Location d'un gîte de campagne pour 6 personnes : photos, disponibilités, tarifs, activités, visites et réservation en ligne.">
+  <title>Gîte des Communs de Montifaut | Location de vacances en Sologne</title>
+  <meta name="description" content="Gîte des Communs de Montifaut à Selles-Saint-Denis, en Sologne : location de vacances pour 10 personnes, photos, disponibilités, tarifs, activités et réservation.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Caveat:wght@600&family=Cormorant+Garamond:wght@600;700&family=Fraunces:wght@500;600&family=Lora:wght@400;600&family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600;700&family=Raleway:wght@300;400;500;600&display=swap">
-  <link rel="stylesheet" href="css/themes.css?v=30">
-  <script src="js/config.js?v=30"></script>
+  <link rel="stylesheet" href="css/themes.css?v=33">
+  <script src="js/config.js?v=33"></script>
   <script>
     var theme = new URLSearchParams(location.search).get("theme") || window.GITE_CONFIG.theme || "sologne";
     document.documentElement.dataset.theme = theme;
     // Le Champêtre a sa propre feuille de style complète ; les autres thèmes partagent style.css et layouts.css
     (theme === "champetre" ? ["champetre", "motion"] : ["style", "layouts", "motion"]).forEach(function (f) {
-      document.write('<link rel="stylesheet" href="css/' + f + '.css?v=30">');
+      document.write('<link rel="stylesheet" href="css/' + f + '.css?v=33">');
     });
     </script>
 </head>
@@ -132,6 +132,10 @@
       <div class="cards" id="activities"></div>
       <h3>Lieux à visiter</h3>
       <div class="cards" id="visits"></div>
+      <h3>Commerces</h3>
+      <div class="cards" id="shops"></div>
+      <h3>Restaurants</h3>
+      <div class="cards" id="restos"></div>
     </section>
 
     <section id="faq" class="wrap">
@@ -162,12 +166,14 @@
       <div class="contact-cards">
         <a class="card contact" id="c-phone"></a>
         <a class="card contact" id="c-mail"></a>
+        <a class="card contact" id="c-wa" target="_blank" rel="noopener"></a>
       </div>
     </section>
   </main>
 
   <footer>
     <p id="footer-text"></p>
+    <p><a href="mentions-legales.html">Mentions légales et confidentialité</a></p>
   </footer>
 
   <div class="mobile-cta" id="mobile-cta">
@@ -185,7 +191,7 @@
     </div>
   </dialog>
 
-  <script src="js/pricing.js?v=30"></script>
-  <script src="js/app.js?v=30"></script>
+  <script src="js/pricing.js?v=33"></script>
+  <script src="js/app.js?v=33"></script>
 </body>
 </html>

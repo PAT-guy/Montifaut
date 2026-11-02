@@ -40,7 +40,7 @@
   /* ---------- Contenu statique ---------- */
   function renderStatic() {
     document.title = C.name + " | Location de vacances";
-    $("#brand").textContent = C.name;
+    $("#brand").textContent = C.shortName || C.name;
     const h1 = $("#hero-title");
     if (C.titleLight && C.titleStrong) h1.append(C.titleLight + " ", el("span", { class: "hl" }, C.titleStrong));
     else h1.textContent = C.name;
@@ -59,6 +59,8 @@
       el("span", { class: "dist" }, item.distance), el("h4", {}, item.title), el("p", {}, item.text));
     C.activities.forEach((a) => $("#activities").append(info(a)));
     C.visits.forEach((v) => $("#visits").append(info(v)));
+    (C.shops || []).forEach((v) => $("#shops").append(info(v)));
+    (C.restaurants || []).forEach((v) => $("#restos").append(info(v)));
 
     C.rules.forEach((r) => $("#rules").append(el("div", {}, el("dt", {}, r.title), el("dd", {}, r.text))));
 
@@ -70,11 +72,13 @@
     const dLat = 0.012, dLng = 0.02;
     $("#map").src = `https://www.openstreetmap.org/export/embed.html?bbox=${L.lng - dLng}%2C${L.lat - dLat}%2C${L.lng + dLng}%2C${L.lat + dLat}&layer=mapnik&marker=${L.lat}%2C${L.lng}`;
 
-    $("#contact-lead").textContent = "Nous répondons généralement sous 24 heures.";
+    $("#contact-lead").textContent = `${K.owner} vous répond généralement sous ${K.responseTime}. Nous parlons ${K.languages}.`;
     const phone = $("#c-phone"); phone.href = "tel:" + K.phone.replace(/\s/g, "");
     phone.append(el("small", {}, "Téléphone"), K.phone);
     const mail = $("#c-mail"); mail.href = "mailto:" + K.email;
     mail.append(el("small", {}, "Courriel"), K.email);
+    const wa = $("#c-wa");
+    if (K.whatsapp) { wa.href = "https://wa.me/" + K.whatsapp; wa.append(el("small", {}, "WhatsApp"), K.phone); } else wa.hidden = true;
     $("#footer-text").textContent = `© ${new Date().getFullYear()} ${C.name}${K.company ? ", exploité par " + K.company : ""}. Arrivée ${s.checkIn}, départ ${s.checkOut}.`;
 
     // Galerie et visionneuse
@@ -262,7 +266,7 @@
     row("Total estimé TTC", money(q.total), "total");
     if (q.deposit) {
       row(`Acompte à la réservation (${P().depositPercent} %)`, money(q.deposit), "sub");
-      row("Solde avant l'arrivée", money(q.total - q.deposit), "sub");
+      row(`Solde ${P().balanceDue || "avant l'arrivée"}`, money(q.total - q.deposit), "sub");
     }
   }
 

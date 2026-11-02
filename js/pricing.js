@@ -104,7 +104,7 @@
     const tax = P().touristTaxPerPersonNight * adults * nights.length;
     const options = (P().extras || []).map((x) => {
       const qty = chosen[x.id] || 0;
-      return qty ? { label: x.label, qty, amount: x.price * qty * (x.per === "night" ? nights.length : 1) } : null;
+      return qty ? { label: x.label, qty, onRequest: x.price == null, amount: (x.price || 0) * qty * (x.per === "night" ? nights.length : 1) } : null;
     }).filter(Boolean);
     const optionsTotal = options.reduce((a, o) => a + o.amount, 0);
     const total = lodging + extra + adjustment + P().cleaningFee + optionsTotal + tax;
@@ -119,7 +119,7 @@
     if (q.extraGuests) rows.push([`${plural(q.extraGuests, "voyageur")} en plus · ${money(P().extraGuestPerNight)} par nuit et par personne`, money(q.extra)]);
     if (q.adjustment) rows.push([`Durée du séjour, ${plural(q.nights.length, "nuit")} (${pct(q.coef)})`, (q.adjustment > 0 ? "+" : "") + money(q.adjustment)]);
     if (q.cleaning) rows.push(["Frais de ménage", money(q.cleaning)]);
-    q.options.forEach((o) => rows.push([o.qty > 1 ? `${o.label} × ${o.qty}` : o.label, o.amount ? money(o.amount) : "offert"]));
+    q.options.forEach((o) => rows.push([o.qty > 1 ? `${o.label} × ${o.qty}` : o.label, o.onRequest ? "sur demande" : o.amount ? money(o.amount) : "offert"]));
     rows.push([`Taxe de séjour (${plural(q.adults, "adulte")})`, money(q.tax)]);
     return rows;
   }

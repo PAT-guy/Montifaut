@@ -206,3 +206,6 @@ nav a.active { border-bottom: 2px solid var(--accent); }
 @media (max-width: 560px) { .resa-form .two { grid-template-columns: 1fr; } }
 
 .resa-form [hidden], .resa [hidden] { display: none !important; }
+
+footer a { color: inherit; }
+.legal { max-width: 820px; }

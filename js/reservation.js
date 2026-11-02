@@ -14,7 +14,7 @@
 
   const K = C.contact, L = C.location, S = C.stay;
   document.title = "Finaliser ma réservation | " + C.name;
-  $("#brand").textContent = C.name;
+  $("#brand").textContent = C.shortName || C.name;
   $("#u-addr").textContent = L.address;
   $("#u-tel").textContent = K.phone; $("#u-tel").href = "tel:" + K.phone.replace(/\s/g, "");
   $("#footer-text").textContent = `© ${new Date().getFullYear()} ${C.name}${K.company ? ", exploité par " + K.company : ""}.`;
@@ -55,9 +55,9 @@
   row("Total estimé TTC", money(qt.total), "total");
   if (qt.deposit) {
     row(`Acompte à la réservation (${P().depositPercent} %)`, money(qt.deposit), "sub");
-    row("Solde avant l'arrivée", money(qt.total - qt.deposit), "sub");
+    row(`Solde ${P().balanceDue || "avant l'arrivée"}`, money(qt.total - qt.deposit), "sub");
   }
-  $("#pay-note").textContent = `Acompte${qt.deposit ? " de " + money(qt.deposit) : ""} à la confirmation, solde 14 jours avant l'arrivée, caution de 800 € avant l'arrivée.`;
+  $("#pay-note").textContent = `Acompte${qt.deposit ? " de " + money(qt.deposit) : ""} à la confirmation, solde ${P().balanceDue || "avant l'arrivée"}, caution de ${P().securityDeposit} € avant l'arrivée.`;
 
   /* ---------- Champs conditionnels ---------- */
   const f = $("#resa-form");
@@ -146,10 +146,10 @@
   }
 
   const nextSteps = () => [
-    "Nous vérifions les dates et vous répondons sous 24 heures.",
+    `Nous vérifions les dates et vous répondons sous ${K.responseTime}.`,
     `Vous recevez le contrat de location et les modalités pour régler l'acompte${qt.deposit ? " de " + money(qt.deposit) : ""}. Les dates sont bloquées à réception.`,
-    `Le solde${qt.deposit ? " de " + money(qt.total - qt.deposit) : ""} est à régler 14 jours avant l'arrivée.`,
-    "Avant votre arrivée, vous recevez le code de la boîte à clés et les consignes. Une caution de 800 € est demandée.",
+    `Le solde${qt.deposit ? " de " + money(qt.total - qt.deposit) : ""} est à régler ${P().balanceDue || "avant l'arrivée"}.`,
+    `Avant votre arrivée, vous recevez le code de la boîte à clés et les consignes. Une caution de ${P().securityDeposit} € est demandée.`,
     "Pendant le séjour, nous restons joignables par téléphone."
   ];
 
