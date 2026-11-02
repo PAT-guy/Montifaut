@@ -172,15 +172,39 @@
 }
 
 /* ---------- Photos : coins arrondis, légèrement éclaircies, ombre douce ---------- */
-html[data-theme] .gallery button { border-radius: 22px; overflow: hidden; box-shadow: 0 8px 22px rgba(38,51,42,.15); transition: transform .3s ease, box-shadow .3s ease; }
+html[data-theme] .gallery button { border-radius: 16px; overflow: hidden; box-shadow: 0 8px 22px rgba(38,51,42,.15); transition: transform .3s ease, box-shadow .3s ease; }
 html[data-theme] .gallery button:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(38,51,42,.22); }
 html[data-theme] .gallery img, html[data-theme] .gite-banner img, #lightbox img { filter: brightness(1.1) contrast(.97) saturate(.93); }
 html[data-theme] .gallery img { transition: transform .6s ease; }
 html[data-theme] .gallery button:hover img { transform: scale(1.04); }
-html[data-theme] .gite-banner img { border-radius: 22px; box-shadow: 0 8px 22px rgba(38,51,42,.15); }
+html[data-theme] .gite-banner img { border-radius: 16px; box-shadow: 0 8px 22px rgba(38,51,42,.15); }
 #lightbox img { border-radius: 16px; }
 html[data-theme] .hero::after { filter: brightness(1.06) saturate(.95); }
 html[data-theme="sologne"] .hero::after, html[data-theme="tradition"] .hero::after { border-radius: 26px; }
 html[data-theme="sologne"] .hero { padding-bottom: 2.5rem; }
 html[data-theme="sologne"] .hero::after { margin: 0 max(16px, calc((100vw - 1100px) / 2 + 16px)); box-shadow: 0 12px 34px rgba(38,51,42,.2); }
 html[data-theme="chasse"] .gallery button, html[data-theme="tradition"] .gallery button { border-radius: 14px; }
+
+/* ---------- Finitions : hiérarchie de la galerie, air, filet doré, filigrane, titres en Cinzel ---------- */
+html[data-theme="sologne"] .gallery, html[data-theme="tradition"] .gallery, html[data-theme="domaine"] .gallery, html[data-theme="chasse"] .gallery { grid-template-columns: repeat(12, 1fr); gap: 14px; }
+html[data-theme="sologne"] .gallery button, html[data-theme="tradition"] .gallery button, html[data-theme="domaine"] .gallery button, html[data-theme="chasse"] .gallery button { grid-column: span 3; }
+html[data-theme="sologne"] .gallery button:nth-child(-n+2), html[data-theme="tradition"] .gallery button:nth-child(-n+2), html[data-theme="domaine"] .gallery button:nth-child(-n+2), html[data-theme="chasse"] .gallery button:nth-child(-n+2) { grid-column: span 6; }
+@media (max-width: 900px) {
+  html[data-theme] .gallery { grid-template-columns: repeat(2, 1fr) !important; }
+  html[data-theme] .gallery button, html[data-theme] .gallery button:nth-child(-n+2) { grid-column: span 1 !important; }
+  html[data-theme] .gallery button:nth-child(1) { grid-column: span 2 !important; }
+}
+@media (max-width: 560px) {
+  html[data-theme] .gallery { grid-template-columns: 1fr !important; }
+  html[data-theme] .gallery button:nth-child(1) { grid-column: span 1 !important; }
+}
+html[data-theme="sologne"] .wrap, html[data-theme="tradition"] .wrap, html[data-theme="domaine"] .wrap { padding-top: 5.5rem; padding-bottom: 5.5rem; }
+html[data-theme="sologne"] h2::after, html[data-theme="tradition"] h2::after, html[data-theme="domaine"] h2::after { content: ""; display: block; width: 64px; height: 2px; margin-top: .9rem; background: #c9a66b; border-radius: 2px; }
+html[data-theme="sologne"] #gite, html[data-theme="tradition"] #gite, html[data-theme="domaine"] #gite { position: relative; }
+html[data-theme="sologne"] #gite::before, html[data-theme="tradition"] #gite::before, html[data-theme="domaine"] #gite::before { content: ""; position: absolute; top: 3rem; right: max(16px, calc((100vw - 1100px) / 2 + 16px)); width: 190px; height: 210px; background: url("../images/logo/embleme-or.svg") center / contain no-repeat; opacity: .16; pointer-events: none; }
+@media (max-width: 700px) { html[data-theme] #gite::before { width: 110px; height: 120px; top: 2rem; } }
+html[data-theme="sologne"] h2, html[data-theme="tradition"] h2, html[data-theme="domaine"] h2, html[data-theme="sologne"] .hero h1, html[data-theme="tradition"] .hero h1, html[data-theme="sologne"] .brand span, html[data-theme="domaine"] .brand span, html[data-theme="tradition"] .brand span {
+  font-family: "Cinzel", "Cormorant Garamond", Georgia, serif; font-weight: 600; letter-spacing: .04em;
+}
+html[data-theme="sologne"] .hero h1 { font-size: clamp(2.4rem, 7vw, 5rem); letter-spacing: .02em; line-height: 1.05; }
+html[data-theme="sologne"] h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); }
