@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<title>Affiche A3, Gîte des Communs de Montifaut V0.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+@page { size: 297mm 420mm; margin: 0; }
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 297mm; height: 420mm; }
+body { background: #f3eee3; color: #26332a; font-family: "Josefin Sans", sans-serif; position: relative; overflow: hidden; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.frame { position: absolute; inset: 8mm; border: .8mm solid #c9a66b; }
+.frame::after { content: ""; position: absolute; inset: 1.8mm; border: .3mm solid #c9a66b; }
+.in { position: absolute; inset: 8mm; padding: 7mm 13mm 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.head { display: flex; align-items: center; gap: 10mm; width: 100%; justify-content: center; }
+.logo { width: 62mm; height: auto; }
+.title { text-align: left; }
+h1 { font: 600 12.5mm/1.12 "Cinzel", serif; letter-spacing: .01em; }
+.sub { font: italic 500 7mm "Cormorant Garamond", serif; color: #3e4a2e; margin-top: 2mm; }
+.sub2 { font-size: 4.4mm; letter-spacing: .12em; text-transform: uppercase; color: #8a6d3a; margin-top: 2.5mm; font-weight: 600; }
+.photos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.2mm; width: 100%; margin-top: 6mm; }
+.photos img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 3.5mm; filter: brightness(1.07); box-shadow: 0 1mm 3mm rgba(38,51,42,.22); display: block; }
+.photos .big { grid-column: span 2; grid-row: span 2; height: 100%; aspect-ratio: auto; }
+.facts { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3mm; width: 100%; margin-top: 6mm; }
+.fact { border-top: .5mm solid #c9a66b; padding-top: 2mm; }
+.fact b { display: block; font: 600 9.5mm "Cinzel", serif; color: #3e4a2e; }
+.fact span { font-size: 3.9mm; letter-spacing: .06em; text-transform: uppercase; }
+.cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7mm; width: 100%; margin-top: 6mm; text-align: left; }
+.cols h3 { font: 600 5.4mm "Cinzel", serif; color: #3e4a2e; border-bottom: .4mm solid #c9a66b; padding-bottom: 1.5mm; margin-bottom: 2.5mm; }
+.cols ul { list-style: none; padding: 0; font-size: 4.3mm; line-height: 1.5; }
+.cols li { padding-left: 4mm; position: relative; }
+.cols li::before { content: ""; position: absolute; left: 0; top: 2.4mm; width: 1.6mm; height: 1.6mm; background: #c9a66b; transform: rotate(45deg); }
+.tarifs { width: 100%; margin-top: 5mm; background: #e7dfc9; border-radius: 3.5mm; padding: 4mm 7mm; font-size: 4.5mm; line-height: 1.5; text-align: center; }
+.tarifs b { font-family: "Cinzel", serif; color: #3e4a2e; }
+.bottom { margin-top: auto; width: 100%; display: grid; grid-template-columns: 1fr 52mm; gap: 8mm; align-items: center; background: #26332a; color: #f3eee3; border-radius: 5mm 5mm 0 0; padding: 6mm 10mm; }
+.bottom h2 { font: 600 8.8mm/1.15 "Cinzel", serif; color: #e0c07d; text-align: left; }
+.bottom p { font-size: 4.5mm; text-align: left; margin-top: 2mm; line-height: 1.45; }
+.bottom .tel { font: 600 8.5mm "Cinzel", serif; color: #fff; margin-top: 3mm; text-align: left; letter-spacing: .03em; }
+.bottom .url { font-size: 4.4mm; color: #e0c07d; margin-top: 1.5mm; text-align: left; }
+.qr { background: #fff; border-radius: 3.5mm; padding: 1.5mm 1.5mm 2.5mm; text-align: center; }
+.qr svg { width: 100%; height: auto; display: block; }
+.qr small { display: block; font: 600 3.3mm "Josefin Sans", sans-serif; color: #26332a; letter-spacing: .06em; text-transform: uppercase; }
+</style></head>
+<body>
+<div class="frame"></div>
+<div class="in">
+  <div class="head">
+    <img class="logo" src="Montifaut_logo-principal-C_vert.svg" alt="">
+    <div class="title">
+      <h1>Votre week-end<br>en Sologne</h1>
+      <div class="sub">Les anciens communs du château de Montifaut</div>
+      <div class="sub2">Selles-Saint-Denis · relais de chasse</div>
+    </div>
+  </div>
+
+  <div class="photos">
+    <img class="big" src="terrasse.webp" alt="">
+    <img src="sejour.webp" alt=""><img src="salon.webp" alt="">
+    <img src="cuisine.webp" alt=""><img src="tennis.webp" alt="">
+    <img src="chambre4lits-a.webp" alt=""><img src="chambre1.webp" alt=""><img src="chambre2.webp" alt=""><img src="chambre3.webp" alt="">
+  </div>
+
+  <div class="facts">
+    <div class="fact"><b>10</b><span>personnes</span></div>
+    <div class="fact"><b>4</b><span>chambres</span></div>
+    <div class="fact"><b>160 m²</b><span>sur 2 niveaux</span></div>
+    <div class="fact"><b>20</b><span>places en terrasse</span></div>
+    <div class="fact"><b>250 €</b><span>la nuit, 4 pers.</span></div>
+  </div>
+
+  <div class="cols">
+    <div><h3>Le gîte</h3><ul>
+      <li>Grand séjour, poêle à bois et climatisation réversible</li>
+      <li>Cuisine équipée : four traiteur 5 feux, lave-vaisselle, 2 réfrigérateurs-congélateurs, raclette, plancha</li>
+      <li>3 chambres avec lit double, 1 chambre à 4 lits simples</li>
+      <li>Salle de bain, 2 WC, wifi, télévision</li>
+    </ul></div>
+    <div><h3>Dehors</h3><ul>
+      <li>Terrasse couverte de 20 places et brasero</li>
+      <li>Tennis, panier de basket, ping-pong, pétanque, molki</li>
+      <li>Jeux de société, table de poker, jeux d'enfants</li>
+      <li>Grand parking, box pour chien sur accord</li>
+    </ul></div>
+    <div><h3>Pratique</h3><ul>
+      <li>Draps, serviettes et ménage compris</li>
+      <li>Arrivée autonome dès 17h, départ avant 11h</li>
+      <li>15 min des sorties A71 Salbris et A85 Romorantin</li>
+      <li>Gare de Selles-Saint-Denis à 3,5 km</li>
+      <li>Anniversaires et repas de famille bienvenus</li>
+    </ul></div>
+  </div>
+
+  <div class="tarifs"><b>Tarifs</b> : 250 € la nuit pour 4 personnes, puis 15 € par personne et par nuit en plus (10 maximum) · 2 nuits minimum<br>Réductions jusqu'à −20 % pour les longs séjours · Tarifs majorés à Noël et lors des ponts</div>
+
+  <div class="bottom">
+    <div>
+      <h2>Réservez votre séjour</h2>
+      <p>Calendrier, devis immédiat et demande de réservation en ligne. Isabelle vous répond sous 48 heures, en français, anglais ou allemand.</p>
+      <div class="tel">06 48 48 11 13</div>
+      <div class="url">ipconseils@orange.fr · pat-guy.github.io/Montifaut</div>
+    </div>
+    <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 450" class="segno"><g transform="scale(10)"><path fill="#fff" d="M0 0h45v45h-45z"/><path class="qrline" stroke="#26332a" d="M4 4.5h7m3 0h1m1 0h1m3 0h3m1 0h1m1 0h5m1 0h1m1 0h7m-37 1h1m5 0h1m2 0h3m1 0h2m8 0h3m2 0h1m1 0h1m5 0h1m-37 1h1m1 0h3m1 0h1m2 0h1m4 0h3m1 0h3m2 0h1m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1m-37 1h1m1 0h3m1 0h1m2 0h4m2 0h1m3 0h1m1 0h1m1 0h4m3 0h1m1 0h3m1 0h1m-37 1h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m3 0h1m2 0h1m1 0h3m1 0h1m-37 1h1m5 0h1m2 0h1m1 0h1m1 0h1m1 0h2m4 0h1m1 0h1m1 0h1m4 0h1m5 0h1m-37 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-29 1h2m2 0h1m5 0h1m1 0h2m1 0h1m3 0h2m-27 1h2m2 0h5m1 0h1m1 0h1m1 0h2m1 0h1m2 0h1m2 0h1m1 0h4m1 0h1m-33 1h2m1 0h3m2 0h1m2 0h2m1 0h1m3 0h3m2 0h6m1 0h1m-27 1h1m1 0h2m1 0h3m2 0h1m1 0h2m1 0h3m2 0h2m1 0h1m1 0h1m2 0h2m1 0h1m-36 1h3m2 0h1m2 0h2m1 0h1m1 0h3m1 0h1m1 0h9m3 0h1m1 0h2m1 0h1m-35 1h6m1 0h1m2 0h2m1 0h1m1 0h2m5 0h3m2 0h2m1 0h1m1 0h1m1 0h1m-37 1h1m3 0h2m1 0h1m8 0h1m2 0h3m1 0h2m2 0h2m1 0h1m1 0h1m1 0h3m-37 1h1m1 0h2m1 0h5m1 0h1m4 0h2m2 0h1m3 0h3m3 0h1m1 0h1m1 0h1m-34 1h3m7 0h2m5 0h1m2 0h2m5 0h5m3 0h1m-37 1h2m1 0h2m1 0h1m2 0h3m3 0h1m2 0h5m1 0h2m1 0h1m1 0h1m1 0h1m1 0h2m-33 1h1m2 0h1m1 0h2m2 0h1m5 0h1m2 0h1m1 0h1m1 0h2m1 0h1m2 0h1m2 0h1m2 0h1m-37 1h2m1 0h2m1 0h1m1 0h1m1 0h3m1 0h1m3 0h2m3 0h1m2 0h4m1 0h1m3 0h2m-37 1h1m3 0h1m3 0h1m1 0h3m1 0h2m1 0h5m4 0h3m1 0h4m1 0h1m-36 1h4m2 0h1m1 0h2m1 0h2m2 0h2m1 0h2m2 0h1m3 0h1m1 0h2m2 0h1m2 0h1m-35 1h4m4 0h6m2 0h2m1 0h2m1 0h3m4 0h2m2 0h2m-36 1h2m1 0h2m1 0h1m3 0h3m3 0h4m1 0h1m3 0h1m4 0h1m1 0h1m1 0h1m-35 1h1m1 0h1m1 0h2m1 0h1m2 0h1m1 0h2m1 0h1m3 0h1m1 0h3m3 0h2m1 0h1m2 0h3m-35 1h1m3 0h3m1 0h2m5 0h1m2 0h2m2 0h2m1 0h1m1 0h2m3 0h2m1 0h1m-36 1h1m2 0h2m3 0h3m1 0h1m1 0h2m2 0h3m1 0h2m1 0h1m2 0h1m2 0h2m1 0h2m-36 1h2m3 0h2m5 0h3m1 0h2m1 0h1m1 0h2m1 0h1m6 0h1m1 0h2m-36 1h1m1 0h2m1 0h1m1 0h1m1 0h1m3 0h1m1 0h1m3 0h2m1 0h2m3 0h1m1 0h1m1 0h3m1 0h2m-35 1h1m2 0h3m1 0h1m7 0h1m1 0h1m1 0h2m2 0h1m2 0h5m1 0h1m-27 1h2m1 0h3m1 0h1m2 0h1m2 0h1m1 0h2m3 0h1m3 0h5m-37 1h7m1 0h1m2 0h1m8 0h3m1 0h1m3 0h1m1 0h1m1 0h2m1 0h2m-37 1h1m5 0h1m2 0h1m3 0h4m1 0h1m1 0h1m3 0h1m1 0h3m3 0h2m-34 1h1m1 0h3m1 0h1m3 0h4m2 0h3m3 0h1m1 0h1m1 0h1m1 0h6m-34 1h1m1 0h3m1 0h1m1 0h2m3 0h1m2 0h1m1 0h1m1 0h1m3 0h3m3 0h1m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m4 0h3m2 0h6m1 0h3m1 0h6m-36 1h1m5 0h1m3 0h2m4 0h2m1 0h2m1 0h1m2 0h2m2 0h2m2 0h2m-35 1h7m3 0h1m2 0h1m1 0h3m1 0h2m3 0h3m5 0h1m1 0h3"/></g></svg>
+<small>Scannez</small></div>
+  </div>
+</div>
+</body></html>
