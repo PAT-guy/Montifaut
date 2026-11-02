@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Questionnaire du gîte</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Raleway:wght@400;500;600;700&display=swap">
+  <style>
+    :root { --bg:#fdfdf2; --card:#f8f8ea; --ink:#1f2d20; --muted:#586659; --line:#d6dcc5; --accent:#4f7352; --accent-dark:#35573a; --gold:#a08050; --warn:#9a3b2a; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.6 "Raleway", system-ui, sans-serif; }
+    header { background:#648568; color:#fff; padding:1.2rem 16px; position:sticky; top:0; z-index:5; }
+    header .in { max-width:820px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+    header h1 { margin:0; font:600 1.5rem "Cormorant Garamond", Georgia, serif; }
+    .bar { flex:1; min-width:160px; max-width:320px; }
+    .bar div { height:8px; background:rgba(255,255,255,.3); border-radius:4px; overflow:hidden; }
+    .bar i { display:block; height:100%; width:0; background:#fff; transition:width .3s; }
+    .bar small { display:block; font-size:.8rem; margin-top:.2rem; }
+    main { max-width:820px; margin:0 auto; padding:1.5rem 16px 6rem; }
+    .intro { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:1rem 1.3rem; margin-bottom:1.5rem; }
+    .intro p { margin:.3rem 0; }
+    .tabs { display:flex; gap:.4rem; flex-wrap:wrap; margin-bottom:1.5rem; }
+    .tabs button { border:1px solid var(--line); background:#fff; color:var(--ink); border-radius:999px; padding:.35rem .9rem; font:600 .85rem "Raleway", sans-serif; cursor:pointer; }
+    .tabs button.on { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .tabs button b { font-weight:700; margin-left:.3rem; opacity:.8; }
+    section { display:none; }
+    section.on { display:block; }
+    section h2 { font:600 2rem "Cormorant Garamond", Georgia, serif; margin:.2rem 0 .3rem; }
+    section > p { color:var(--muted); margin-top:0; }
+    .q { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:1rem 1.2rem; margin-bottom:1rem; }
+    .q.key { border-left:4px solid var(--gold); }
+    .q label.t, .q .t { display:block; font-weight:600; margin-bottom:.2rem; }
+    .q .hint { color:var(--muted); font-size:.9rem; margin:0 0 .5rem; }
+    .badge { display:inline-block; font:700 .65rem "Raleway", sans-serif; letter-spacing:.08em; text-transform:uppercase; background:var(--gold); color:#fff; border-radius:4px; padding:.05rem .4rem; margin-left:.4rem; vertical-align:2px; }
+    input[type=text], input[type=email], input[type=tel], textarea, select { width:100%; padding:.6rem .8rem; border:1px solid var(--line); border-radius:10px; font:inherit; background:#fff; color:var(--ink); }
+    textarea { min-height:5rem; }
+    .opts { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .opts label { display:flex; align-items:center; gap:.5rem; background:#fff; border:1px solid var(--line); border-radius:10px; padding:.5rem .8rem; cursor:pointer; font-size:.95rem; }
+    .opts label:has(input:checked) { border-color:var(--accent); background:#e9f0e6; }
+    .opts input { accent-color:var(--accent); }
+    .note { margin-top:.5rem; }
+    .note input { font-size:.9rem; padding:.45rem .7rem; }
+    .nav { display:flex; justify-content:space-between; gap:1rem; margin-top:1.5rem; }
+    .btn { background:var(--accent); color:#fff; border:0; border-radius:10px; padding:.75rem 1.4rem; font:700 1rem "Raleway", sans-serif; cursor:pointer; }
+    .btn:hover { background:var(--accent-dark); }
+    .btn.ghost { background:transparent; color:var(--accent); border:1.5px solid var(--accent); }
+    .final { display:none; margin-top:2rem; }
+    .final.on { display:block; }
+    #out { width:100%; min-height:16rem; font:.85rem/1.5 ui-monospace, Menlo, monospace; }
+    .actions { display:flex; gap:.7rem; flex-wrap:wrap; margin:.8rem 0; }
+    .ok { color:var(--accent); font-weight:600; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="in">
+      <h1>Questionnaire du gîte</h1>
+      <div class="bar"><div><i id="fill"></i></div><small id="count"></small></div>
+    </div>
+  </header>
+
+  <main>
+    <div class="intro">
+      <p><strong>Répondez à ce que vous savez, passez le reste.</strong> Les questions avec une pastille <span class="badge">Important</span> bloquent la mise en ligne. Les autres peuvent attendre.</p>
+      <p>Vos réponses restent dans votre navigateur et s'enregistrent toutes seules : vous pouvez fermer la page et revenir. Rien n'est envoyé. À la fin, copiez le résumé et collez-le dans la conversation avec Claude.</p>
+    </div>
+    <div class="tabs" id="tabs"></div>
+    <div id="sections"></div>
+    <div class="nav">
+      <button class="btn ghost" id="prev" type="button">Précédent</button>
+      <button class="btn" id="next" type="button">Suivant</button>
+    </div>
+
+    <div class="final" id="final">
+      <h2 style="font:600 2rem 'Cormorant Garamond',Georgia,serif;margin-bottom:.3rem">Votre résumé</h2>
+      <p>Copiez ce texte et collez-le dans la conversation avec Claude. Il contient seulement ce que vous avez rempli.</p>
+      <textarea id="out" readonly></textarea>
+      <div class="actions">
+        <button class="btn" id="copy" type="button">Copier le résumé</button>
+        <button class="btn ghost" id="dl" type="button">Télécharger en .txt</button>
+        <button class="btn ghost" id="reset" type="button">Tout effacer</button>
+        <span class="ok" id="msg"></span>
+      </div>
+    </div>
+  </main>
+
+<script>
+/* Chaque question : id, label, type (text|area|choice|multi), options, hint, key (important), note (précision facultative) */
+const S = [
+ { id:"id", title:"Identité et contact", intro:"Ce qu'il faut pour que le site porte les vraies informations.", q:[
+  { id:"mail", label:"Adresse mail de contact", type:"text", key:true, hint:"Celle qui recevra les demandes de réservation." },
+  { id:"tel", label:"Numéro de téléphone à afficher", type:"text", key:true },
+  { id:"whatsapp", label:"Voulez-vous aussi être joignable sur WhatsApp ?", type:"choice", options:["Oui, même numéro","Oui, un autre numéro","Non"] },
+  { id:"nom", label:"Nom officiel du gîte", type:"text", key:true, hint:"Aujourd'hui : Gîte de Montifaut. Est-ce le bon nom ?" },
+  { id:"adresse", label:"Adresse exacte du gîte (rue ou lieu-dit, code postal, commune)", type:"area", key:true },
+  { id:"gps", label:"Position GPS ou lien Google Maps", type:"text", key:true, hint:"Dans Google Maps : clic droit sur le gîte, puis cliquez sur les chiffres pour les copier." },
+  { id:"contact", label:"Qui répond aux clients ? (prénom ou nom affiché)", type:"text" },
+  { id:"langues", label:"Parlez-vous d'autres langues avec les clients ?", type:"multi", options:["Anglais","Néerlandais","Allemand","Seulement le français"] },
+  { id:"ipc_forme", label:"Ipconseil : forme juridique", type:"choice", options:["SAS","SASU","SARL","EURL","SCI","Autre"], key:true },
+  { id:"ipc_siret", label:"Ipconseil : numéro SIRET", type:"text", key:true },
+  { id:"ipc_siege", label:"Ipconseil : adresse du siège", type:"area" },
+  { id:"ipc_dir", label:"Nom du directeur de la publication du site", type:"text", hint:"Le représentant légal d'Ipconseil en général." }
+ ]},
+ { id:"logement", title:"Le logement", intro:"Pour remplacer mes suppositions par des faits.", q:[
+  { id:"bat", label:"Que représente le bâtiment ?", type:"choice", options:["Ancienne dépendance de ferme","Ancienne grange","Maison de maître","Maison récente","Autre"], note:true },
+  { id:"renov", label:"Année de rénovation (environ)", type:"text" },
+  { id:"niveaux", label:"Où sont les chambres ?", type:"choice", options:["Toutes au rez-de-chaussée","Toutes à l'étage","Réparties sur les deux niveaux"], note:true },
+  { id:"wifi", label:"Wifi", type:"choice", options:["Oui, fibre","Oui, ADSL ou 4G","Non"] },
+  { id:"lavelinge", label:"Lave-linge", type:"choice", options:["Oui","Non"], note:true },
+  { id:"seche", label:"Sèche-linge", type:"choice", options:["Oui","Non"] },
+  { id:"chauffage", label:"Chauffage en dehors du poêle à bois et de la clim", type:"choice", options:["Radiateurs (chauffage central)","Radiateurs électriques","Aucun autre"], note:true },
+  { id:"tv", label:"Télévision", type:"choice", options:["Oui","Non"] },
+  { id:"terrasse", label:"Combien de personnes à table sur la terrasse couverte ?", type:"text" },
+  { id:"jardin", label:"Le jardin est-il clos ou ouvert ?", type:"choice", options:["Clos","Ouvert sur les bois","Partiellement clos"], note:true, hint:"Important pour les enfants et les chiens." },
+  { id:"pmr", label:"Accessibilité (personne à mobilité réduite)", type:"choice", options:["Chambre accessible au rez-de-chaussée","Non accessible","Partiellement"], note:true },
+  { id:"bebe", label:"Matériel bébé disponible", type:"multi", options:["Lit bébé","Chaise haute","Baignoire bébé","Aucun autre que le lit"] },
+  { id:"chenil", label:"Chenil : combien de chiens, quelle taille maximale ?", type:"area" },
+  { id:"autres", label:"Autres équipements à citer", type:"area", hint:"Barbecue, vélos, jeux de société, sèche-cheveux, aspirateur, fer à repasser, etc." },
+  { id:"sdb", label:"Salle de bain : douche, baignoire, double vasque ?", type:"text" }
+ ]},
+ { id:"sejours", title:"Règles de séjour", intro:"Ces réponses alimentent le règlement et la FAQ.", q:[
+  { id:"arrivee", label:"Heure d'arrivée possible à partir de", type:"text", key:true },
+  { id:"depart", label:"Heure de départ au plus tard", type:"text", key:true },
+  { id:"tard", label:"Arrivée tardive", type:"choice", options:["Toujours possible (boîte à clés)","Possible jusqu'à une heure limite","Sur demande"], note:true },
+  { id:"fetes", label:"Fêtes et événements (anniversaires, repas de famille, mariages)", type:"choice", options:["Autorisés sans condition","Autorisés avec accord préalable","Anniversaires et repas de famille seulement","Interdits"], note:true, key:true },
+  { id:"bruit", label:"Heure de calme demandée", type:"text", hint:"Aujourd'hui dans le règlement : 22h." },
+  { id:"visiteurs", label:"Personnes extérieures au séjour (invités à la journée)", type:"choice", options:["Acceptées","Acceptées en petit nombre","Sur accord préalable","Non"], note:true },
+  { id:"fumeurs", label:"Fumeurs", type:"choice", options:["Interdit à l'intérieur, autorisé dehors","Interdit partout","Autorisé"] },
+  { id:"jours", label:"Jours d'arrivée imposés ?", type:"choice", options:["Aucun","Samedi uniquement en été","Autre règle"], note:true },
+  { id:"petits", label:"Acceptez-vous un groupe de moins de 4 personnes ?", type:"choice", options:["Oui, facturé comme 4 personnes","Non, minimum 4 personnes","Au cas par cas"] },
+  { id:"decheterie", label:"Tri des déchets et poubelles : comment ça marche ?", type:"area" }
+ ]},
+ { id:"tarifs", title:"Tarifs et conditions", intro:"Les chiffres du site sont des exemples. Il me faut les vôtres.", q:[
+  { id:"t_base", label:"250 € pour 4 personnes : c'est le tarif de quelle période ?", type:"choice", options:["Basse saison (le reste de l'année)","Toute l'année, sans variation","Moyenne saison"], key:true },
+  { id:"t_saisons", label:"Tarif par nuit pour les autres saisons", type:"area", key:true, hint:"Exemple de ma proposition : été 340 €, Noël 380 €, printemps 280 €, automne 260 €. Corrigez ou validez." },
+  { id:"t_dates", label:"Dates exceptionnelles à tarifer (ponts, week-ends fériés, événements locaux) avec le prix", type:"area", key:true },
+  { id:"t_we", label:"Un prix spécial pour les week-ends ?", type:"choice", options:["Non, même prix toute la semaine","Oui, plus cher le week-end","Oui, forfait week-end","Je ne sais pas encore"], note:true },
+  { id:"t_long", label:"Réduction pour les longs séjours ?", type:"choice", options:["Non","Oui","À étudier"], note:true },
+  { id:"t_ttc", label:"Les prix sont-ils TTC ?", type:"choice", options:["Oui, TTC avec TVA","Non assujetti à la TVA","Je ne sais pas, à voir avec le comptable"], key:true },
+  { id:"t_menage", label:"Frais de ménage affichés au client", type:"text", hint:"Votre coût : 15 € de l'heure. Pour 160 m² et 10 personnes, comptez 6 à 8 heures de ménage, plus le lavage du linge." },
+  { id:"t_acompte", label:"Acompte à la réservation", type:"choice", options:["30 %","25 %","50 %","Autre"], note:true },
+  { id:"t_solde", label:"Solde à payer", type:"choice", options:["30 jours avant l'arrivée","15 jours avant l'arrivée","À l'arrivée"], note:true },
+  { id:"t_annul", label:"Politique d'annulation", type:"choice", options:["Gratuite jusqu'à 30 jours avant","Gratuite jusqu'à 14 jours avant","Acompte non remboursable","À définir ensemble"], note:true, key:true },
+  { id:"t_caution", label:"Caution : montant et mode", type:"choice", options:["800 € (ma proposition)","500 €","1 000 €","Autre montant"], note:true, hint:"Mode : chèque non encaissé, virement avec restitution, ou empreinte bancaire." },
+  { id:"t_taxe", label:"Taxe de séjour : montant par adulte et par nuit", type:"text", hint:"Fixé par votre commune. Votre mairie ou l'office de tourisme le sait." },
+  { id:"t_chien", label:"Supplément chien", type:"text", hint:"Exemple actuel : 10 € par chien et par séjour." },
+  { id:"t_options", label:"Autres options payantes à proposer dans le devis", type:"multi", options:["Bois supplémentaire","Départ tardif","Arrivée anticipée","Lit bébé payant","Repas ou traiteur","Ménage complet à la place du client","Aucune"], note:true }
+ ]},
+ { id:"resa", title:"Réservation et paiement", intro:"Pour que les demandes arrivent et que les dates ne se doublent pas.", q:[
+  { id:"r_form", label:"Formspree pour recevoir les demandes", type:"choice", options:["Déjà créé","À créer ensemble","Je préfère l'ouverture de la messagerie"], key:true },
+  { id:"r_plate", label:"Où le gîte est-il déjà annoncé ?", type:"multi", options:["Airbnb","Booking","Gîtes de France","Abritel","Leboncoin","Nulle part pour l'instant"], note:true },
+  { id:"r_ical", label:"Avez-vous les liens de calendrier (iCal) de ces plateformes ?", type:"choice", options:["Oui","Non, à récupérer ensemble","Pas de plateforme"], key:true },
+  { id:"r_paiement", label:"Moyens de paiement acceptés", type:"multi", options:["Virement","Chèque","Carte bancaire par lien","Chèques-vacances ANCV","Espèces"] },
+  { id:"r_contrat", label:"Avez-vous un contrat de location type ?", type:"choice", options:["Oui","Non, à rédiger"], key:true },
+  { id:"r_delai", label:"Délai de réponse que vous pouvez tenir", type:"choice", options:["Sous 24 heures","Sous 48 heures","Pas de délai fixe"] },
+  { id:"r_dispo", label:"Dates déjà réservées ou bloquées à reporter dans le calendrier", type:"area", hint:"Séjours confirmés, travaux, usage personnel." }
+ ]},
+ { id:"alentours", title:"Alentours", intro:"Les activités du site sont encore des exemples.", q:[
+  { id:"a_rando", label:"Randonnées, vélo : que peut-on faire à pied ou à vélo depuis le gîte ?", type:"area" },
+  { id:"a_visites", label:"Les 5 sites à visiter que vous conseillez, avec la distance", type:"area", hint:"Châteaux, abbayes, zoos, villages, marchés." },
+  { id:"a_activites", label:"Activités à proximité", type:"multi", options:["Pêche","Baignade ou lac","Équitation","Golf","Accrobranche","Canoë","Observation de la nature","Chasse (organisée par un tiers)"], note:true },
+  { id:"a_commerces", label:"Commerces : village, supermarché, boulangerie (distance)", type:"area" },
+  { id:"a_resto", label:"Restaurants que vous recommandez", type:"area" },
+  { id:"a_gare", label:"Gare la plus proche et distance", type:"text" },
+  { id:"a_chasse", label:"Le gîte accueille-t-il des chasseurs ou des week-ends de chasse ?", type:"choice", options:["Oui, c'est une cible","Oui, possible","Non"], note:true }
+ ]},
+ { id:"confiance", title:"Confiance et visibilité", intro:"Ce qui fait qu'un inconnu vous écrit.", q:[
+  { id:"c_avis", label:"Avez-vous déjà des avis de clients ?", type:"choice", options:["Oui, sur une plateforme","Oui, par mail ou message","Non, pas encore"], note:true, key:true },
+  { id:"c_photo", label:"Voulez-vous une photo et un mot du propriétaire sur le site ?", type:"choice", options:["Oui","Non","Plus tard"] },
+  { id:"c_photos", label:"Photos que vous pouvez ajouter", type:"multi", options:["Salle de bain","WC","Chenil","Table de ping-pong","Pétanque","Façade côté entrée","Vue de nuit","Vue en automne ou hiver","Drone"] },
+  { id:"c_cible", label:"Qui souhaitez-vous accueillir en priorité ?", type:"multi", options:["Familles et anniversaires","Groupes d'amis","Séminaires et entreprises","Chasseurs","Retraites et stages","Cousinades et réunions de famille"], key:true },
+  { id:"c_domaine", label:"Nom de domaine", type:"choice", options:["J'en ai un","À acheter (environ 10 € par an)","Je reste sur l'adresse GitHub pour l'instant"], note:true },
+  { id:"c_google", label:"Fiche Google (Google Business Profile)", type:"choice", options:["Déjà créée","À créer ensemble","Je ne veux pas"] },
+  { id:"c_ton", label:"Le ton du site", type:"choice", options:["Chaleureux et familial","Sobre et haut de gamme","Nature et tradition (Sologne)"], note:true },
+  { id:"c_theme", label:"Thème visuel retenu", type:"choice", options:["Domaine (actuel)","Sologne","Chasse","Tradition (cerf)","Champêtre"] }
+ ]},
+ { id:"legal", title:"Obligations", intro:"On peut y aller au fur et à mesure, mais il faut savoir où vous en êtes.", q:[
+  { id:"l_enreg", label:"Numéro d'enregistrement du meublé de tourisme (mairie)", type:"choice", options:["Je l'ai","Je dois le demander","Je ne sais pas si c'est obligatoire dans ma commune"], note:true, key:true },
+  { id:"l_classement", label:"Classement en meublé de tourisme (étoiles)", type:"choice", options:["Classé","En cours","Non classé","À étudier"], note:true },
+  { id:"l_assurance", label:"Assurance du gîte (location saisonnière)", type:"choice", options:["Oui, couvre la location saisonnière","Oui, à vérifier","Non"], key:true },
+  { id:"l_compta", label:"Le comptable d'Ipconseil connaît-il ce projet ?", type:"choice", options:["Oui","Non, à prévenir"], hint:"Pour la TVA, la taxe de séjour et le régime fiscal." },
+  { id:"l_dpe", label:"Diagnostic de performance énergétique (DPE) disponible", type:"choice", options:["Oui","Non","Je ne sais pas"] },
+  { id:"l_autre", label:"Autre chose à signaler (servitudes, voisins, contraintes, projets de travaux)", type:"area" }
+ ]},
+ { id:"libre", title:"Pour finir", intro:"", q:[
+  { id:"f_question", label:"Une question à me poser, ou une idée pour le site ?", type:"area" }
+ ]}
+];
+
+const KEY = "gite-questionnaire-v1";
+let ans = {}; try { ans = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(ans)); } catch (e) {} };
+const $ = (s) => document.querySelector(s);
+const el = (t, p = {}, ...k) => { const n = document.createElement(t); for (const [a, v] of Object.entries(p)) { if (a === "class") n.className = v; else if (a.startsWith("on")) n.addEventListener(a.slice(2), v); else if (v !== false && v != null) n.setAttribute(a, v); } k.flat().forEach((c) => n.append(c)); return n; };
+const answered = (q) => { const a = ans[q.id]; return Array.isArray(a) ? a.length > 0 : !!(a && String(a).trim()); };
+let cur = 0;
+
+function field(q) {
+  const id = "f_" + q.id;
+  const head = el("div", { class: "t" }, q.label, q.key ? el("span", { class: "badge" }, "Important") : "");
+  const box = el("div", { class: "q" + (q.key ? " key" : ""), id: "q_" + q.id }, head, q.hint ? el("p", { class: "hint" }, q.hint) : "");
+  const set = (v) => { ans[q.id] = v; save(); refresh(); };
+  if (q.type === "text") {
+    box.append(el("input", { type: "text", id, value: ans[q.id] || "", oninput: (e) => set(e.target.value) }));
+  } else if (q.type === "area") {
+    const t = el("textarea", { id, oninput: (e) => set(e.target.value) }); t.value = ans[q.id] || ""; box.append(t);
+  } else {
+    const multi = q.type === "multi", name = "n_" + q.id;
+    const cur = new Set(multi ? (ans[q.id] || []) : []);
+    box.append(el("div", { class: "opts" }, q.options.map((o) =>
+      el("label", {}, el("input", { type: multi ? "checkbox" : "radio", name, value: o, checked: multi ? cur.has(o) : ans[q.id] === o,
+        onchange: (e) => { if (multi) { e.target.checked ? cur.add(o) : cur.delete(o); set([...cur]); } else set(o); } }), o))));
+  }
+  if (q.note) {
+    box.append(el("div", { class: "note" }, el("input", { type: "text", placeholder: "Précision (facultatif)", value: ans[q.id + "_note"] || "", oninput: (e) => { ans[q.id + "_note"] = e.target.value; save(); } })));
+  }
+  return box;
+}
+
+function build() {
+  const tabs = $("#tabs"), wrap = $("#sections");
+  S.forEach((s, i) => {
+    tabs.append(el("button", { type: "button", id: "tab" + i, onclick: () => go(i) }, s.title, el("b", { id: "tc" + i })));
+    wrap.append(el("section", { id: "sec" + i }, el("h2", {}, s.title), s.intro ? el("p", {}, s.intro) : "", s.q.map(field)));
+  });
+}
+
+function refresh() {
+  const all = S.flatMap((s) => s.q), done = all.filter(answered).length;
+  $("#fill").style.width = Math.round(100 * done / all.length) + "%";
+  $("#count").textContent = `${done} réponses sur ${all.length}`;
+  S.forEach((s, i) => { const n = s.q.filter(answered).length; $("#tc" + i).textContent = `${n}/${s.q.length}`; });
+}
+
+function go(i) {
+  cur = Math.max(0, Math.min(S.length, i));
+  const final = cur === S.length;
+  S.forEach((_, k) => { $("#sec" + k).classList.toggle("on", k === cur); $("#tab" + k).classList.toggle("on", k === cur); });
+  $("#final").classList.toggle("on", final);
+  $("#prev").style.visibility = cur === 0 ? "hidden" : "visible";
+  $("#next").textContent = cur === S.length - 1 ? "Voir mon résumé" : "Suivant";
+  $("#next").style.display = final ? "none" : "";
+  if (final) $("#out").value = summary();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function summary() {
+  const lines = ["QUESTIONNAIRE GÎTE, réponses du " + new Date().toLocaleDateString("fr-FR"), ""];
+  let missingKey = [];
+  S.forEach((s) => {
+    const got = s.q.filter(answered);
+    if (got.length) {
+      lines.push("## " + s.title);
+      got.forEach((q) => {
+        const a = ans[q.id], v = Array.isArray(a) ? a.join(", ") : String(a).trim();
+        const n = (ans[q.id + "_note"] || "").trim();
+        lines.push(`- ${q.label} : ${v}${n ? " (" + n + ")" : ""}`);
+      });
+      lines.push("");
+    }
+    s.q.filter((q) => q.key && !answered(q)).forEach((q) => missingKey.push(q.label));
+  });
+  if (missingKey.length) { lines.push("## Questions importantes sans réponse"); missingKey.forEach((l) => lines.push("- " + l)); }
+  return lines.join("\n");
+}
+
+$("#prev").onclick = () => go(cur - 1);
+$("#next").onclick = () => go(cur + 1);
+$("#copy").onclick = async () => {
+  const t = $("#out").value;
+  try { await navigator.clipboard.writeText(t); $("#msg").textContent = "Copié. Collez-le dans la conversation."; }
+  catch (e) { $("#out").select(); document.execCommand("copy"); $("#msg").textContent = "Copié. Collez-le dans la conversation."; }
+};
+$("#dl").onclick = () => {
+  const a = el("a", { href: URL.createObjectURL(new Blob([$("#out").value], { type: "text/plain;charset=utf-8" })), download: "questionnaire-gite.txt" });
+  document.body.append(a); a.click(); a.remove();
+};
+$("#reset").onclick = () => { if (confirm("Effacer toutes vos réponses ?")) { ans = {}; save(); location.reload(); } };
+
+build(); refresh(); go(0);
+</script>
+</body>
+</html>
