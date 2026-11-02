@@ -465,7 +465,7 @@
     if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     document.documentElement.classList.add("motion");
     document.querySelectorAll(".hero-text > *").forEach((n, i) => n.style.setProperty("--h", i));
-    const groups = [".wrap > h2", ".wrap > h3", ".wrap > .lead", ".two-col > *", ".gite-banner", ".feat", ".cards .card", ".gallery button",
+    const groups = [".wrap > h2", ".wrap > h3", ".wrap > .lead", ".two-col > *", ".feat", ".cards .card",
       ".booking > *", ".faq-list > details", ".rules > div", ".table-wrap", "#map", ".contact-cards > *"];
     const seen = new Set();
     const io = new IntersectionObserver((entries) => {
