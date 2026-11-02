@@ -113,7 +113,9 @@ window.GITE_CONFIG = {
       { from: 2, to: 2, coef: 1.10 },
       { from: 3, to: 4, coef: 1 },
       { from: 5, to: 6, coef: 0.95 },
-      { from: 7, coef: 0.90 }
+      { from: 7, to: 13, coef: 0.90, label: "1 semaine" },
+      { from: 14, to: 29, coef: 0.85, label: "2 semaines et plus" },
+      { from: 30, coef: 0.80, label: "1 mois et plus" }
     ],
 
     // Saisons qui reviennent chaque année (MM-JJ). Une saison peut chevaucher le nouvel an.

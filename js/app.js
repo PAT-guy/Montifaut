@@ -196,7 +196,7 @@
   function durationText() {
     const list = P().durationCoefficients || [];
     if (!list.length) return "";
-    const lab = (c) => c.to == null ? `${c.from} nuits et plus` : c.from === c.to ? `${c.from} nuits` : `${c.from} à ${c.to} nuits`;
+    const lab = (c) => c.label ? `${c.label} (${c.to == null ? c.from + " nuits et plus" : c.from + " à " + c.to + " nuits"})` : c.to == null ? `${c.from} nuits et plus` : c.from === c.to ? `${c.from} nuits` : `${c.from} à ${c.to} nuits`;
     return ` Selon la durée du séjour, un coefficient s'applique à l'hébergement : ` + list.map((c) => `${lab(c)} ${c.coef === 1 ? "tarif normal" : pct(c.coef)}`).join(", ") + ". Séjour minimum : 2 nuits.";
   }
 
