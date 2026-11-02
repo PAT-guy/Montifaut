@@ -122,15 +122,21 @@ window.GITE_CONFIG = {
     // (Pour remettre une saison récurrente, ajoutez { name, from: "MM-JJ", to: "MM-JJ", nightly, minNights } ici.)
     seasons: [],
 
-    // Dates exceptionnelles (AAAA-MM-JJ). Elles l'emportent sur les saisons.
-    // "from" et "to" sont la première et la dernière NUIT concernées.
-    specialDates: [
-      { name: "Réveillon de Noël 2026", from: "2026-12-24", to: "2026-12-25", nightly: 380, minNights: 2 },
-      { name: "Nouvel an 2026-2027", from: "2026-12-30", to: "2026-12-31", nightly: 380, minNights: 2 },
-      { name: "Week-end de Pâques 2027", from: "2027-03-26", to: "2027-03-28", nightly: 320, minNights: 2 },
-      { name: "Pont de l'Ascension 2027", from: "2027-05-05", to: "2027-05-08", nightly: 330, minNights: 2 },
-      { name: "Week-end de Pentecôte 2027", from: "2027-05-15", to: "2027-05-16", nightly: 330, minNights: 2 }
-    ],
+    // Jours fériés français : calculés automatiquement chaque année, il n'y a rien à renouveler.
+    // Les nuits concernées sont celles du week-end ou du pont qui entoure le jour férié.
+    // Noël (nuits des 24 et 25 décembre) et le nouvel an (nuits des 30 et 31 décembre) ont leur propre fenêtre.
+    holidayPricing: {
+      nightly: 320,             // week-end ou pont de jour férié
+      minNights: 2,
+      byName: {                 // prix particulier pour certains jours fériés
+        "Noël": 380, "Jour de l'an": 380, "Lundi de Pâques": 330, "Ascension": 330, "Lundi de Pentecôte": 330
+      }
+    },
+
+    // Autres dates exceptionnelles (événements locaux, vacances, etc.), en AAAA-MM-JJ.
+    // "from" et "to" sont la première et la dernière NUIT concernées. Elles l'emportent sur les jours fériés.
+    // Exemple : { name: "Fête du village", from: "2027-06-18", to: "2027-06-20", nightly: 300, minNights: 2 }
+    specialDates: [],
 
     // Options ajoutées au devis. per : "stay" (par séjour) ou "night" (par nuit). max : quantité maximale.
     extras: [

@@ -28,9 +28,57 @@
     const md = dateIso.slice(5);
     return P().seasons.find((s) => (s.from <= s.to ? md >= s.from && md <= s.to : md >= s.from || md <= s.to));
   }
+  /* ---------- Jours fériés et ponts, calculés automatiquement ---------- */
+  function easter(y) {
+    const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25),
+      g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4,
+      l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451),
+      month = Math.floor((h + l - 7 * m + 114) / 31), day = ((h + l - 7 * m + 114) % 31) + 1;
+    return new Date(y, month - 1, day);
+  }
+  const HOLIDAY_LABEL = { "Jour de l'an": "Nouvel an", "Lundi de Pâques": "Week-end de Pâques", "Fête du Travail": "Pont du 1er mai", "Victoire 1945": "Pont du 8 mai",
+    "Ascension": "Pont de l'Ascension", "Lundi de Pentecôte": "Week-end de Pentecôte", "Fête nationale": "Pont du 14 juillet", "Assomption": "Pont du 15 août",
+    "Toussaint": "Pont de la Toussaint", "Armistice": "Pont du 11 novembre", "Noël": "Noël" };
+  let holidayCache = null;
+  function holidayMap() {
+    if (holidayCache) return holidayCache;
+    const hp = P().holidayPricing;
+    holidayCache = new Map();
+    if (!hp) return holidayCache;
+    const put = (d, name, year, nightly) => {
+      const k = iso(d), cur = holidayCache.get(k);
+      if (!cur || nightly > cur.nightly) holidayCache.set(k, { name: `${HOLIDAY_LABEL[name] || name} ${year}`, nightly, minNights: hp.minNights ?? P().minNights });
+    };
+    const y0 = new Date().getFullYear() - 1;
+    for (let y = y0; y <= y0 + 8; y++) {
+      const e = easter(y);
+      const list = [["Jour de l'an", new Date(y, 0, 1)], ["Lundi de Pâques", addDays(e, 1)], ["Fête du Travail", new Date(y, 4, 1)], ["Victoire 1945", new Date(y, 4, 8)],
+        ["Ascension", addDays(e, 39)], ["Lundi de Pentecôte", addDays(e, 50)], ["Fête nationale", new Date(y, 6, 14)], ["Assomption", new Date(y, 7, 15)],
+        ["Toussaint", new Date(y, 10, 1)], ["Armistice", new Date(y, 10, 11)], ["Noël", new Date(y, 11, 25)]];
+      list.forEach(([name, h]) => {
+        const price = (hp.byName && hp.byName[name]) ?? hp.nightly;
+        let from, to;                           // décalages en jours par rapport au jour férié (nuits)
+        if (name === "Noël") [from, to] = [-1, 0];
+        else if (name === "Jour de l'an") [from, to] = [-2, -1];
+        else {
+          const wd = h.getDay();
+          if (wd === 1) [from, to] = [-3, -1];  // lundi : du vendredi au dimanche soir
+          else if (wd === 2) [from, to] = [-4, -1]; // mardi : pont du lundi
+          else if (wd === 4) [from, to] = [-1, 2];  // jeudi : pont du vendredi
+          else if (wd === 5) [from, to] = [-1, 1];  // vendredi : week-end long
+          else return;                           // mercredi, samedi, dimanche : pas de pont
+        }
+        for (let k = from; k <= to; k++) put(addDays(h, k), name, name === "Jour de l'an" ? `${y - 1}-${y}` : y, price);
+      });
+    }
+    return holidayCache;
+  }
+
   function periodFor(dateIso) {
     const sp = (P().specialDates || []).find((x) => dateIso >= x.from && dateIso <= x.to);
     if (sp) return { name: sp.name, nightly: sp.nightly, minNights: sp.minNights ?? P().minNights };
+    const ho = holidayMap().get(dateIso);
+    if (ho) return ho;
     const se = seasonFor(dateIso);
     if (se) return { name: se.name, nightly: se.nightly, minNights: se.minNights ?? P().minNights };
     return { name: P().defaultName || "Autres périodes", nightly: P().defaultNightly, minNights: P().minNights };
@@ -209,13 +257,22 @@
     const line = (label, price, min) => body.append(el("tr", {}, el("td", {}, label), el("td", {}, money(price)), el("td", {}, `${min} nuits`)));
     line(`${P().defaultName || "Autres périodes"} (toute l'année)`, P().defaultNightly, P().minNights);
     P().seasons.forEach((x) => line(`${x.name} (du ${md(x.from)} au ${md(x.to)})`, x.nightly, x.minNights));
-    (P().specialDates || []).filter((x) => x.to >= today).forEach((x) => line(`${x.name} (nuits du ${full(x.from)} au ${full(x.to)})`, x.nightly, x.minNights ?? P().minNights));
+    const rows = (P().specialDates || []).filter((x) => x.to >= today).map((x) => ({ name: x.name, from: x.from, to: x.to, nightly: x.nightly, min: x.minNights ?? P().minNights }));
+    const limit = iso(addDays(new Date(), 548));
+    const groups = new Map();
+    [...holidayMap().entries()].sort().forEach(([d, h]) => {
+      if (d < today || d > limit) return;
+      if (!groups.has(h.name)) groups.set(h.name, { name: h.name, from: d, to: d, nightly: h.nightly, min: h.minNights });
+      groups.get(h.name).to = d;
+    });
+    rows.push(...groups.values());
+    rows.sort((a, b) => (a.from < b.from ? -1 : 1)).forEach((x) => line(`${x.name} (${x.from === x.to ? "nuit du " + full(x.from) : "nuits du " + full(x.from) + " au " + full(x.to)})`, x.nightly, x.min));
     t.append(body);
     const cap = C.stay.capacity;
     $("#rates-notes").textContent =
       `Prix par nuit pour ${P().baseGuests} personnes minimum, avec un supplément de ${money(P().extraGuestPerNight)} par personne et par nuit au-delà, jusqu'à ${cap} personnes. ` +
       `Tous les prix sont TTC. Draps et serviettes fournis. ${P().cleaningFee ? `Frais de ménage : ${money(P().cleaningFee)}.` : "Ménage compris."} Taxe de séjour : ${money(P().touristTaxPerPersonNight)} par adulte et par nuit. ` +
-      `Le tarif de base s'applique toute l'année, sauf aux dates exceptionnelles de la grille (fêtes, ponts).` + durationText();
+      `Le tarif de base s'applique toute l'année, sauf aux jours fériés, ponts et dates exceptionnelles de la grille.` + durationText();
   }
 
   /* ---------- Calendrier ---------- */
