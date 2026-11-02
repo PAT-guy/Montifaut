@@ -158,10 +158,12 @@
     P().seasons.forEach((s) => body.append(el("tr", {}, el("td", {}, `${s.name} (du ${md(s.from)} au ${md(s.to)})`), el("td", {}, money(s.nightly)), el("td", {}, `${s.minNights} nuits`))));
     body.append(el("tr", {}, el("td", {}, "Autres périodes"), el("td", {}, money(P().defaultNightly)), el("td", {}, `${P().minNights} nuits`)));
     t.append(body);
-    const extra = P().extraGuestPerNight > 0 ? ` Supplément de ${money(P().extraGuestPerNight)} par personne et par nuit au-delà de ${P().baseGuests} personnes.` : "";
+    const cap = C.stay.capacity;
+    const guests = P().extraGuestPerNight > 0
+      ? `Prix par nuit pour ${P().baseGuests} personnes, avec un supplément de ${money(P().extraGuestPerNight)} par personne et par nuit au-delà, jusqu'à ${cap} personnes.`
+      : `Prix par nuit pour le gîte entier, jusqu'à ${cap} personnes.`;
     $("#rates-notes").textContent =
-      `Prix par nuit pour le gîte entier, ${P().baseGuests} personnes.${extra} ` +
-      `Draps et serviettes fournis. Frais de ménage : ${money(P().cleaningFee)}. Taxe de séjour : ${money(P().touristTaxPerPersonNight)} par adulte et par nuit.`;
+      `${guests} Draps et serviettes fournis. Frais de ménage : ${money(P().cleaningFee)}. Taxe de séjour : ${money(P().touristTaxPerPersonNight)} par adulte et par nuit.`;
   }
 
   /* ---------- Calendrier ---------- */

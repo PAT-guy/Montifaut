@@ -87,19 +87,20 @@ window.GITE_CONFIG = {
    * Pour changer un prix, modifiez simplement le chiffre.
    */
   pricing: {
-    // GRILLE PROVISOIRE : prix de départ pour le gîte entier, à ajuster avant publication.
+    // GRILLE PROVISOIRE : prix de base par nuit pour 6 personnes, supplément au-delà (jusqu'à 10).
+    // Draps et serviettes inclus. À ajuster avant publication.
     currency: "€",
-    defaultNightly: 290,        // novembre à mars, hors vacances
+    defaultNightly: 200,        // novembre à mars, hors vacances
     minNights: 2,
-    baseGuests: 10,             // le prix couvre le gîte entier (10 couchages)
-    extraGuestPerNight: 0,      // supplément par personne au-delà de baseGuests (0 : aucun)
+    baseGuests: 6,              // personnes incluses dans le prix de base
+    extraGuestPerNight: 20,     // supplément par personne et par nuit au-delà de baseGuests
     cleaningFee: 120,
     touristTaxPerPersonNight: 1.1, // taxe de séjour, adultes uniquement : fixée par votre commune
     seasons: [
-      { name: "Été", from: "07-04", to: "08-28", nightly: 390, minNights: 7 },
-      { name: "Noël et nouvel an", from: "12-20", to: "01-04", nightly: 420, minNights: 4 },
-      { name: "Printemps et ponts", from: "04-15", to: "07-03", nightly: 340, minNights: 2 },
-      { name: "Automne et Toussaint", from: "08-29", to: "11-02", nightly: 320, minNights: 2 }
+      { name: "Été", from: "07-04", to: "08-28", nightly: 300, minNights: 7 },
+      { name: "Noël et nouvel an", from: "12-20", to: "01-04", nightly: 330, minNights: 4 },
+      { name: "Printemps et ponts", from: "04-15", to: "07-03", nightly: 240, minNights: 2 },
+      { name: "Automne et Toussaint", from: "08-29", to: "11-02", nightly: 220, minNights: 2 }
     ]
   },
 
