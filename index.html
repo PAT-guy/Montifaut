@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Caveat:wght@600&family=Cormorant+Garamond:wght@600;700&family=Fraunces:wght@500;600&family=Lora:wght@400;600&family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600;700&family=Raleway:wght@300;400;500;600&display=swap">
-  <link rel="stylesheet" href="css/themes.css?v=18">
-  <script src="js/config.js?v=18"></script>
+  <link rel="stylesheet" href="css/themes.css?v=20">
+  <script src="js/config.js?v=20"></script>
   <script>
     var theme = new URLSearchParams(location.search).get("theme") || window.GITE_CONFIG.theme || "sologne";
     document.documentElement.dataset.theme = theme;
     // Le Champêtre a sa propre feuille de style complète ; les autres thèmes partagent style.css et layouts.css
     (theme === "champetre" ? ["champetre", "motion"] : ["style", "layouts", "motion"]).forEach(function (f) {
-      document.write('<link rel="stylesheet" href="css/' + f + '.css?v=18">');
+      document.write('<link rel="stylesheet" href="css/' + f + '.css?v=20">');
     });
     </script>
 </head>
@@ -31,8 +31,9 @@
     <nav id="nav">
       <a href="#gite">Le gîte</a>
       <a href="#photos">Photos</a>
-      <a href="#reservation">Disponibilités et tarifs</a>
-      <a href="#decouvrir">À découvrir</a>
+      <a href="#reservation">Tarifs</a>
+      <a href="#decouvrir">Alentours</a>
+      <a href="#faq">Questions</a>
       <a href="#reglement">Règlement</a>
       <a href="#acces">Accès</a>
       <a href="#contact" class="cta">Contact</a>
@@ -139,6 +140,11 @@
       <div class="cards" id="visits"></div>
     </section>
 
+    <section id="faq" class="wrap">
+      <h2 data-eyebrow="Questions">Questions fréquentes</h2>
+      <div class="faq-list" id="faq-list"></div>
+    </section>
+
     <section id="reglement" class="wrap">
       <h2 data-eyebrow="À savoir">Règlement intérieur</h2>
       <dl class="rules" id="rules"></dl>
@@ -179,6 +185,6 @@
     </div>
   </dialog>
 
-  <script src="js/app.js?v=18"></script>
+  <script src="js/app.js?v=20"></script>
 </body>
 </html>

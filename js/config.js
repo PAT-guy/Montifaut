@@ -24,6 +24,7 @@ window.GITE_CONFIG = {
     phone: "+33 6 00 00 00 00",
     email: "contact@exemple.fr",
     owner: "Votre nom",
+    company: "Ipconseil",
     // Pour recevoir les demandes par mail sans serveur : créez un formulaire sur
     // https://formspree.io et collez ici son adresse (https://formspree.io/f/xxxx).
     // Laissé vide, le bouton ouvre le logiciel de messagerie du visiteur.
@@ -45,7 +46,7 @@ window.GITE_CONFIG = {
     bathrooms: 1,
     toilets: 2,
     surface: 160,   // environ 80 m² par niveau, sur deux niveaux
-    checkIn: "16h00 à 19h00",
+    checkIn: "à partir de 16h00",
     checkOut: "avant 10h00"
   },
 
@@ -64,7 +65,7 @@ window.GITE_CONFIG = {
   ],
 
   amenities: [
-    "Wifi", "Lave-linge", "Chauffage", "Poêle à bois (bois fourni)", "Climatisation", "Chenil", "Terrasse couverte",
+    "Wifi", "Lave-linge", "Chauffage", "Poêle à bois (bois fourni)", "Climatisation réversible", "Arrivée autonome (boîte à clés)", "Chenil", "Terrasse couverte",
     "Brasero", "Plancha", "Machine à glaçons", "Lave-vaisselle", "Terrain de tennis et basket",
     "Table de ping-pong", "Pétanque", "Grand parking", "Draps fournis", "Serviettes fournies",
     "Lit bébé sur demande"
@@ -75,9 +76,12 @@ window.GITE_CONFIG = {
     { src: "images/sejour.webp", alt: "Le séjour et la grande table" },
     { src: "images/salon.webp", alt: "Le salon" },
     { src: "images/cuisine.webp", alt: "La cuisine" },
-    { src: "images/chambre1.webp", alt: "Une chambre" },
-    { src: "images/chambre2.webp", alt: "Une autre chambre" },
-    { src: "images/tennis.webp", alt: "Le terrain de tennis" }
+    { src: "images/tennis.webp", alt: "Le terrain de tennis" },
+    { src: "images/chambre4lits-a.webp", alt: "La chambre à quatre lits simples" },
+    { src: "images/chambre1.webp", alt: "Une chambre avec un lit double" },
+    { src: "images/chambre2.webp", alt: "Une autre chambre avec un lit double" },
+    { src: "images/chambre3.webp", alt: "Une troisième chambre avec un lit double" },
+    { src: "images/chambre4lits-b.webp", alt: "La chambre à quatre lits, autre vue" }
   ],
 
   /*
@@ -147,15 +151,29 @@ window.GITE_CONFIG = {
   ],
 
   rules: [
-    { title: "Arrivée et départ", text: "Arrivée entre 16h et 19h, départ avant 10h. Pour une arrivée plus tardive, prévenez-nous à l'avance." },
+    { title: "Arrivée et départ", text: "Arrivée autonome avec une boîte à clés : le code vous est envoyé avant votre séjour. Arrivée à partir de 16h, départ avant 10h." },
     { title: "Capacité", text: "10 couchages (4 lits simples et 3 lits doubles). Un lit bébé est disponible sur demande, pas d'autre lit d'appoint pour l'instant. Toute personne supplémentaire doit être annoncée à la réservation." },
     { title: "Chiens", text: "Les chiens sont acceptés sur demande préalable : un chenil est à leur disposition. Le supplément figure dans le devis. Ils ne montent pas sur les lits et les canapés." },
     { title: "Tabac", text: "Il est interdit de fumer à l'intérieur. Un cendrier est à disposition sur la terrasse." },
     { title: "Calme", text: "Merci de respecter le voisinage : pas de bruit après 22h, ni de fête ou d'événement sans accord écrit." },
-    { title: "Cheminée et barbecue", text: "Le bois est fourni en quantité raisonnable. Le barbecue ne s'utilise qu'à l'emplacement prévu, jamais sans surveillance." },
+    { title: "Poêle à bois, brasero et plancha", text: "Le bois du poêle est fourni. Le poêle, le brasero et la plancha s'utilisent avec précaution et jamais sans surveillance, surtout avec des enfants." },
     { title: "Ménage", text: "Le ménage de fin de séjour est inclus (frais de ménage). Merci de laisser la vaisselle propre et de vider la poubelle." },
     { title: "Tri des déchets", text: "Des conteneurs de tri se trouvent à l'entrée du hameau. Le calendrier de collecte est affiché dans la cuisine." },
-    { title: "Dépôt de garantie", text: "Une caution de 300 € est demandée à l'arrivée et restituée sous 7 jours, après l'état des lieux de sortie." },
+    { title: "Dépôt de garantie", text: "Une caution de 800 € est demandée avant l'arrivée et restituée sous 7 jours, après vérification du gîte à votre départ." },
     { title: "Réservation et annulation", text: "Un acompte de 30 % confirme la réservation. Le solde est dû 30 jours avant l'arrivée. Annulation gratuite jusqu'à 30 jours avant le séjour." }
+  ],
+
+  // Questions fréquentes. Ajoutez, retirez ou reformulez librement.
+  faq: [
+    { q: "Comment se passe l'arrivée ?", a: "L'arrivée est autonome : une boîte à clés vous attend, et son code vous est envoyé avant votre séjour. Vous n'avez pas besoin de nous attendre sur place." },
+    { q: "Combien de personnes peut-on loger ?", a: "Dix personnes : une chambre avec quatre lits simples et trois chambres avec un lit double. Un lit bébé est disponible sur demande. Nous n'avons pas d'autre lit d'appoint pour l'instant." },
+    { q: "Les draps et les serviettes sont-ils fournis ?", a: "Oui, les draps et les serviettes sont fournis et compris dans le prix." },
+    { q: "Le ménage est-il compris ?", a: "Le ménage de fin de séjour est assuré par nos soins. Il figure en frais de ménage dans le devis. Merci de laisser la vaisselle propre et de sortir les poubelles." },
+    { q: "Peut-on venir avec des chiens ?", a: "Oui, sur demande préalable. Un chenil est à leur disposition. Le supplément s'ajoute au devis, et les chiens ne montent pas sur les lits ni sur les canapés." },
+    { q: "Comment le gîte est-il chauffé et rafraîchi ?", a: "Un poêle à bois chauffe le séjour, avec du bois fourni. Le gîte dispose aussi d'une climatisation réversible, qui chauffe en hiver et rafraîchit en été." },
+    { q: "Le tennis, le ping-pong et la pétanque sont-ils accessibles ?", a: "Oui, ils sont sur le terrain du gîte et réservés à nos clients. Vous n'avez pas besoin de réserver." },
+    { q: "Comment venir ?", a: "Le gîte est à 15 minutes en voiture de la sortie de Salbris sur l'A71, et à 15 minutes de celle de Romorantin-Lanthenay sur l'A85. Il y a un grand parking sur place." },
+    { q: "Comment réserver ?", a: "Choisissez vos dates dans le calendrier : le devis se calcule tout de suite, avec les options. Envoyez ensuite votre demande. Nous confirmons après vérification, puis un acompte bloque les dates." },
+    { q: "Une caution est-elle demandée ?", a: "Oui, une caution de 800 € est demandée avant l'arrivée. Elle vous est rendue sous 7 jours après la vérification du gîte à votre départ." }
   ]
 };

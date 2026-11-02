@@ -199,3 +199,14 @@ footer p { margin: 0; }
 .summary .opt input, .summary .opt select { width: auto; margin: 0; }
 .summary .opt small { color: var(--muted); }
 .price-lines .row span:last-child { white-space: nowrap; }
+
+.faq-list { max-width: 820px; }
+.faq-list details { border-top: 1px solid var(--line); padding: 1rem 0; }
+.faq-list details:last-child { border-bottom: 1px solid var(--line); }
+.faq-list summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary::after { content: "+"; font-weight: 400; font-size: 1.3rem; line-height: 1; color: var(--accent); }
+.faq-list details[open] summary::after { content: "\2212"; }
+.faq-list details p { margin: .7rem 0 0; color: var(--muted); }
+
+nav a, .brand { white-space: nowrap; }

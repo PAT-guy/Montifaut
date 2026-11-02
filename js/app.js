@@ -133,12 +133,12 @@
     const dLat = 0.012, dLng = 0.02;
     $("#map").src = `https://www.openstreetmap.org/export/embed.html?bbox=${L.lng - dLng}%2C${L.lat - dLat}%2C${L.lng + dLng}%2C${L.lat + dLat}&layer=mapnik&marker=${L.lat}%2C${L.lng}`;
 
-    $("#contact-lead").textContent = `${K.owner} vous répond généralement sous 24 heures.`;
+    $("#contact-lead").textContent = "Nous répondons généralement sous 24 heures.";
     const phone = $("#c-phone"); phone.href = "tel:" + K.phone.replace(/\s/g, "");
     phone.append(el("small", {}, "Téléphone"), K.phone);
     const mail = $("#c-mail"); mail.href = "mailto:" + K.email;
     mail.append(el("small", {}, "Courriel"), K.email);
-    $("#footer-text").textContent = `© ${new Date().getFullYear()} ${C.name}. Arrivée ${s.checkIn}, départ ${s.checkOut}.`;
+    $("#footer-text").textContent = `© ${new Date().getFullYear()} ${C.name}${K.company ? ", exploité par " + K.company : ""}. Arrivée ${s.checkIn}, départ ${s.checkOut}.`;
 
     // Galerie et visionneuse
     const lb = $("#lightbox"), lbImg = lb.querySelector("img");
@@ -157,6 +157,8 @@
     const nav = $("#nav"), toggle = document.querySelector(".menu-toggle");
     toggle.onclick = () => toggle.setAttribute("aria-expanded", nav.classList.toggle("open"));
     nav.addEventListener("click", () => { nav.classList.remove("open"); toggle.setAttribute("aria-expanded", "false"); });
+
+    (C.faq || []).forEach((f) => $("#faq-list").append(el("details", {}, el("summary", {}, f.q), el("p", {}, f.a))));
 
     // Éléments propres au thème Domaine (masqués par les autres thèmes)
     $("#u-addr").textContent = L.address;
@@ -391,7 +393,7 @@
     document.documentElement.classList.add("motion");
     document.querySelectorAll(".hero-text > *").forEach((n, i) => n.style.setProperty("--h", i));
     const groups = [".wrap > h2", ".wrap > h3", ".wrap > .lead", ".two-col > *", ".gite-banner", ".feat", ".cards .card", ".gallery button",
-      ".booking > *", ".rules > div", ".table-wrap", "#map", ".contact-cards > *"];
+      ".booking > *", ".faq-list > details", ".rules > div", ".table-wrap", "#map", ".contact-cards > *"];
     const seen = new Set();
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
