@@ -58,7 +58,7 @@ window.GITE_CONFIG = {
   description: [
     "Le gîte occupe les anciens communs du château de Montifaut, en pierre et en brique, rénovés. Le séjour est une grande pièce ouverte, avec un poêle à bois, de hautes baies vitrées sur les arbres et une table pour toute la famille.",
     "Il fait environ 160 m² sur deux niveaux. Le séjour et la cuisine, équipée comme pour un grand groupe, ouvrent sur la terrasse. Les quatre chambres sont à l'étage : trois avec un lit double, une avec quatre lits simples. Une salle de bain avec baignoire et double vasque, deux WC. Lit bébé, chaise haute et baignoire bébé sont disponibles sur demande.",
-    "Dehors, une terrasse couverte de 20 places à table, un brasero, une plancha et des fauteuils sur la pelouse. Le jardin est partiellement clos et ouvert sur les bois. Table de ping-pong, pétanque, molki et terrain de tennis avec panier de basket sont sur le terrain du gîte, réservés aux clients. Un chenil de deux boxes accueille les chiens."
+    "Dehors, une terrasse couverte de 20 places à table, un brasero, une plancha et des fauteuils sur la pelouse. Le jardin est partiellement clos et ouvert sur les bois. Table de ping-pong, pétanque, molki et terrain de tennis avec panier de basket sont sur le terrain du gîte, réservés aux clients. Un box du chenil accueille les chiens."
   ],
 
   rooms: [
@@ -77,7 +77,7 @@ window.GITE_CONFIG = {
     "Sèche-cheveux", "Aspirateur", "Fer et table à repasser",
     "Terrain de tennis et panier de basket", "Table de ping-pong", "Pétanque et molki",
     "Jeux de société et table de poker", "Jeux d'enfants", "Livres et bandes dessinées",
-    "Chenil de 2 boxes", "Lit bébé, chaise haute et baignoire bébé (sur demande)"
+    "Box pour chiens (chenil)", "Lit bébé, chaise haute et baignoire bébé (sur demande)"
   ],
 
   photos: [
@@ -151,7 +151,7 @@ window.GITE_CONFIG = {
 
     // Options ajoutées au devis. per : "stay" (par séjour) ou "night" (par nuit). max : quantité maximale.
     extras: [
-      { id: "chien", label: "Chien (chenil de 2 boxes)", price: 10, per: "stay", max: 2, unit: "par chien et par séjour" },
+      { id: "chien", label: "Chien (box du chenil)", price: 10, per: "stay", max: 2, unit: "par chien et par séjour" },
       { id: "bebe", label: "Matériel bébé (lit, chaise haute, baignoire)", price: 0, per: "stay", max: 1, unit: "gratuit" },
       { id: "tard", label: "Départ tardif", price: null, per: "stay", max: 1, unit: "tarif sur demande" },
       { id: "tot", label: "Arrivée anticipée", price: null, per: "stay", max: 1, unit: "tarif sur demande" }
@@ -196,7 +196,7 @@ window.GITE_CONFIG = {
   rules: [
     { title: "Arrivée et départ", text: "Arrivée autonome avec une boîte à clés : le code vous est envoyé avant votre séjour. Arrivée à partir de 17h, y compris tard le soir. Départ avant 11h." },
     { title: "Capacité", text: "10 couchages (4 lits simples et 3 lits doubles). Un lit bébé est disponible sur demande, pas d'autre lit d'appoint pour l'instant. Toute personne supplémentaire doit être annoncée à la réservation." },
-    { title: "Chiens", text: "Les chiens sont acceptés sur demande préalable : un chenil de deux boxes est à leur disposition. Le supplément figure dans le devis. Ils ne montent pas sur les lits et les canapés." },
+    { title: "Chiens", text: "Les chiens sont acceptés sur demande préalable : un box du chenil est à leur disposition. Le supplément figure dans le devis. Ils ne montent pas sur les lits et les canapés." },
     { title: "Tabac", text: "Il est interdit de fumer à l'intérieur. Fumer est autorisé dehors." },
     { title: "Fêtes et invités", text: "Les anniversaires et les repas de famille sont possibles avec notre accord préalable. Les mariages et les soirées dansantes ne sont pas autorisés. Les invités extérieurs au séjour sont acceptés en petit nombre, avec notre accord." },
     { title: "Calme", text: "Merci de respecter le voisinage : pas de bruit après 22h." },
@@ -215,7 +215,7 @@ window.GITE_CONFIG = {
     { q: "Les draps et les serviettes sont-ils fournis ?", a: "Oui, les draps et les serviettes sont fournis et compris dans le prix." },
     { q: "Le ménage est-il compris ?", a: "Oui, le ménage de fin de séjour est compris dans le prix : aucun frais de ménage n'est ajouté. Merci de laisser la vaisselle propre et de sortir les poubelles." },
     { q: "Y a-t-il un lave-linge ?", a: "Non, le gîte n'a ni lave-linge ni sèche-linge. Un fer et une table à repasser sont à disposition." },
-    { q: "Peut-on venir avec des chiens ?", a: "Oui, sur demande préalable. Un chenil de deux boxes est à leur disposition. Le supplément s'ajoute au devis, et les chiens ne montent pas sur les lits ni sur les canapés." },
+    { q: "Peut-on venir avec des chiens ?", a: "Oui, sur demande préalable. Un box du chenil est à leur disposition. Le supplément s'ajoute au devis, et les chiens ne montent pas sur les lits ni sur les canapés." },
     { q: "Comment le gîte est-il chauffé et rafraîchi ?", a: "Le séjour a un poêle à bois (bois fourni) et une climatisation réversible, qui chauffe en hiver et rafraîchit en été. La cuisine et les chambres ont un chauffage central." },
     { q: "Le tennis, le ping-pong et la pétanque sont-ils accessibles ?", a: "Oui, ils sont sur le terrain du gîte et réservés à nos clients. Vous n'avez pas besoin de réserver. Raquettes, boules et ballon sont à disposition." },
     { q: "Comment venir ?", a: "Le gîte est à 15 minutes en voiture de la sortie de Salbris sur l'A71, et à 15 minutes de celle de Romorantin-Lanthenay sur l'A85. La gare de Selles-Saint-Denis est à 3,5 km. Il y a un grand parking sur place." },
