@@ -58,7 +58,7 @@ window.GITE_CONFIG = {
   description: [
     "Le gîte occupe les anciens communs du château de Montifaut, en pierre et en brique, rénovés. Le séjour est une grande pièce ouverte, avec un poêle à bois, de hautes baies vitrées sur les arbres et une table pour toute la famille.",
     "Il fait environ 160 m² sur deux niveaux. Le séjour et la cuisine, équipée comme pour un grand groupe, ouvrent sur la terrasse. Les quatre chambres sont à l'étage : trois avec un lit double, une avec quatre lits simples. Une salle de bain avec baignoire et double vasque, deux WC. Lit bébé, chaise haute et baignoire bébé sont disponibles sur demande.",
-    "Dehors, une terrasse couverte de 20 places à table, un brasero, une plancha et des fauteuils sur la pelouse. Le jardin est partiellement clos et ouvert sur les bois, avec des chemins pour se promener. Table de ping-pong, pétanque, molki et terrain de tennis avec panier de basket sont sur le terrain du gîte, réservés aux clients. Un chenil de deux boxes accueille les chiens."
+    "Dehors, une terrasse couverte de 20 places à table, un brasero, une plancha et des fauteuils sur la pelouse. Le jardin est partiellement clos et ouvert sur les bois. Table de ping-pong, pétanque, molki et terrain de tennis avec panier de basket sont sur le terrain du gîte, réservés aux clients. Un chenil de deux boxes accueille les chiens."
   ],
 
   rooms: [
@@ -161,7 +161,6 @@ window.GITE_CONFIG = {
   activities: [
     { title: "Tennis et basket", distance: "Sur place", text: "Terrain de tennis grillagé avec panier de basket et ballon, sur le terrain du gîte. Raquettes à disposition, réservé aux clients." },
     { title: "Ping-pong, pétanque et molki", distance: "Sur place", text: "Table de ping-pong avec raquettes, boules de pétanque et jeu de molki, sur le terrain du gîte, réservés aux clients." },
-    { title: "Promenade dans les bois", distance: "Sur place", text: "Le jardin est ouvert sur les bois : chemins pour se promener à pied, directement depuis le gîte." },
     { title: "Circuits de randonnée", distance: "Selles-Saint-Denis", text: "Deux circuits de randonnée, avec 18 km de sentiers." },
     { title: "Étang communal", distance: "Selles-Saint-Denis", text: "Pêche et observation de la nature autour de l'étang de la commune." },
     { title: "Fitness, city stade et boulodrome", distance: "Selles-Saint-Denis", text: "Aire de fitness en plein air, city stade pour les jeux de ballon et boulodrome." },
