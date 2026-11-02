@@ -107,17 +107,26 @@ window.GITE_CONFIG = {
     touristTaxPerPersonNight: 1.1, // taxe de séjour, adultes uniquement : fixée par votre commune
     depositPercent: 30,         // acompte affiché dans le devis (0 pour ne pas l'afficher)
 
+    // Coefficient appliqué à l'hébergement (nuits et voyageurs en plus) selon la durée du séjour.
+    // coef 1.10 : +10 %, coef 0.90 : -10 %. "to" absent : sans limite. Séjour minimum : 2 nuits.
+    durationCoefficients: [
+      { from: 2, to: 2, coef: 1.10 },
+      { from: 3, to: 4, coef: 1 },
+      { from: 5, to: 6, coef: 0.95 },
+      { from: 7, coef: 0.90 }
+    ],
+
     // Saisons qui reviennent chaque année (MM-JJ). Une saison peut chevaucher le nouvel an.
     seasons: [
-      { name: "Été", from: "07-04", to: "08-28", nightly: 340, minNights: 7 },
-      { name: "Noël et nouvel an", from: "12-20", to: "01-04", nightly: 380, minNights: 4 }
+      { name: "Été", from: "07-04", to: "08-28", nightly: 340, minNights: 2 },
+      { name: "Noël et nouvel an", from: "12-20", to: "01-04", nightly: 380, minNights: 2 }
     ],
 
     // Dates exceptionnelles (AAAA-MM-JJ). Elles l'emportent sur les saisons.
     // "from" et "to" sont la première et la dernière NUIT concernées.
     specialDates: [
       { name: "Week-end de Pâques 2027", from: "2027-03-26", to: "2027-03-28", nightly: 320, minNights: 2 },
-      { name: "Pont de l'Ascension 2027", from: "2027-05-05", to: "2027-05-08", nightly: 330, minNights: 3 },
+      { name: "Pont de l'Ascension 2027", from: "2027-05-05", to: "2027-05-08", nightly: 330, minNights: 2 },
       { name: "Week-end de Pentecôte 2027", from: "2027-05-15", to: "2027-05-16", nightly: 330, minNights: 2 }
     ],
 

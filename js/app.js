@@ -44,6 +44,12 @@
     return out;
   }
 
+  function durationCoef(n) {
+    const r = (P().durationCoefficients || []).find((c) => n >= c.from && (c.to == null || n <= c.to));
+    return r ? r.coef : 1;
+  }
+  const pct = (coef) => { const v = Math.round((coef - 1) * 1000) / 10; return (v > 0 ? "+" : "") + String(v).replace(".", ",") + " %"; };
+
   function quote(start, end, guests, minors = 0, chosen = {}) {
     const nights = nightsBetween(start, end);
     const groups = new Map();
@@ -55,6 +61,8 @@
     const lodging = nights.reduce((sum, d) => sum + nightlyFor(d), 0);
     const extraGuests = Math.max(0, guests - P().baseGuests);
     const extra = extraGuests * P().extraGuestPerNight * nights.length;
+    const coef = durationCoef(nights.length);
+    const adjustment = Math.round((lodging + extra) * (coef - 1) * 100) / 100;
     const adults = Math.max(0, guests - minors);
     const tax = P().touristTaxPerPersonNight * adults * nights.length;
     const options = (P().extras || []).map((x) => {
@@ -62,9 +70,9 @@
       return qty ? { label: x.label, qty, amount: x.price * qty * (x.per === "night" ? nights.length : 1) } : null;
     }).filter(Boolean);
     const optionsTotal = options.reduce((a, o) => a + o.amount, 0);
-    const total = lodging + extra + P().cleaningFee + optionsTotal + tax;
+    const total = lodging + extra + adjustment + P().cleaningFee + optionsTotal + tax;
     const deposit = P().depositPercent ? Math.round(total * P().depositPercent) / 100 : 0;
-    return { nights, groups: [...groups.values()], lodging, extraGuests, extra, adults, tax, options, cleaning: P().cleaningFee, total, deposit };
+    return { nights, groups: [...groups.values()], lodging, extraGuests, extra, coef, adjustment, adults, tax, options, cleaning: P().cleaningFee, total, deposit };
   }
 
   // Lignes du devis, utilisées à l'écran et dans le message envoyé
@@ -72,6 +80,7 @@
     const plural = (n, w) => `${n} ${w}${n > 1 ? "s" : ""}`;
     const rows = q.groups.map((g) => [`${plural(g.count, "nuit")} · ${g.name} (${money(g.nightly)} par nuit)`, money(g.count * g.nightly)]);
     if (q.extraGuests) rows.push([`${plural(q.extraGuests, "voyageur")} en plus · ${money(P().extraGuestPerNight)} par nuit et par personne`, money(q.extra)]);
+    if (q.adjustment) rows.push([`Durée du séjour, ${plural(q.nights.length, "nuit")} (${pct(q.coef)})`, (q.adjustment > 0 ? "+" : "") + money(q.adjustment)]);
     if (q.cleaning) rows.push(["Frais de ménage", money(q.cleaning)]);
     q.options.forEach((o) => rows.push([o.qty > 1 ? `${o.label} × ${o.qty}` : o.label, o.amount ? money(o.amount) : "offert"]));
     rows.push([`Taxe de séjour (${plural(q.adults, "adulte")})`, money(q.tax)]);
@@ -184,6 +193,13 @@
     renderRates();
   }
 
+  function durationText() {
+    const list = P().durationCoefficients || [];
+    if (!list.length) return "";
+    const lab = (c) => c.to == null ? `${c.from} nuits et plus` : c.from === c.to ? `${c.from} nuits` : `${c.from} à ${c.to} nuits`;
+    return ` Selon la durée du séjour, un coefficient s'applique à l'hébergement : ` + list.map((c) => `${lab(c)} ${c.coef === 1 ? "tarif normal" : pct(c.coef)}`).join(", ") + ". Séjour minimum : 2 nuits.";
+  }
+
   function renderRates() {
     const md = (x) => new Date(2000, +x.slice(0, 2) - 1, +x.slice(3)).toLocaleDateString("fr-FR", { day: "numeric", month: "long" });
     const full = (x) => parse(x).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
@@ -199,7 +215,7 @@
     $("#rates-notes").textContent =
       `Prix par nuit pour ${P().baseGuests} personnes minimum, avec un supplément de ${money(P().extraGuestPerNight)} par personne et par nuit au-delà, jusqu'à ${cap} personnes. ` +
       `Tous les prix sont TTC. Draps et serviettes fournis. ${P().cleaningFee ? `Frais de ménage : ${money(P().cleaningFee)}.` : "Ménage compris."} Taxe de séjour : ${money(P().touristTaxPerPersonNight)} par adulte et par nuit. ` +
-      `Les dates exceptionnelles (week-ends fériés, ponts) remplacent le tarif de la saison.`;
+      `Les dates exceptionnelles (week-ends fériés, ponts) remplacent le tarif de la saison.` + durationText();
   }
 
   /* ---------- Calendrier ---------- */
