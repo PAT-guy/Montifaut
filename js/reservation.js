@@ -134,7 +134,7 @@
       `Motif : ${v("reason") || "non précisé"}`,
       `Arrivée prévue : ${v("arrival") || "non précisée"}`,
       minors ? `Âge des enfants : ${v("kids") || "non précisé"}` : "",
-      chosen.chien > 0 ? `Chiens : ${chosen.chien} (${v("dogs") || "race et taille non précisées"})` : "",
+      chosen.chien > 0 ? `Chiens : ${chosen.chien} (${v("dogs") || "race et taille non précisées"}), accord du bailleur à donner` : "",
       `Besoins particuliers : ${v("needs") || "aucun"}`,
       `Fête prévue : ${f.party.value}${f.party.value !== "Pas de fête" ? ` (${v("visitors") || "0"} personnes extérieures)` : ""}`,
       `Paiement de l'acompte : ${v("pay") || "à discuter"}`,

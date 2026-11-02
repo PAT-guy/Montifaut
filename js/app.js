@@ -108,7 +108,11 @@
     toggle.onclick = () => toggle.setAttribute("aria-expanded", nav.classList.toggle("open"));
     nav.addEventListener("click", () => { nav.classList.remove("open"); toggle.setAttribute("aria-expanded", "false"); });
 
-    (C.faq || []).forEach((f) => $("#faq-list").append(el("details", {}, el("summary", {}, f.q), el("p", {}, f.a))));
+    let lastGroup = null;
+    (C.faq || []).forEach((f) => {
+      if (f.group && f.group !== lastGroup) { $("#faq-list").append(el("h4", { class: "faq-group" }, f.group)); lastGroup = f.group; }
+      $("#faq-list").append(el("details", {}, el("summary", {}, f.q), el("p", {}, f.a)));
+    });
 
     // Éléments propres au thème Domaine (masqués par les autres thèmes)
     $("#u-addr").textContent = L.address;

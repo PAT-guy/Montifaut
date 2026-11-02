@@ -77,7 +77,7 @@ window.GITE_CONFIG = {
     "Sèche-cheveux", "Aspirateur", "Fer et table à repasser",
     "Terrain de tennis et panier de basket", "Table de ping-pong", "Pétanque et molki",
     "Jeux de société et table de poker", "Jeux d'enfants", "Livres et bandes dessinées",
-    "Box pour chiens (chenil)", "Lit bébé, chaise haute et baignoire bébé (sur demande)"
+    "Box pour chien (chenil), sur accord", "Lit bébé, chaise haute et baignoire bébé (sur demande)"
   ],
 
   photos: [
@@ -151,7 +151,7 @@ window.GITE_CONFIG = {
 
     // Options ajoutées au devis. per : "stay" (par séjour) ou "night" (par nuit). max : quantité maximale.
     extras: [
-      { id: "chien", label: "Chien (box du chenil)", price: 10, per: "stay", max: 2, unit: "par chien et par séjour" },
+      { id: "chien", label: "Chien (sur accord préalable, un seul box)", price: 10, per: "stay", max: 2, unit: "par chien et par séjour, après accord" },
       { id: "bebe", label: "Matériel bébé (lit, chaise haute, baignoire)", price: 0, per: "stay", max: 1, unit: "gratuit" },
       { id: "tard", label: "Départ tardif", price: null, per: "stay", max: 1, unit: "tarif sur demande" },
       { id: "tot", label: "Arrivée anticipée", price: null, per: "stay", max: 1, unit: "tarif sur demande" }
@@ -196,7 +196,7 @@ window.GITE_CONFIG = {
   rules: [
     { title: "Arrivée et départ", text: "Arrivée autonome avec une boîte à clés : le code vous est envoyé avant votre séjour. Arrivée à partir de 17h, y compris tard le soir. Départ avant 11h." },
     { title: "Capacité", text: "10 couchages (4 lits simples et 3 lits doubles). Un lit bébé est disponible sur demande, pas d'autre lit d'appoint pour l'instant. Toute personne supplémentaire doit être annoncée à la réservation." },
-    { title: "Chiens", text: "Les chiens sont acceptés sur demande préalable : un box du chenil est à leur disposition. Le supplément figure dans le devis. Ils ne montent pas sur les lits et les canapés." },
+    { title: "Chiens", text: "Les chiens ne sont acceptés qu'avec notre accord préalable : le chenil n'a qu'un seul box, le nombre de chiens est donc limité. Le supplément figure dans le devis. Ils ne montent pas sur les lits ni sur les canapés." },
     { title: "Tabac", text: "Il est interdit de fumer à l'intérieur. Fumer est autorisé dehors." },
     { title: "Fêtes et invités", text: "Les anniversaires et les repas de famille sont possibles avec notre accord préalable. Les mariages et les soirées dansantes ne sont pas autorisés. Les invités extérieurs au séjour sont acceptés en petit nombre, avec notre accord." },
     { title: "Calme", text: "Merci de respecter le voisinage : pas de bruit après 22h." },
@@ -210,21 +210,40 @@ window.GITE_CONFIG = {
 
   // Questions fréquentes. Ajoutez, retirez ou reformulez librement.
   faq: [
-    { q: "Comment se passe l'arrivée ?", a: "L'arrivée est autonome : une boîte à clés vous attend, et son code vous est envoyé avant votre séjour. Vous pouvez arriver à partir de 17h, même tard le soir. Le départ se fait avant 11h." },
-    { q: "Combien de personnes peut-on loger ?", a: "Dix personnes : une chambre avec quatre lits simples et trois chambres avec un lit double. Un lit bébé est disponible sur demande, avec une chaise haute et une baignoire bébé. Nous n'avons pas d'autre lit d'appoint pour l'instant." },
-    { q: "Les draps et les serviettes sont-ils fournis ?", a: "Oui, les draps et les serviettes sont fournis et compris dans le prix." },
-    { q: "Le ménage est-il compris ?", a: "Oui, le ménage de fin de séjour est compris dans le prix : aucun frais de ménage n'est ajouté. Merci de laisser la vaisselle propre et de sortir les poubelles." },
-    { q: "Y a-t-il un lave-linge ?", a: "Non, le gîte n'a ni lave-linge ni sèche-linge. Un fer et une table à repasser sont à disposition." },
-    { q: "Peut-on venir avec des chiens ?", a: "Oui, sur demande préalable. Un box du chenil est à leur disposition. Le supplément s'ajoute au devis, et les chiens ne montent pas sur les lits ni sur les canapés." },
-    { q: "Comment le gîte est-il chauffé et rafraîchi ?", a: "Le séjour a un poêle à bois (bois fourni) et une climatisation réversible, qui chauffe en hiver et rafraîchit en été. La cuisine et les chambres ont un chauffage central." },
-    { q: "Le tennis, le ping-pong et la pétanque sont-ils accessibles ?", a: "Oui, ils sont sur le terrain du gîte et réservés à nos clients. Vous n'avez pas besoin de réserver. Raquettes, boules et ballon sont à disposition." },
-    { q: "Comment venir ?", a: "Le gîte est à 15 minutes en voiture de la sortie de Salbris sur l'A71, et à 15 minutes de celle de Romorantin-Lanthenay sur l'A85. La gare de Selles-Saint-Denis est à 3,5 km. Il y a un grand parking sur place." },
-    { q: "Le gîte est-il accessible aux personnes à mobilité réduite ?", a: "Non, les chambres sont à l'étage et le gîte n'est pas adapté aux personnes à mobilité réduite." },
-    { q: "Peut-on organiser un anniversaire ou un repas de famille ?", a: "Oui, avec notre accord préalable. Les invités extérieurs sont acceptés en petit nombre. Les mariages et les soirées dansantes ne sont pas autorisés. Merci de respecter le voisinage après 22h." },
-    { q: "Accueillez-vous des chasseurs ?", a: "Oui, le gîte est un relais de chasse : les chasseurs et leurs week-ends de chasse sont les bienvenus, avec leurs chiens au chenil. Nous n'organisons pas de chasse nous-mêmes." },
-    { q: "Quelles langues parlez-vous ?", a: "Nous parlons français, anglais et allemand." },
-    { q: "Quelles sont les conditions d'annulation ?", a: "L'annulation est gratuite jusqu'à 14 jours avant votre arrivée. Au-delà, l'acompte reste acquis." },
-    { q: "Comment réserver ?", a: "Choisissez vos dates dans le calendrier : le devis se calcule tout de suite, avec les options. Répondez ensuite aux questions de la page suivante et envoyez votre demande. Nous répondons sous 48 heures. Un acompte de 30 % confirme la réservation, et le solde se règle à l'arrivée." },
-    { q: "Une caution est-elle demandée ?", a: "Oui, une caution de 500 € est demandée avant l'arrivée. Elle vous est rendue sous 7 jours après la vérification du gîte à votre départ." }
+    { group: "Avant de réserver", q: "Comment réserver ?", a: "Choisissez vos dates dans le calendrier : le devis se calcule tout de suite, avec les options. Répondez ensuite aux questions de la page suivante et envoyez votre demande. Nous répondons sous 48 heures. Un acompte de 30 % confirme la réservation, et le solde se règle à l'arrivée." },
+    { group: "Avant de réserver", q: "Quel est le séjour minimum ?", a: "Deux nuits, toute l'année. Il n'y a pas de jour d'arrivée imposé." },
+    { group: "Avant de réserver", q: "Combien de personnes minimum et maximum ?", a: "Le tarif de base couvre 4 personnes, facturées même si vous êtes moins nombreux. Au-delà, 15 € par personne et par nuit s'ajoutent. Le gîte accueille 10 personnes au maximum." },
+    { group: "Avant de réserver", q: "Que comprend le prix ?", a: "Les prix sont TTC. Ils comprennent les draps, les serviettes, le bois du poêle et le ménage de fin de séjour. La taxe de séjour (1,10 € par adulte et par nuit) et les options s'ajoutent." },
+    { group: "Avant de réserver", q: "Y a-t-il des réductions pour les longs séjours ?", a: "Oui : 5 % de moins pour 5 à 6 nuits, 10 % pour 7 à 13 nuits, 15 % à partir de 14 nuits et 20 % à partir de 30 nuits. Un séjour de 2 nuits est majoré de 10 %." },
+    { group: "Avant de réserver", q: "Comment payer ?", a: "Un acompte de 30 % à la réservation, puis le solde à l'arrivée. Nous acceptons le virement, le chèque, les espèces (dans la limite légale de 1 000 €) et les chèques-vacances ANCV." },
+    { group: "Avant de réserver", q: "Quelles sont les conditions d'annulation ?", a: "L'annulation est gratuite jusqu'à 14 jours avant votre arrivée. Au-delà, l'acompte reste acquis." },
+    { group: "Avant de réserver", q: "Une caution est-elle demandée ?", a: "Oui, une caution de 500 € est demandée avant l'arrivée. Elle vous est rendue sous 7 jours après la vérification du gîte à votre départ." },
+    { group: "Avant de réserver", q: "Comment vous joindre, et en quelles langues ?", a: "Par téléphone ou WhatsApp au 06 48 48 11 13, ou par mail. Nous répondons sous 48 heures et nous parlons français, anglais et allemand." },
+    { group: "Le logement", q: "Combien de personnes peut-on loger ?", a: "Dix personnes : une chambre avec quatre lits simples et trois chambres avec un lit double. Un lit bébé est disponible sur demande, avec une chaise haute et une baignoire bébé. Nous n'avons pas d'autre lit d'appoint pour l'instant." },
+    { group: "Le logement", q: "Comment la cuisine est-elle équipée ?", a: "Four traiteur à 5 feux, lave-vaisselle, deux grands réfrigérateurs avec congélateur, micro-ondes, appareil à raclette, air fryer, deux cafetières, grille-pain et bouilloire. Une table pour 6 personnes est dans la cuisine. Dehors, une plancha et un brasero." },
+    { group: "Le logement", q: "Les draps et les serviettes sont-ils fournis ?", a: "Oui, les draps et les serviettes sont fournis et compris dans le prix." },
+    { group: "Le logement", q: "Le ménage est-il compris ?", a: "Oui, le ménage de fin de séjour est compris dans le prix : aucun frais de ménage n'est ajouté. Merci de laisser la vaisselle propre et de sortir les poubelles." },
+    { group: "Le logement", q: "Y a-t-il le wifi et la télévision ?", a: "Oui, le gîte a le wifi (connexion ADSL ou 4G) et une télévision." },
+    { group: "Le logement", q: "Comment le gîte est-il chauffé et rafraîchi ?", a: "Le séjour a un poêle à bois (bois fourni) et une climatisation réversible, qui chauffe en hiver et rafraîchit en été. La cuisine et les chambres ont un chauffage central." },
+    { group: "Le logement", q: "Y a-t-il un lave-linge ?", a: "Non, le gîte n'a ni lave-linge ni sèche-linge. Un fer et une table à repasser sont à disposition." },
+    { group: "Le logement", q: "Que prévoyez-vous pour les bébés ?", a: "Un lit bébé, une chaise haute et une baignoire bébé sont disponibles sur demande, sans supplément." },
+    { group: "Le logement", q: "Le gîte est-il accessible aux personnes à mobilité réduite ?", a: "Non, les chambres sont à l'étage et le gîte n'est pas adapté aux personnes à mobilité réduite." },
+    { group: "Le logement", q: "Peut-on fumer ?", a: "Fumer est interdit à l'intérieur et autorisé dehors." },
+    { group: "Le logement", q: "Le jardin est-il clos ?", a: "Il est partiellement clos et ouvert sur les bois. Les jeunes enfants restent sous votre surveillance." },
+    { group: "Le séjour", q: "Comment se passe l'arrivée ?", a: "L'arrivée est autonome : une boîte à clés vous attend, et son code vous est envoyé avant votre séjour. Vous pouvez arriver à partir de 17h. Le départ se fait avant 11h." },
+    { group: "Le séjour", q: "Peut-on arriver tard le soir ?", a: "Oui, c'est toujours possible grâce à la boîte à clés. Indiquez votre heure d'arrivée prévue lors de la réservation." },
+    { group: "Le séjour", q: "Peut-on arriver plus tôt ou partir plus tard ?", a: "Sur demande, avec notre accord. Le tarif est convenu avec vous au moment de la demande." },
+    { group: "Le séjour", q: "Où se garer ?", a: "Il y a un grand parking sur place." },
+    { group: "Le séjour", q: "Quels jeux et loisirs sont à disposition ?", a: "Sur le terrain du gîte : un terrain de tennis avec raquettes, un panier de basket avec ballon, une table de ping-pong avec raquettes, des boules de pétanque et un jeu de molki. Ils sont réservés à nos clients, sans réservation. Dans la maison : jeux de société, table de poker, jeux d'enfants, livres et bandes dessinées." },
+    { group: "Le séjour", q: "Peut-on venir avec un chien ?", a: "Seulement avec notre accord préalable : le chenil n'a qu'un seul box, le nombre de chiens est donc limité. Le supplément s'ajoute au devis. Les chiens ne montent pas sur les lits ni sur les canapés." },
+    { group: "Le séjour", q: "Peut-on organiser un anniversaire ou un repas de famille ?", a: "Oui, avec notre accord préalable. Les invités extérieurs sont acceptés en petit nombre. Les mariages et les soirées dansantes ne sont pas autorisés. Merci de respecter le voisinage après 22h." },
+    { group: "Le séjour", q: "Accueillez-vous des chasseurs ?", a: "Oui, le gîte est un relais de chasse : les chasseurs et leurs week-ends de chasse sont les bienvenus. Nous n'organisons pas de chasse nous-mêmes." },
+    { group: "Le séjour", q: "Comment fonctionnent le poêle, le brasero et la plancha ?", a: "Le bois du poêle est fourni. Le poêle, le brasero et la plancha s'utilisent avec précaution et jamais sans surveillance, surtout avec des enfants." },
+    { group: "Le séjour", q: "Où jeter les déchets ?", a: "Le verre va dans la poubelle verte, près du chenil. Les ordures ménagères et les déchets recyclables vont dans les poubelles marron et jaunes, à l'entrée du chemin." },
+    { group: "Alentours", q: "Comment venir ?", a: "Le gîte est à 15 minutes en voiture de la sortie de Salbris sur l'A71, et à 15 minutes de celle de Romorantin-Lanthenay sur l'A85. La gare de Selles-Saint-Denis est à 3,5 km." },
+    { group: "Alentours", q: "Où faire ses courses ?", a: "Les supermarchés sont à Salbris et à Romorantin-Lanthenay. Les boulangeries sont à La Ferté-Imbault et à Selles-Saint-Denis, la boucherie à Selles-Saint-Denis, les épiceries à Selles-Saint-Denis et à La Ferté-Imbault. La pharmacie est à La Ferté-Imbault." },
+    { group: "Alentours", q: "Où manger ?", a: "Nous recommandons l'Auberge du Cheval Blanc à Selles-Saint-Denis, Le Lion d'Or à Romorantin-Lanthenay, le Domaine de Valaudran et Les Copains d'abord à Salbris." },
+    { group: "Alentours", q: "Que visiter ?", a: "Les châteaux de Chambord, de Cheverny, de Blois et de La Ferté-Imbault, et le zoo de Beauval à 50 minutes en voiture. À Salbris, un circuit de karting. À Lamotte-Beuvron, les concours hippiques, le Game Fair et le Sologne Shooting Club." },
+    { group: "Alentours", q: "Que faire à pied ou près de l'eau ?", a: "À Selles-Saint-Denis : deux circuits de randonnée avec 18 km de sentiers, l'étang communal pour la pêche et l'observation de la nature, une aire de fitness en plein air, un city stade et un boulodrome." }
   ]
 };

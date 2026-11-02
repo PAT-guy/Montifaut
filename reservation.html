@@ -13,15 +13,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Josefin+Sans:wght@300;400;600&family=Barlow+Condensed:wght@600;700&family=Caveat:wght@600&family=Cormorant+Garamond:wght@600;700&family=Fraunces:wght@500;600&family=Lora:wght@400;600&family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600;700&family=Raleway:wght@300;400;500;600&display=swap">
-  <link rel="stylesheet" href="css/themes.css?v=41">
-  <script src="js/config.js?v=41"></script>
-  <script src="js/brand.js?v=41"></script>
+  <link rel="stylesheet" href="css/themes.css?v=42">
+  <script src="js/config.js?v=42"></script>
+  <script src="js/brand.js?v=42"></script>
   <script>
     var theme = new URLSearchParams(location.search).get("theme") || window.GITE_CONFIG.theme || "sologne";
     document.documentElement.dataset.theme = theme;
     document.documentElement.dataset.font = new URLSearchParams(location.search).get("police") || window.GITE_CONFIG.font || "";
     (theme === "champetre" ? ["champetre"] : ["style", "layouts"]).forEach(function (f) {
-      document.write('<link rel="stylesheet" href="css/' + f + '.css?v=41">');
+      document.write('<link rel="stylesheet" href="css/' + f + '.css?v=42">');
     });
   </script>
 </head>
@@ -101,7 +101,7 @@
           </label>
           <label id="kids-row" hidden>Âge des enfants <small>(utile pour le lit bébé, les jeux et la sécurité)</small>
             <input name="kids" placeholder="Par exemple : 3 ans, 7 ans, 12 ans"></label>
-          <label id="dogs-row" hidden>Chiens : race et taille <small>(pour le chenil)</small>
+          <label id="dogs-row" hidden>Chiens : race et taille <small>(un seul box au chenil : l'accueil se fait avec notre accord)</small>
             <input name="dogs" placeholder="Par exemple : labrador, 30 kg"></label>
           <label>Besoins particuliers <small>(régime alimentaire, mobilité réduite, allergies)</small>
             <textarea name="needs" rows="2"></textarea></label>
@@ -176,7 +176,7 @@
 
   <footer><p id="footer-text"></p><p><a href="mentions-legales.html">Mentions légales et confidentialité</a></p></footer>
 
-  <script src="js/pricing.js?v=41"></script>
-  <script src="js/reservation.js?v=41"></script>
+  <script src="js/pricing.js?v=42"></script>
+  <script src="js/reservation.js?v=42"></script>
 </body>
 </html>
