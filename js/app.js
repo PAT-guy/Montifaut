@@ -28,8 +28,15 @@
     const md = dateIso.slice(5);
     return P().seasons.find((s) => (s.from <= s.to ? md >= s.from && md <= s.to : md >= s.from || md <= s.to));
   }
-  const nightlyFor = (d) => (seasonFor(d) || {}).nightly ?? P().defaultNightly;
-  const minNightsFor = (d) => (seasonFor(d) || {}).minNights ?? P().minNights;
+  function periodFor(dateIso) {
+    const sp = (P().specialDates || []).find((x) => dateIso >= x.from && dateIso <= x.to);
+    if (sp) return { name: sp.name, nightly: sp.nightly, minNights: sp.minNights ?? P().minNights };
+    const se = seasonFor(dateIso);
+    if (se) return { name: se.name, nightly: se.nightly, minNights: se.minNights ?? P().minNights };
+    return { name: P().defaultName || "Autres périodes", nightly: P().defaultNightly, minNights: P().minNights };
+  }
+  const nightlyFor = (d) => periodFor(d).nightly;
+  const minNightsFor = (d) => periodFor(d).minNights;
 
   function nightsBetween(a, b) {
     const out = [];
@@ -37,13 +44,38 @@
     return out;
   }
 
-  function quote(start, end, guests) {
+  function quote(start, end, guests, minors = 0, chosen = {}) {
     const nights = nightsBetween(start, end);
+    const groups = new Map();
+    nights.forEach((n) => {
+      const p = periodFor(n), key = p.name + "|" + p.nightly;
+      if (!groups.has(key)) groups.set(key, { name: p.name, nightly: p.nightly, count: 0 });
+      groups.get(key).count++;
+    });
     const lodging = nights.reduce((sum, d) => sum + nightlyFor(d), 0);
-    const extra = Math.max(0, guests - P().baseGuests) * P().extraGuestPerNight * nights.length;
-    const tax = P().touristTaxPerPersonNight * guests * nights.length;
-    const total = lodging + extra + P().cleaningFee + tax;
-    return { nights, lodging, extra, tax, cleaning: P().cleaningFee, total };
+    const extraGuests = Math.max(0, guests - P().baseGuests);
+    const extra = extraGuests * P().extraGuestPerNight * nights.length;
+    const adults = Math.max(0, guests - minors);
+    const tax = P().touristTaxPerPersonNight * adults * nights.length;
+    const options = (P().extras || []).map((x) => {
+      const qty = chosen[x.id] || 0;
+      return qty ? { label: x.label, qty, amount: x.price * qty * (x.per === "night" ? nights.length : 1) } : null;
+    }).filter(Boolean);
+    const optionsTotal = options.reduce((a, o) => a + o.amount, 0);
+    const total = lodging + extra + P().cleaningFee + optionsTotal + tax;
+    const deposit = P().depositPercent ? Math.round(total * P().depositPercent) / 100 : 0;
+    return { nights, groups: [...groups.values()], lodging, extraGuests, extra, adults, tax, options, cleaning: P().cleaningFee, total, deposit };
+  }
+
+  // Lignes du devis, utilisées à l'écran et dans le message envoyé
+  function quoteRows(q) {
+    const plural = (n, w) => `${n} ${w}${n > 1 ? "s" : ""}`;
+    const rows = q.groups.map((g) => [`${plural(g.count, "nuit")} · ${g.name} (${money(g.nightly)} par nuit)`, money(g.count * g.nightly)]);
+    if (q.extraGuests) rows.push([`${plural(q.extraGuests, "voyageur")} en plus · ${money(P().extraGuestPerNight)} par nuit et par personne`, money(q.extra)]);
+    rows.push(["Frais de ménage", money(q.cleaning)]);
+    q.options.forEach((o) => rows.push([o.qty > 1 ? `${o.label} × ${o.qty}` : o.label, o.amount ? money(o.amount) : "offert"]));
+    rows.push([`Taxe de séjour (${plural(q.adults, "adulte")})`, money(q.tax)]);
+    return rows;
   }
 
   /* ---------- Disponibilités ---------- */
@@ -151,19 +183,21 @@
   }
 
   function renderRates() {
-    const md = (s) => new Date(2000, +s.slice(0, 2) - 1, +s.slice(3)).toLocaleDateString("fr-FR", { day: "numeric", month: "long" });
+    const md = (x) => new Date(2000, +x.slice(0, 2) - 1, +x.slice(3)).toLocaleDateString("fr-FR", { day: "numeric", month: "long" });
+    const full = (x) => parse(x).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
     const t = $("#rates");
-    t.append(el("thead", {}, el("tr", {}, ["Période", "Prix par nuit", "Séjour minimum"].map((h) => el("th", {}, h)))));
+    t.append(el("thead", {}, el("tr", {}, ["Période", `Prix par nuit (${P().baseGuests} personnes)`, "Séjour minimum"].map((h) => el("th", {}, h)))));
     const body = el("tbody");
-    P().seasons.forEach((s) => body.append(el("tr", {}, el("td", {}, `${s.name} (du ${md(s.from)} au ${md(s.to)})`), el("td", {}, money(s.nightly)), el("td", {}, `${s.minNights} nuits`))));
-    body.append(el("tr", {}, el("td", {}, "Autres périodes"), el("td", {}, money(P().defaultNightly)), el("td", {}, `${P().minNights} nuits`)));
+    const line = (label, price, min) => body.append(el("tr", {}, el("td", {}, label), el("td", {}, money(price)), el("td", {}, `${min} nuits`)));
+    line(`${P().defaultName || "Autres périodes"} (le reste de l'année)`, P().defaultNightly, P().minNights);
+    P().seasons.forEach((x) => line(`${x.name} (du ${md(x.from)} au ${md(x.to)})`, x.nightly, x.minNights));
+    (P().specialDates || []).filter((x) => x.to >= today).forEach((x) => line(`${x.name} (nuits du ${full(x.from)} au ${full(x.to)})`, x.nightly, x.minNights ?? P().minNights));
     t.append(body);
     const cap = C.stay.capacity;
-    const guests = P().extraGuestPerNight > 0
-      ? `Prix par nuit pour ${P().baseGuests} personnes, avec un supplément de ${money(P().extraGuestPerNight)} par personne et par nuit au-delà, jusqu'à ${cap} personnes.`
-      : `Prix par nuit pour le gîte entier, jusqu'à ${cap} personnes.`;
     $("#rates-notes").textContent =
-      `${guests} Draps et serviettes fournis. Frais de ménage : ${money(P().cleaningFee)}. Taxe de séjour : ${money(P().touristTaxPerPersonNight)} par adulte et par nuit.`;
+      `Prix par nuit pour ${P().baseGuests} personnes minimum, avec un supplément de ${money(P().extraGuestPerNight)} par personne et par nuit au-delà, jusqu'à ${cap} personnes. ` +
+      `Draps et serviettes fournis. Frais de ménage : ${money(P().cleaningFee)}. Taxe de séjour : ${money(P().touristTaxPerPersonNight)} par adulte et par nuit. ` +
+      `Les dates exceptionnelles (week-ends fériés, ponts) remplacent le tarif de la saison.`;
   }
 
   /* ---------- Calendrier ---------- */
@@ -243,26 +277,50 @@
     renderPrice(problem);
   }
 
+  function chosenExtras() {
+    const out = {};
+    (P().extras || []).forEach((x) => { const n = document.querySelector(`[data-extra="${x.id}"]`); if (n) out[x.id] = n.type === "checkbox" ? (n.checked ? 1 : 0) : +n.value; });
+    return out;
+  }
+
   function renderPrice(problem) {
     const box = $("#price-lines");
     box.replaceChildren();
     if (!state.start || !state.end || problem) return;
     const guests = +$("#guests").value;
-    const q = quote(state.start, state.end, guests);
+    const q = quote(state.start, state.end, guests, +$("#minors").value || 0, chosenExtras());
     const row = (label, value, cls = "") => box.append(el("div", { class: "row " + cls }, el("span", {}, label), el("span", {}, value)));
-    row(`Hébergement (${q.nights.length} nuits)`, money(q.lodging));
-    if (q.extra) row(`Voyageurs supplémentaires`, money(q.extra));
-    row("Frais de ménage", money(q.cleaning));
-    row("Taxe de séjour", money(q.tax));
+    quoteRows(q).forEach(([l, v]) => row(l, v));
     row("Total estimé", money(q.total), "total");
+    if (q.deposit) {
+      row(`Acompte à la réservation (${P().depositPercent} %)`, money(q.deposit), "sub");
+      row("Solde avant l'arrivée", money(q.total - q.deposit), "sub");
+    }
   }
 
   /* ---------- Formulaire ---------- */
   function setupForm() {
-    const sel = $("#guests");
+    const sel = $("#guests"), minors = $("#minors");
     for (let i = 1; i <= C.stay.capacity; i++) sel.append(el("option", { value: i }, i + (i > 1 ? " personnes" : " personne")));
     sel.value = String(Math.min(P().baseGuests, C.stay.capacity));
-    sel.addEventListener("change", update);
+    const fillMinors = () => {
+      const keep = +minors.value || 0;
+      minors.replaceChildren();
+      for (let i = 0; i < +sel.value; i++) minors.append(el("option", { value: i }, String(i)));
+      minors.value = String(Math.min(keep, +sel.value - 1));
+    };
+    fillMinors();
+    sel.addEventListener("change", () => { fillMinors(); update(); });
+    minors.addEventListener("change", update);
+    $("#guest-note").textContent = `Tarif de base pour ${P().baseGuests} personnes minimum, facturées même si le groupe est plus petit.`;
+    (P().extras || []).forEach((x) => {
+      const input = x.max > 1
+        ? el("select", { "data-extra": x.id }, Array.from({ length: x.max + 1 }, (_, i) => el("option", { value: i }, String(i))))
+        : el("input", { type: "checkbox", "data-extra": x.id });
+      input.addEventListener("change", update);
+      $("#extras").append(el("label", { class: "opt" }, el("span", {}, `${x.label} `, el("small", {}, x.price ? `${money(x.price)} ${x.unit}` : x.unit)), input));
+    });
+    if (!(P().extras || []).length) $("#extras").hidden = true;
     $("#prev").onclick = () => { state.offset = Math.max(0, state.offset - 1); renderCalendar(); };
     $("#next").onclick = () => { state.offset = Math.min(MAX_OFFSET, state.offset + 1); renderCalendar(); };
 
@@ -277,13 +335,18 @@
       if (!f.name.value.trim() || !/^\S+@\S+\.\S+$/.test(f.email.value)) return say("Indiquez votre nom et une adresse mail valide.", false);
 
       const guests = +f.guests.value;
-      const q = quote(state.start, state.end, guests);
+      const q = quote(state.start, state.end, guests, +f.minors.value || 0, chosenExtras());
       const body = [
         `Demande de réservation pour ${C.name}`,
         `Arrivée : ${longDate(state.start)}`,
         `Départ : ${longDate(state.end)} (${q.nights.length} nuits)`,
-        `Voyageurs : ${guests}`,
+        `Voyageurs : ${guests} (dont ${f.minors.value} de moins de 18 ans)`,
+        "",
+        "Devis estimatif :",
+        ...quoteRows(q).map(([l, v]) => `- ${l} : ${v}`),
         `Total estimé : ${money(q.total)}`,
+        q.deposit ? `Acompte (${P().depositPercent} %) : ${money(q.deposit)}` : "",
+        "",
         `Nom : ${f.name.value}`,
         `Mail : ${f.email.value}`,
         `Téléphone : ${f.phone.value || "non renseigné"}`,

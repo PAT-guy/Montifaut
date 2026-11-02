@@ -35,7 +35,7 @@ window.GITE_CONFIG = {
     // Coordonnées d'exemple : remplacez par celles du gîte (clic droit sur Google Maps).
     lat: 47.0,
     lng: 2.0,
-    access: "À 5 minutes du village et de ses commerces. Grand parking sur place. Gare la plus proche à 20 km."
+    access: "À 15 minutes en voiture de la sortie de Salbris (A71) et à 15 minutes de celle de Romorantin-Lanthenay (A85). Grand parking sur place."
   },
 
   stay: {
@@ -51,7 +51,7 @@ window.GITE_CONFIG = {
 
   description: [
     "Une ancienne dépendance en pierre et en brique, rénovée. Le séjour est une grande pièce ouverte, avec un poêle à bois, de hautes baies vitrées sur les arbres et une table pour toute la famille.",
-    "Le gîte fait environ 160 m² sur deux niveaux. Le séjour ouvre sur la terrasse et la cuisine est équipée comme pour un grand groupe. Quatre chambres, une salle de bain et deux WC accueillent dix personnes. Un lit bébé est disponible sur demande.",
+    "Le gîte fait environ 160 m² sur deux niveaux. Le séjour ouvre sur la terrasse et la cuisine est équipée comme pour un grand groupe. Quatre chambres, une salle de bain et deux WC accueillent dix personnes. Un lit bébé est disponible sur demande, et un chenil accueille les chiens.",
     "Dehors, une grande terrasse couverte avec une longue table, un brasero et des fauteuils sur la pelouse. Le jardin est ouvert sur les bois, avec des chemins pour se promener. Table de ping-pong, jeu de pétanque et terrain de tennis avec panier de basket sont sur le terrain du gîte, réservés aux clients, sans réservation."
   ],
 
@@ -64,7 +64,7 @@ window.GITE_CONFIG = {
   ],
 
   amenities: [
-    "Wifi", "Lave-linge", "Chauffage", "Poêle à bois", "Terrasse couverte",
+    "Wifi", "Lave-linge", "Chauffage", "Poêle à bois (bois fourni)", "Climatisation", "Chenil", "Terrasse couverte",
     "Brasero", "Plancha", "Machine à glaçons", "Lave-vaisselle", "Terrain de tennis et basket",
     "Table de ping-pong", "Pétanque", "Grand parking", "Draps fournis", "Serviettes fournies",
     "Lit bébé sur demande"
@@ -87,20 +87,42 @@ window.GITE_CONFIG = {
    * Pour changer un prix, modifiez simplement le chiffre.
    */
   pricing: {
-    // GRILLE PROVISOIRE : prix de base par nuit pour 6 personnes, supplément au-delà (jusqu'à 10).
-    // Draps et serviettes inclus. À ajuster avant publication.
+    /*
+     * GRILLE PROVISOIRE, à ajuster avant publication.
+     * Prix par nuit pour 4 personnes minimum (facturées même si le groupe est plus petit),
+     * plus un supplément par personne et par nuit jusqu'à la capacité du gîte.
+     * Draps et serviettes inclus.
+     */
     currency: "€",
-    defaultNightly: 200,        // novembre à mars, hors vacances
+    defaultName: "Basse saison",
+    defaultNightly: 250,        // hors périodes listées plus bas
     minNights: 2,
-    baseGuests: 6,              // personnes incluses dans le prix de base
+    baseGuests: 4,              // personnes incluses dans le prix de base
     extraGuestPerNight: 20,     // supplément par personne et par nuit au-delà de baseGuests
     cleaningFee: 120,
     touristTaxPerPersonNight: 1.1, // taxe de séjour, adultes uniquement : fixée par votre commune
+    depositPercent: 30,         // acompte affiché dans le devis (0 pour ne pas l'afficher)
+
+    // Saisons qui reviennent chaque année (MM-JJ). Une saison peut chevaucher le nouvel an.
     seasons: [
-      { name: "Été", from: "07-04", to: "08-28", nightly: 300, minNights: 7 },
-      { name: "Noël et nouvel an", from: "12-20", to: "01-04", nightly: 330, minNights: 4 },
-      { name: "Printemps et ponts", from: "04-15", to: "07-03", nightly: 240, minNights: 2 },
-      { name: "Automne et Toussaint", from: "08-29", to: "11-02", nightly: 220, minNights: 2 }
+      { name: "Été", from: "07-04", to: "08-28", nightly: 340, minNights: 7 },
+      { name: "Noël et nouvel an", from: "12-20", to: "01-04", nightly: 380, minNights: 4 },
+      { name: "Printemps et ponts", from: "04-15", to: "07-03", nightly: 280, minNights: 2 },
+      { name: "Automne et Toussaint", from: "08-29", to: "11-02", nightly: 260, minNights: 2 }
+    ],
+
+    // Dates exceptionnelles (AAAA-MM-JJ). Elles l'emportent sur les saisons.
+    // "from" et "to" sont la première et la dernière NUIT concernées.
+    specialDates: [
+      { name: "Week-end de Pâques 2027", from: "2027-03-26", to: "2027-03-28", nightly: 320, minNights: 2 },
+      { name: "Pont de l'Ascension 2027", from: "2027-05-05", to: "2027-05-08", nightly: 330, minNights: 3 },
+      { name: "Week-end de Pentecôte 2027", from: "2027-05-15", to: "2027-05-16", nightly: 330, minNights: 2 }
+    ],
+
+    // Options ajoutées au devis. per : "stay" (par séjour) ou "night" (par nuit). max : quantité maximale.
+    extras: [
+      { id: "chien", label: "Chien (chenil à disposition)", price: 10, per: "stay", max: 3, unit: "par chien et par séjour" },
+      { id: "bebe", label: "Lit bébé", price: 0, per: "stay", max: 1, unit: "gratuit" }
     ]
   },
 
@@ -127,7 +149,7 @@ window.GITE_CONFIG = {
   rules: [
     { title: "Arrivée et départ", text: "Arrivée entre 16h et 19h, départ avant 10h. Pour une arrivée plus tardive, prévenez-nous à l'avance." },
     { title: "Capacité", text: "10 couchages (4 lits simples et 3 lits doubles). Un lit bébé est disponible sur demande, pas d'autre lit d'appoint pour l'instant. Toute personne supplémentaire doit être annoncée à la réservation." },
-    { title: "Animaux", text: "Les animaux sont acceptés sur demande préalable, avec un supplément de 10 € par séjour. Ils ne montent pas sur les lits et canapés." },
+    { title: "Chiens", text: "Les chiens sont acceptés sur demande préalable : un chenil est à leur disposition. Le supplément figure dans le devis. Ils ne montent pas sur les lits et les canapés." },
     { title: "Tabac", text: "Il est interdit de fumer à l'intérieur. Un cendrier est à disposition sur la terrasse." },
     { title: "Calme", text: "Merci de respecter le voisinage : pas de bruit après 22h, ni de fête ou d'événement sans accord écrit." },
     { title: "Cheminée et barbecue", text: "Le bois est fourni en quantité raisonnable. Le barbecue ne s'utilise qu'à l'emplacement prévu, jamais sans surveillance." },
