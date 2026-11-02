@@ -170,3 +170,17 @@
   [data-theme="domaine"] nav { gap: 1rem; font-size: .92rem; }
   [data-theme="chasse"] .brand span { font-size: .95rem; }
 }
+
+/* ---------- Photos : coins arrondis, légèrement éclaircies, ombre douce ---------- */
+html[data-theme] .gallery button { border-radius: 22px; overflow: hidden; box-shadow: 0 8px 22px rgba(38,51,42,.15); transition: transform .3s ease, box-shadow .3s ease; }
+html[data-theme] .gallery button:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(38,51,42,.22); }
+html[data-theme] .gallery img, html[data-theme] .gite-banner img, #lightbox img { filter: brightness(1.1) contrast(.97) saturate(.93); }
+html[data-theme] .gallery img { transition: transform .6s ease; }
+html[data-theme] .gallery button:hover img { transform: scale(1.04); }
+html[data-theme] .gite-banner img { border-radius: 22px; box-shadow: 0 8px 22px rgba(38,51,42,.15); }
+#lightbox img { border-radius: 16px; }
+html[data-theme] .hero::after { filter: brightness(1.06) saturate(.95); }
+html[data-theme="sologne"] .hero::after, html[data-theme="tradition"] .hero::after { border-radius: 26px; }
+html[data-theme="sologne"] .hero { padding-bottom: 2.5rem; }
+html[data-theme="sologne"] .hero::after { margin: 0 max(16px, calc((100vw - 1100px) / 2 + 16px)); box-shadow: 0 12px 34px rgba(38,51,42,.2); }
+html[data-theme="chasse"] .gallery button, html[data-theme="tradition"] .gallery button { border-radius: 14px; }

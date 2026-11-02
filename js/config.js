@@ -151,7 +151,7 @@ window.GITE_CONFIG = {
 
     // Options ajoutées au devis. per : "stay" (par séjour) ou "night" (par nuit). max : quantité maximale.
     extras: [
-      { id: "chien", label: "Chien (sur accord préalable, un seul box)", price: 10, per: "stay", max: 2, unit: "par chien et par séjour, après accord" },
+      { id: "chien", label: "Chien (sur accord préalable, un seul box)", price: 10, per: "stay", max: 3, unit: "par chien et par séjour, après accord" },
       { id: "bebe", label: "Matériel bébé (lit, chaise haute, baignoire)", price: 0, per: "stay", max: 1, unit: "gratuit" },
       { id: "tard", label: "Départ tardif", price: null, per: "stay", max: 1, unit: "tarif sur demande" },
       { id: "tot", label: "Arrivée anticipée", price: null, per: "stay", max: 1, unit: "tarif sur demande" }

@@ -287,3 +287,5 @@ main .hint, main .status, main .notice, main .lbl, .summary p, .resa-form p, .re
 .faq-group:first-child { margin-top: 0; }
 .faq-list summary { font-size: 1.05rem; padding: .1rem 0; }
 .faq-list details p { font-size: 1rem; }
+
+.gallery img, #lightbox img { filter: brightness(1.08) contrast(.97) saturate(.94); }
