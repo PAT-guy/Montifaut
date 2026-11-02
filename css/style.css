@@ -209,3 +209,9 @@ nav a.active { border-bottom: 2px solid var(--accent); }
 
 footer a { color: inherit; }
 .legal { max-width: 820px; }
+
+/* Logo */
+.brand { display: inline-flex; align-items: center; gap: .6rem; }
+.brand .mark { height: 2.4rem; width: auto; }
+.brand .mark-or { display: none; }
+.footer-logo { display: block; width: 170px; max-width: 60%; height: auto; margin: 0 auto 1rem; }

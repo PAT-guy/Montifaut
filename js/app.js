@@ -40,7 +40,7 @@
   /* ---------- Contenu statique ---------- */
   function renderStatic() {
     document.title = C.name + " | Location de vacances";
-    $("#brand").textContent = C.shortName || C.name;
+    window.GiteBrand.fill($("#brand"));
     const h1 = $("#hero-title");
     if (C.titleLight && C.titleStrong) h1.append(C.titleLight + " ", el("span", { class: "hl" }, C.titleStrong));
     else h1.textContent = C.name;

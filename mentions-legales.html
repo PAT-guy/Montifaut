@@ -4,16 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mentions légales et confidentialité | Gîte des Communs de Montifaut</title>
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#2f3b2c">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Caveat:wght@600&family=Cormorant+Garamond:wght@600;700&family=Fraunces:wght@500;600&family=Lora:wght@400;600&family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600;700&family=Raleway:wght@300;400;500;600&display=swap">
-  <link rel="stylesheet" href="css/themes.css?v=33">
-  <script src="js/config.js?v=33"></script>
+  <link rel="stylesheet" href="css/themes.css?v=35">
+  <script src="js/config.js?v=35"></script>
+  <script src="js/brand.js?v=35"></script>
   <script>
     var theme = new URLSearchParams(location.search).get("theme") || window.GITE_CONFIG.theme || "sologne";
     document.documentElement.dataset.theme = theme;
     (theme === "champetre" ? ["champetre"] : ["style", "layouts"]).forEach(function (f) {
-      document.write('<link rel="stylesheet" href="css/' + f + '.css?v=33">');
+      document.write('<link rel="stylesheet" href="css/' + f + '.css?v=35">');
     });
   </script>
 </head>
@@ -54,7 +60,7 @@
   <script>
     (function () {
       var C = window.GITE_CONFIG, K = C.contact;
-      document.getElementById("brand").textContent = C.shortName || C.name;
+      window.GiteBrand.fill(document.getElementById("brand"));
       document.querySelectorAll(".v-name").forEach(function (n) { n.textContent = C.name; });
       document.querySelectorAll(".v-addr").forEach(function (n) { n.textContent = C.location.address; });
       document.querySelectorAll(".v-mail").forEach(function (n) { n.textContent = K.email; n.href = "mailto:" + K.email; });

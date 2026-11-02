@@ -14,7 +14,7 @@
 
   const K = C.contact, L = C.location, S = C.stay;
   document.title = "Finaliser ma réservation | " + C.name;
-  $("#brand").textContent = C.shortName || C.name;
+  window.GiteBrand.fill($("#brand"));
   $("#u-addr").textContent = L.address;
   $("#u-tel").textContent = K.phone; $("#u-tel").href = "tel:" + K.phone.replace(/\s/g, "");
   $("#footer-text").textContent = `© ${new Date().getFullYear()} ${C.name}${K.company ? ", exploité par " + K.company : ""}.`;

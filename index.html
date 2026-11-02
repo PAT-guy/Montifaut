@@ -5,17 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gîte des Communs de Montifaut | Location de vacances en Sologne</title>
   <meta name="description" content="Gîte des Communs de Montifaut à Selles-Saint-Denis, en Sologne : location de vacances pour 10 personnes, photos, disponibilités, tarifs, activités et réservation.">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#2f3b2c">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Caveat:wght@600&family=Cormorant+Garamond:wght@600;700&family=Fraunces:wght@500;600&family=Lora:wght@400;600&family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600;700&family=Raleway:wght@300;400;500;600&display=swap">
-  <link rel="stylesheet" href="css/themes.css?v=33">
-  <script src="js/config.js?v=33"></script>
+  <link rel="stylesheet" href="css/themes.css?v=35">
+  <script src="js/config.js?v=35"></script>
+  <script src="js/brand.js?v=35"></script>
   <script>
     var theme = new URLSearchParams(location.search).get("theme") || window.GITE_CONFIG.theme || "sologne";
     document.documentElement.dataset.theme = theme;
     // Le Champêtre a sa propre feuille de style complète ; les autres thèmes partagent style.css et layouts.css
     (theme === "champetre" ? ["champetre", "motion"] : ["style", "layouts", "motion"]).forEach(function (f) {
-      document.write('<link rel="stylesheet" href="css/' + f + '.css?v=33">');
+      document.write('<link rel="stylesheet" href="css/' + f + '.css?v=35">');
     });
     </script>
 </head>
@@ -191,7 +197,7 @@
     </div>
   </dialog>
 
-  <script src="js/pricing.js?v=33"></script>
-  <script src="js/app.js?v=33"></script>
+  <script src="js/pricing.js?v=35"></script>
+  <script src="js/app.js?v=35"></script>
 </body>
 </html>

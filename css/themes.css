@@ -9,11 +9,11 @@
 
 /* Sologne : papier crème, vert mousse, empattements fins */
 :root, :root[data-theme="sologne"] {
-  --bg: #f3eee1; --band: #e7dfc9; --ink: #2b2a1f; --muted: #6a6550;
-  --accent: #55672f; --accent-dark: #36431d; --line: #d3c7a6; --card: #fbf8ef;
-  --day: #efe8d4; --booked: #d9bca0; --booked-ink: #7a4a30; --sel: #55672f; --range: #d5dbb8;
-  --btn-ink: #fff; --danger: #a0442f; --nav-bg: rgba(243,238,225,.95);
-  --footer-bg: #2a3219; --footer-ink: #d9d6c0;
+  --bg: #f3eee3; --band: #e7dfc9; --ink: #26332a; --muted: #6a6550;
+  --accent: #3e4a2e; --accent-dark: #2f3b2c; --line: #d3c7a6; --card: #fbf8ef;
+  --day: #efe8d4; --booked: #d9bca0; --booked-ink: #7a4a30; --sel: #3e4a2e; --range: #d5dbb8;
+  --btn-ink: #fff; --danger: #a0442f; --nav-bg: rgba(243,238,227,.96);
+  --footer-bg: #26332a; --footer-ink: #e6dfcd;
   --notice-bg: #f6ecc4; --notice-ink: #5a4a10; --notice-line: #dcc880;
   --radius: 2px; --btn-radius: 2px;
   --font-head: "Cormorant Garamond", Georgia, serif; --head-weight: 700;
