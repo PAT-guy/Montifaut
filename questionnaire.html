@@ -134,9 +134,7 @@ const S = [
   { id:"decheterie", label:"Tri des déchets et poubelles : comment ça marche ?", type:"area" }
  ]},
  { id:"tarifs", title:"Tarifs et conditions", intro:"Les chiffres du site sont des exemples. Il me faut les vôtres.", q:[
-  { id:"t_base", label:"250 € pour 4 personnes : c'est le tarif de quelle période ?", type:"choice", options:["Basse saison (le reste de l'année)","Toute l'année, sans variation","Moyenne saison"], key:true },
-  { id:"t_saisons", label:"Tarif par nuit pour les autres saisons", type:"area", key:true, hint:"Exemple de ma proposition : été 340 €, Noël 380 €, printemps 280 €, automne 260 €. Corrigez ou validez." },
-  { id:"t_dates", label:"Dates exceptionnelles à tarifer (ponts, week-ends fériés, événements locaux) avec le prix", type:"area", key:true },
+  { id:"t_dates", label:"Dates exceptionnelles à tarifer (Noël, nouvel an, ponts, week-ends fériés, événements locaux) avec le prix", type:"area", key:true, hint:"Le tarif de base de 250 € s'applique toute l'année. Mes exemples : Noël et nouvel an 380 €, Pâques 320 €, Ascension et Pentecôte 330 €." },
   { id:"t_we", label:"Un prix spécial pour les week-ends ?", type:"choice", options:["Non, même prix toute la semaine","Oui, plus cher le week-end","Oui, forfait week-end","Je ne sais pas encore"], note:true },
   { id:"t_long", label:"Réduction pour les longs séjours ?", type:"choice", options:["Non","Oui","À étudier"], note:true },
   { id:"t_ttc", label:"Les prix sont-ils TTC ?", type:"choice", options:["Oui, TTC avec TVA","Non assujetti à la TVA","Je ne sais pas, à voir avec le comptable"], key:true },

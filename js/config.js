@@ -99,7 +99,7 @@ window.GITE_CONFIG = {
      */
     currency: "€",
     defaultName: "Tarif de base",
-    defaultNightly: 250,        // toute l'année, sauf les périodes listées plus bas
+    defaultNightly: 250,        // toute l'année, sauf aux dates exceptionnelles plus bas
     minNights: 2,
     baseGuests: 4,              // personnes incluses dans le prix de base
     extraGuestPerNight: 15,     // supplément par personne et par nuit au-delà de baseGuests
@@ -118,15 +118,15 @@ window.GITE_CONFIG = {
       { from: 30, coef: 0.80, label: "1 mois et plus" }
     ],
 
-    // Saisons qui reviennent chaque année (MM-JJ). Une saison peut chevaucher le nouvel an.
-    seasons: [
-      { name: "Été", from: "07-04", to: "08-28", nightly: 340, minNights: 2 },
-      { name: "Noël et nouvel an", from: "12-20", to: "01-04", nightly: 380, minNights: 2 }
-    ],
+    // Pas de saisons : le tarif de base s'applique toute l'année, sauf aux dates exceptionnelles ci-dessous.
+    // (Pour remettre une saison récurrente, ajoutez { name, from: "MM-JJ", to: "MM-JJ", nightly, minNights } ici.)
+    seasons: [],
 
     // Dates exceptionnelles (AAAA-MM-JJ). Elles l'emportent sur les saisons.
     // "from" et "to" sont la première et la dernière NUIT concernées.
     specialDates: [
+      { name: "Réveillon de Noël 2026", from: "2026-12-24", to: "2026-12-25", nightly: 380, minNights: 2 },
+      { name: "Nouvel an 2026-2027", from: "2026-12-30", to: "2026-12-31", nightly: 380, minNights: 2 },
       { name: "Week-end de Pâques 2027", from: "2027-03-26", to: "2027-03-28", nightly: 320, minNights: 2 },
       { name: "Pont de l'Ascension 2027", from: "2027-05-05", to: "2027-05-08", nightly: 330, minNights: 2 },
       { name: "Week-end de Pentecôte 2027", from: "2027-05-15", to: "2027-05-16", nightly: 330, minNights: 2 }

@@ -207,7 +207,7 @@
     t.append(el("thead", {}, el("tr", {}, ["Période", `Prix par nuit (${P().baseGuests} personnes)`, "Séjour minimum"].map((h) => el("th", {}, h)))));
     const body = el("tbody");
     const line = (label, price, min) => body.append(el("tr", {}, el("td", {}, label), el("td", {}, money(price)), el("td", {}, `${min} nuits`)));
-    line(`${P().defaultName || "Autres périodes"} (le reste de l'année)`, P().defaultNightly, P().minNights);
+    line(`${P().defaultName || "Autres périodes"} (toute l'année)`, P().defaultNightly, P().minNights);
     P().seasons.forEach((x) => line(`${x.name} (du ${md(x.from)} au ${md(x.to)})`, x.nightly, x.minNights));
     (P().specialDates || []).filter((x) => x.to >= today).forEach((x) => line(`${x.name} (nuits du ${full(x.from)} au ${full(x.to)})`, x.nightly, x.minNights ?? P().minNights));
     t.append(body);
@@ -215,7 +215,7 @@
     $("#rates-notes").textContent =
       `Prix par nuit pour ${P().baseGuests} personnes minimum, avec un supplément de ${money(P().extraGuestPerNight)} par personne et par nuit au-delà, jusqu'à ${cap} personnes. ` +
       `Tous les prix sont TTC. Draps et serviettes fournis. ${P().cleaningFee ? `Frais de ménage : ${money(P().cleaningFee)}.` : "Ménage compris."} Taxe de séjour : ${money(P().touristTaxPerPersonNight)} par adulte et par nuit. ` +
-      `Les dates exceptionnelles (week-ends fériés, ponts) remplacent le tarif de la saison.` + durationText();
+      `Le tarif de base s'applique toute l'année, sauf aux dates exceptionnelles de la grille (fêtes, ponts).` + durationText();
   }
 
   /* ---------- Calendrier ---------- */
