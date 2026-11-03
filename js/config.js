@@ -51,14 +51,14 @@ window.GITE_CONFIG = {
     bathrooms: 1,
     toilets: 2,
     surface: 160,   // environ 80 m² par niveau, sur deux niveaux
-    checkIn: "à partir de 17h00",
-    checkOut: "avant 11h00"
+    checkIn: "à partir de 17h",
+    checkOut: "avant 11h"
   },
 
   description: [
     "Le gîte occupe les anciens communs du château de Montifaut, en pierre et en brique, rénovés. Le séjour est une grande pièce ouverte, avec un poêle à bois, de hautes baies vitrées sur les arbres et une table pour toute la famille.",
     "Il fait environ 160 m² sur deux niveaux. Le séjour et la cuisine, équipée comme pour un grand groupe, ouvrent sur la terrasse. Les quatre chambres sont à l'étage : trois avec un lit double, une avec quatre lits simples. Une salle de bain avec baignoire et double vasque, deux WC. Lit bébé, chaise haute et baignoire bébé sont disponibles sur demande.",
-    "Dehors, une terrasse couverte de 20 places à table, un brasero, une plancha et des fauteuils sur la pelouse. Le jardin est partiellement clos et ouvert sur les bois. Table de ping-pong, pétanque, molki et terrain de tennis avec panier de basket sont sur le terrain du gîte, réservés aux clients. Un box du chenil accueille les chiens."
+    "Dehors, une terrasse couverte de 20 places à table, un brasero, une plancha et des fauteuils sur la pelouse. Le jardin est partiellement clos et ouvert sur les bois. Table de ping-pong, pétanque, molki et terrain de tennis avec panier de basket sont installés dans l'enceinte du gîte et réservés aux clients. Un box du chenil accueille les chiens."
   ],
 
   rooms: [
@@ -247,3 +247,14 @@ window.GITE_CONFIG = {
     { group: "Alentours", q: "Que faire à pied ou près de l'eau ?", a: "À Selles-Saint-Denis : deux circuits de randonnée avec 18 km de sentiers, l'étang communal pour la pêche et l'observation de la nature, une aire de fitness en plein air, un city stade et un boulodrome." }
   ]
 };
+
+/* Typographie française : espace insécable avant ? ! : ; % € et dans les guillemets « ». */
+(function nbsp(o) {
+  const skip = /^(images\/|css\/|js\/|https?:|data\/)/;
+  const fix = (t) => t.replace(/ ([?!:;%€»])/g, "\u00a0$1").replace(/« /g, "«\u00a0");
+  for (const k in o) {
+    const v = o[k];
+    if (typeof v === "string") { if (!skip.test(v) && k !== "src" && k !== "email" && k !== "from" && k !== "to") o[k] = fix(v); }
+    else if (v && typeof v === "object") nbsp(v);
+  }
+})(window.GITE_CONFIG);

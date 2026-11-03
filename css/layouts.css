@@ -162,11 +162,11 @@
 [data-theme="domaine"] .brand .mark-vert, [data-theme="chasse"] .brand .mark-vert, [data-theme="tradition"] .brand .mark-vert { display: none; }
 [data-theme="domaine"] .brand .mark-or, [data-theme="chasse"] .brand .mark-or { display: block; }
 [data-theme="tradition"] .brand .mark { display: none; }
-[data-theme="sologne"] .brand .mark { height: 2.8rem; }
-@media (max-width: 700px) { .brand .mark { height: 2rem; } .brand span { font-size: 1.05rem; } }
+[data-theme="sologne"] .brand .mark { height: 4.4rem; }
+@media (max-width: 700px) { .brand .mark { height: 2.8rem; } .brand span { font-size: 1.05rem; } }
 @media (min-width: 701px) {
   [data-theme="domaine"] .brand span { font-size: 1.2rem; }
-  [data-theme="domaine"] .brand .mark { height: 2.1rem; }
+  [data-theme="domaine"] .brand .mark { height: 3rem; }
   [data-theme="domaine"] nav { gap: 1rem; font-size: .92rem; }
   [data-theme="chasse"] .brand span { font-size: .95rem; }
 }
