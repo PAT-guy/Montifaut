@@ -1,6 +1,6 @@
 (() => {
   const C = window.GITE_CONFIG;
-  const { today, longDate, money, P, nightsBetween, minNightsFor, quote, quoteRows } = window.GitePricing;
+  const { parse, today, longDate, money, P, nightsBetween, minNightsFor, quote, quoteRows } = window.GitePricing;
   const $ = (s) => document.querySelector(s);
   const el = (tag, props = {}, ...kids) => {
     const n = document.createElement(tag);
@@ -108,41 +108,64 @@
   const status = $("#form-status");
   const say = (t, ok) => { status.textContent = t; status.className = "status " + (ok ? "ok" : "err"); };
 
+  // Texte du mail : en clair, aligné, sans espace insécable (certaines messageries les affichent mal)
+  const plain = (t) => String(t).replace(/[\u00a0\u202f]/g, " ");
+  const dateCourte = (d) => parse(d).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+
+  function mailSubject() {
+    const d1 = parse(start), d2 = parse(end);
+    const mois = (d) => d.toLocaleDateString("fr-FR", { month: "long" });
+    const per = d1.getMonth() === d2.getMonth() ? `${d1.getDate()} au ${d2.getDate()} ${mois(d2)} ${d2.getFullYear()}` : `${d1.getDate()} ${mois(d1)} au ${d2.getDate()} ${mois(d2)} ${d2.getFullYear()}`;
+    return plain(`Demande de réservation · ${per} · ${plural(guests, "personne")} · ${f.elements.name.value.trim()}`);
+  }
+
   function summaryText() {
     const v = (n) => (f.elements[n].value || "").trim();
+    const row = (label, value) => (value ? `${(label + " :").padEnd(25)} ${value}` : null);
+    const bar = (t) => ["", t.toUpperCase(), "-".repeat(46)];
+    const enfants = minors ? ` (dont ${plural(minors, "enfant")} de moins de 18 ans)` : "";
+    const entreprise = f.kind.value === "Entreprise";
+    const fete = f.party.value !== "Pas de fête";
     const lines = [
-      `Demande de réservation pour ${C.name}`,
+      `Bonjour ${K.owner},`,
       "",
-      "SÉJOUR",
-      `Arrivée : ${longDate(start)}`,
-      `Départ : ${longDate(end)} (${plural(nights.length, "nuit")})`,
-      `Voyageurs : ${guests}${minors ? ` (dont ${minors} enfant${minors > 1 ? "s" : ""} de moins de 18 ans)` : ""}`,
+      `Je souhaite réserver le ${C.name} du ${dateCourte(start)} au ${dateCourte(end)}, pour ${plural(guests, "personne")}.`,
       "",
-      "DEVIS ESTIMATIF TTC",
-      ...quoteRows(qt).map(([l, x]) => `- ${l} : ${x}`),
-      `Total : ${money(qt.total)}`,
-      qt.deposit ? `Acompte (${P().depositPercent} %) : ${money(qt.deposit)}` : "",
+      "EN BREF",
+      "=".repeat(46),
+      row("Arrivée", `${dateCourte(start)}${v("arrival") ? ", " + v("arrival").charAt(0).toLowerCase() + v("arrival").slice(1) : ""}`),
+      row("Départ", `${dateCourte(end)} (${plural(nights.length, "nuit")})`),
+      row("Voyageurs", `${guests}${enfants}`),
+      row("Total estimé TTC", money(qt.total)),
+      qt.deposit ? row(`Acompte (${P().depositPercent} %)`, money(qt.deposit)) : null,
+      ...bar("Devis détaillé (TTC)"),
+      ...quoteRows(qt).map(([l, x]) => `  ${l} : ${x}`),
+      `  TOTAL : ${money(qt.total)}`,
+      qt.deposit ? `  Acompte à la réservation (${P().depositPercent} %) : ${money(qt.deposit)}` : "",
+      qt.deposit ? `  Solde ${P().balanceDue || "avant l'arrivée"} : ${money(qt.total - qt.deposit)}` : "",
+      ...bar("Mes coordonnées"),
+      row("Nom", v("name")),
+      row("Mail", v("email")),
+      row("Téléphone", v("phone")),
+      row("Adresse postale", v("address").replace(/\s*\n\s*/g, ", ")),
+      row("Réservation", entreprise ? `Entreprise ou association : ${v("company")}` : "Particulier"),
+      ...bar("Précisions sur le séjour"),
+      row("Motif", v("reason")),
+      row("Âge des enfants", minors ? v("kids") : ""),
+      row("Chiens", chosen.chien > 0 ? `${chosen.chien} (${v("dogs") || "race et taille à préciser"}), à valider avec vous` : ""),
+      row("Besoins particuliers", v("needs")),
+      row("Fête ou événement", fete ? `${f.party.value}${v("visitors") ? ", " + v("visitors") + " personnes extérieures" : ""}` : ""),
+      row("Paiement de l'acompte", v("pay")),
       "",
-      "COORDONNÉES",
-      `Nom : ${v("name")}`,
-      `Mail : ${v("email")}`,
-      `Téléphone : ${v("phone")}`,
-      `Adresse : ${v("address") || "non renseignée"}`,
-      `Réservation en tant que : ${f.kind.value}${f.kind.value === "Entreprise" ? " (" + v("company") + ")" : ""}`,
+      v("message") ? `Mon message : ${v("message")}` : "",
       "",
-      "MODALITÉS",
-      `Motif : ${v("reason") || "non précisé"}`,
-      `Arrivée prévue : ${v("arrival") || "non précisée"}`,
-      minors ? `Âge des enfants : ${v("kids") || "non précisé"}` : "",
-      chosen.chien > 0 ? `Chiens : ${chosen.chien} (${v("dogs") || "race et taille non précisées"}), accord du bailleur à donner` : "",
-      `Besoins particuliers : ${v("needs") || "aucun"}`,
-      `Fête prévue : ${f.party.value}${f.party.value !== "Pas de fête" ? ` (${v("visitors") || "0"} personnes extérieures)` : ""}`,
-      `Paiement de l'acompte : ${v("pay") || "à discuter"}`,
-      `Règlement et conditions d'annulation acceptés : oui`,
+      "J'ai pris connaissance du règlement intérieur et des conditions d'annulation (gratuite jusqu'à 14 jours avant l'arrivée).",
       "",
-      `Message : ${v("message") || "aucun"}`
+      "Cordialement,",
+      v("name"),
+      [v("phone"), v("email")].filter(Boolean).join(" · ")
     ];
-    return lines.filter((x, i, a) => !(x === "" && a[i - 1] === "")).join("\n");
+    return plain(lines.filter((x) => x !== null).filter((x, i, arr) => !(x === "" && (arr[i - 1] === "" || i === 0))).join("\n"));
   }
 
   const nextSteps = () => [
@@ -190,7 +213,7 @@
       bad[0].scrollIntoView({ behavior: "smooth", block: "center" });
       return say("Complétez les champs en rouge pour envoyer votre demande.", false);
     }
-    const subject = `Demande de réservation du ${start} au ${end}`;
+    const subject = mailSubject();
     const body = summaryText();
     if (!K.formEndpoint) {
       const href = `mailto:${K.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
