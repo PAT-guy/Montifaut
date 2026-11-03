@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Gestion du calendrier | Gîte des Communs de Montifaut</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Josefin+Sans:wght@300;400;600&family=Cormorant+Garamond:wght@500;600&display=swap">
+  <style>
+    :root { --bg:#f3eee3; --card:#fbf8ef; --ink:#26332a; --muted:#646a58; --line:#d3c7a6; --accent:#3e4a2e; --gold:#c9a66b; --danger:#8a2f22; --booked:#d8aa9c; --auto:#c8c2b0; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 "Josefin Sans", system-ui, sans-serif; }
+    header { background: #26332a; color: #f3eee3; padding: 1rem 16px; }
+    header div { max-width: 980px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    header h1 { margin: 0; font: 600 1.4rem "Cinzel", serif; letter-spacing: .04em; }
+    header a { color: #e0c07d; }
+    main { max-width: 980px; margin: 0 auto; padding: 1.5rem 16px 4rem; }
+    h2 { font: 600 1.5rem "Cinzel", serif; margin: 2rem 0 .8rem; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1rem; }
+    label { display: block; font-size: .9rem; color: var(--muted); margin-bottom: .7rem; }
+    input, select { display: block; width: 100%; margin-top: .2rem; padding: .6rem .75rem; border: 1px solid var(--line); border-radius: 10px; font: 1rem "Josefin Sans", sans-serif; background: #fff; color: var(--ink); }
+    .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; }
+    .btn { background: var(--accent); color: #fff; border: 0; border-radius: 10px; padding: .7rem 1.3rem; font: 600 1rem "Josefin Sans", sans-serif; cursor: pointer; }
+    .btn:hover { background: #2f3b22; }
+    .btn.ghost { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+    .btn.small { padding: .35rem .8rem; font-size: .85rem; }
+    .btn.danger { background: transparent; color: var(--danger); border: 1.5px solid var(--danger); }
+    .btn:disabled { opacity: .5; cursor: wait; }
+    .msg { margin: .6rem 0 0; font-weight: 600; min-height: 1.4em; }
+    .msg.ok { color: var(--accent); } .msg.err { color: var(--danger); }
+    .hint { font-size: .85rem; color: var(--muted); }
+    table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+    th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--line); }
+    th { font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+    .empty { color: var(--muted); font-style: italic; }
+    .cal { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.2rem; }
+    .month h4 { margin: 0 0 .4rem; text-align: center; text-transform: capitalize; font: 600 1rem "Cinzel", serif; }
+    .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+    .wd { text-align: center; font-size: .7rem; color: var(--muted); }
+    .d { aspect-ratio: 1; display: grid; place-items: center; font-size: .8rem; border-radius: 5px; background: #efe8d4; }
+    .d.e { background: none; } .d.p { opacity: .35; }
+    .d.m { background: var(--booked); color: #5a2a20; font-weight: 600; }
+    .d.a { background: var(--auto); }
+    .legend { display: flex; gap: 1rem; flex-wrap: wrap; font-size: .85rem; color: var(--muted); margin-top: .6rem; }
+    .legend i { display: inline-block; width: .8rem; height: .8rem; border-radius: 3px; margin-right: .3rem; vertical-align: -1px; }
+    details summary { cursor: pointer; font-weight: 600; }
+    ol { padding-left: 1.2rem; } ol li { margin: .35rem 0; }
+    code { background: #ece5d1; padding: .05rem .35rem; border-radius: 4px; font-size: .9em; word-break: break-all; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <header><div><h1>Gestion du calendrier</h1><a href="index.html">Voir le site</a></div></header>
+  <main>
+    <section class="card" id="login">
+      <h2 style="margin-top:0">Connexion</h2>
+      <label>Clé d'accès GitHub <small>(elle reste uniquement dans ce navigateur)</small>
+        <input id="token" type="password" autocomplete="off" placeholder="github_pat_...">
+      </label>
+      <button class="btn" id="connect" type="button">Se connecter</button>
+      <p class="msg" id="login-msg" role="status"></p>
+      <details>
+        <summary>Comment obtenir la clé d'accès (une seule fois)</summary>
+        <ol>
+          <li>Connectez-vous à github.com avec le compte propriétaire du dépôt.</li>
+          <li>Ouvrez <code>github.com/settings/personal-access-tokens/new</code>.</li>
+          <li>Nom : « Calendrier du gîte ». Expiration : 1 an. <b>Repository access</b> : « Only select repositories », puis le dépôt <code>Montifaut</code>.</li>
+          <li><b>Permissions</b> : « Repository permissions », ligne <b>Contents</b>, choisir <b>Read and write</b>. Rien d'autre.</li>
+          <li>Cliquez sur « Generate token », copiez la clé (elle commence par <code>github_pat_</code>) et collez-la ci-dessus.</li>
+        </ol>
+        <p class="hint">Cette clé ne donne accès qu'aux fichiers de ce dépôt. Ne la partagez avec personne. En cas de doute, supprimez-la sur GitHub : elle cesse aussitôt de fonctionner.</p>
+      </details>
+    </section>
+
+    <div id="app" hidden>
+      <p class="hint">Connecté. <button class="btn ghost small" id="logout" type="button">Se déconnecter</button></p>
+
+      <h2>Bloquer des dates</h2>
+      <form class="card" id="add" novalidate>
+        <div class="row">
+          <label>Arrivée <input type="date" name="start" required></label>
+          <label>Départ <small>(jour où le gîte est libéré)</small> <input type="date" name="end" required></label>
+          <label>Motif
+            <select name="kind">
+              <option>Réservé</option><option>Réservé par téléphone</option><option>Réservé via le site</option><option>Usage personnel</option><option>Travaux ou entretien</option>
+            </select>
+          </label>
+          <label>Note <small>(facultatif)</small> <input name="note" placeholder="Nom du client, détail..."></label>
+        </div>
+        <button class="btn" type="submit" id="save">Bloquer ces dates</button>
+        <p class="msg" id="add-msg" role="status"></p>
+        <p class="hint">Les nuits bloquées vont de l'arrivée jusqu'à la veille du départ. Exemple : arrivée le 4, départ le 7 bloque les nuits des 4, 5 et 6.</p>
+      </form>
+
+      <h2>Dates bloquées à la main</h2>
+      <div class="card"><div id="list"></div><p class="msg" id="list-msg" role="status"></p></div>
+
+      <h2>Aperçu du calendrier</h2>
+      <div class="card">
+        <div class="cal" id="cal"></div>
+        <div class="legend"><span><i style="background:var(--booked)"></i>Bloqué à la main</span><span><i style="background:var(--auto)"></i>Venant des plateformes</span></div>
+      </div>
+      <p class="hint">Après un enregistrement, le site se met à jour en 2 à 3 minutes. Si le gîte est aussi sur Airbnb ou Booking, pensez à bloquer les mêmes dates là-bas.</p>
+    </div>
+  </main>
+  <script src="js/admin.js?v=1"></script>
+</body>
+</html>
