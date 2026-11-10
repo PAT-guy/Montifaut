@@ -208,3 +208,11 @@ html[data-theme="sologne"] h2, html[data-theme="tradition"] h2, html[data-theme=
 }
 html[data-theme="sologne"] .hero h1 { font-size: clamp(2.4rem, 7vw, 5rem); letter-spacing: .02em; line-height: 1.05; }
 html[data-theme="sologne"] h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); }
+
+/* Téléphone : le nom du gîte passe à la ligne au lieu de passer sous le bouton du menu */
+@media (max-width: 700px) {
+  .topbar { gap: 1.2rem; padding-right: 20px; }
+  .brand { white-space: normal; min-width: 0; flex: 1 1 auto; gap: .5rem; }
+  .brand span { white-space: normal; line-height: 1.15; font-size: 1rem; overflow-wrap: anywhere; }
+  .menu-toggle { flex: 0 0 auto; margin-left: auto; padding: .3rem .55rem; }
+}
