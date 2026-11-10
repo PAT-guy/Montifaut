@@ -1,4 +1,6 @@
-# Gîte de Montifaut : site de location
+# Gîte des Communs de Montifaut : site de location
+
+Adresse du site : https://gite-montifaut.fr (hébergé gratuitement par GitHub Pages ; les enregistrements DNS sont chez IONOS).
 
 Site statique (HTML, CSS, JavaScript) sans serveur ni base de données. Hébergement gratuit possible sur GitHub Pages, Netlify ou Cloudflare Pages. Seul le nom de domaine est payant (environ 10 € par an).
 
