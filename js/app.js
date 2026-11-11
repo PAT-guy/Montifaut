@@ -149,7 +149,7 @@
   }
 
   function durationText() {
-    const list = P().durationCoefficients || [];
+    const list = (P().durationCoefficients || []).filter((c) => c.coef <= 1);
     if (!list.length) return "";
     const lab = (c) => c.to == null ? `${c.from} nuits et +` : c.from === c.to ? `${c.from} nuits` : `${c.from}-${c.to} nuits`;
     return "Durée du séjour : " + list.map((c) => `${lab(c)} ${c.coef === 1 ? "tarif normal" : pct(c.coef)}`).join(", ") + ".";

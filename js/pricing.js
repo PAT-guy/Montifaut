@@ -115,9 +115,17 @@
   // Lignes du devis, utilisées à l'écran et dans le message envoyé
   function quoteRows(q) {
     const plural = (n, w) => `${n} ${w}${n > 1 ? "s" : ""}`;
-    const rows = q.groups.map((g) => [`${plural(g.count, "nuit")} · ${g.name} (${money(g.nightly)} par nuit)`, money(g.count * g.nightly)]);
-    if (q.extraGuests) rows.push([`${plural(q.extraGuests, "voyageur")} en plus · ${money(P().extraGuestPerNight)} par nuit et par personne`, money(q.extra)]);
-    if (q.adjustment) rows.push([`Durée du séjour, ${plural(q.nights.length, "nuit")} (${pct(q.coef)})`, (q.adjustment > 0 ? "+" : "") + money(q.adjustment)]);
+    // Une majoration de durée n'est pas affichée : elle est incluse dans les lignes d'hébergement.
+    const hidden = q.adjustment > 0, k = hidden ? q.coef : 1;
+    const r2 = (v) => Math.round(v * 100) / 100;
+    const rows = q.groups.map((g) => [`${plural(g.count, "nuit")} · ${g.name} (${money(r2(g.nightly * k))} par nuit)`, r2(g.count * g.nightly * k)]);
+    if (q.extraGuests) rows.push([`${plural(q.extraGuests, "voyageur")} en plus · ${money(r2(P().extraGuestPerNight * k))} par nuit et par personne`, r2(q.extra * k)]);
+    if (hidden) {
+      const shown = rows.reduce((a, r) => a + r[1], 0);
+      rows[rows.length - 1][1] = r2(rows[rows.length - 1][1] + (q.lodging + q.extra + q.adjustment - shown));
+    }
+    rows.forEach((r) => { r[1] = money(r[1]); });
+    if (q.adjustment && !hidden) rows.push([`Durée du séjour, ${plural(q.nights.length, "nuit")} (${pct(q.coef)})`, "-" + money(-q.adjustment).replace(/^-/, "")]);
     if (q.cleaning) rows.push(["Frais de ménage", money(q.cleaning)]);
     q.options.forEach((o) => rows.push([o.qty > 1 ? `${o.label} × ${o.qty}` : o.label, o.onRequest ? "sur demande" : o.amount ? money(o.amount) : "offert"]));
     rows.push([`Taxe de séjour (${plural(q.adults, "adulte")})`, money(q.tax)]);
