@@ -179,11 +179,13 @@ window.GITE_CONFIG = {
   ],
 
   shops: [
-    { title: "Supermarchés", distance: "Salbris et Romorantin", text: "Grandes surfaces pour les courses du séjour." },
-    { title: "Boulangeries", distance: "La Ferté-Imbault et Selles-Saint-Denis", text: "Les boulangeries du secteur." },
-    { title: "Boucherie", distance: "Selles-Saint-Denis", text: "La boucherie du village." },
-    { title: "Épiceries", distance: "Selles-Saint-Denis et La Ferté-Imbault", text: "Les épiceries du secteur." },
-    { title: "Pharmacie", distance: "La Ferté-Imbault", text: "Pharmacie de La Ferté-Imbault." }
+    { title: "Boulangeries", distance: "Selles-Saint-Denis et La Ferté-Imbault", text: "Pain frais et viennoiseries pour le petit-déjeuner du groupe." },
+    { title: "Boucherie", distance: "Selles-Saint-Denis", text: "Viandes à cuire sur la plancha et au brasero de la terrasse." },
+    { title: "Épiceries", distance: "Selles-Saint-Denis et La Ferté-Imbault", text: "Dépannage et produits du quotidien, sans repartir loin du gîte." },
+    { title: "Pharmacie", distance: "La Ferté-Imbault", text: "La pharmacie du secteur, pour les petits soucis du séjour." },
+    { title: "Supermarchés de Salbris", distance: "Salbris", text: "Carrefour Market et Super U, pour les grandes courses avant l'arrivée." },
+    { title: "Supermarchés de Romorantin-Lanthenay", distance: "Romorantin-Lanthenay", text: "E.Leclerc, Carrefour, Colruyt et Monoprix, pour un choix plus large." },
+    { title: "Papilles, épicerie fine", distance: "Romorantin-Lanthenay, 78 rue Georges Clemenceau", text: "Nougats, chocolats, confitures, miel, thés, conserves de poisson, épices et spiritueux : de quoi composer un apéritif de groupe ou rapporter un cadeau." }
   ],
 
   restaurants: [
@@ -241,7 +243,7 @@ window.GITE_CONFIG = {
     { group: "Le séjour", q: "Comment fonctionnent le poêle, le brasero et la plancha ?", a: "Le bois du poêle est fourni. Le poêle, le brasero et la plancha s'utilisent avec précaution et jamais sans surveillance, surtout avec des enfants." },
     { group: "Le séjour", q: "Où jeter les déchets ?", a: "Le verre va dans la poubelle verte, près du chenil. Les ordures ménagères et les déchets recyclables vont dans les poubelles marron et jaunes, à l'entrée du chemin." },
     { group: "Alentours", q: "Comment venir ?", a: "Le gîte est à 15 minutes en voiture de la sortie de Salbris sur l'A71, et à 15 minutes de celle de Romorantin-Lanthenay sur l'A85. La gare de Selles-Saint-Denis est à 3,5 km." },
-    { group: "Alentours", q: "Où faire ses courses ?", a: "Les supermarchés sont à Salbris et à Romorantin-Lanthenay. Les boulangeries sont à La Ferté-Imbault et à Selles-Saint-Denis, la boucherie à Selles-Saint-Denis, les épiceries à Selles-Saint-Denis et à La Ferté-Imbault. La pharmacie est à La Ferté-Imbault." },
+    { group: "Alentours", q: "Où faire ses courses ?", a: "Selles-Saint-Denis a une boulangerie, une boucherie et une épicerie, mais pas de supermarché. La Ferté-Imbault a aussi une boulangerie, une épicerie et la pharmacie. Pour les grandes courses : Carrefour Market et Super U à Salbris, E.Leclerc, Carrefour, Colruyt et Monoprix à Romorantin-Lanthenay. À Romorantin, l'épicerie fine Papilles (78 rue Georges Clemenceau) propose confiseries, thés, conserves et spiritueux." },
     { group: "Alentours", q: "Où manger ?", a: "Nous recommandons l'Auberge du Cheval Blanc à Selles-Saint-Denis, Le Lion d'Or à Romorantin-Lanthenay, le Domaine de Valaudran et Les Copains d'abord à Salbris." },
     { group: "Alentours", q: "Que visiter ?", a: "Les châteaux de Chambord, de Cheverny, de Blois et de La Ferté-Imbault, et le zoo de Beauval à 50 minutes en voiture. À Salbris, un circuit de karting. À Lamotte-Beuvron, les concours hippiques, le Game Fair et le Sologne Shooting Club." },
     { group: "Alentours", q: "Que faire à pied ou près de l'eau ?", a: "À Selles-Saint-Denis : deux circuits de randonnée avec 18 km de sentiers, l'étang communal pour la pêche et l'observation de la nature, une aire de fitness en plein air, un city stade et un boulodrome." }
